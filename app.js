@@ -54,6 +54,8 @@ var app = function(){
     "type": -1
   };
 
+  app.currentVersions = {};
+
   var routers = {};
 
   app.genericError = function() {
@@ -258,6 +260,7 @@ var app = function(){
 
     var version;
     if (rname.search(/[0-9]+.[0-9]+.[0-9]+-[0-9]{8}/) != -1) {
+      // version with date in it (e.g. 0.8.0-20160502)
       version = rname.substring(0, rname.search('-')+9);
     } else {
       version = rname.substring(0, rname.search('-'));
@@ -316,6 +319,8 @@ var app = function(){
       "location": dir+name
     };
 
+    app.currentVersions[branch] = version;
+
     if(routers.hasOwnProperty(vendor+model)) {
       routers[vendor+model].revisions.push(routerRevision);
     } else {
@@ -337,6 +342,11 @@ var app = function(){
   // update the table and show the vendors for the wizard
   function updateHTML() {
     showVendors();
+
+    $('.currentVersions').text(
+      "Stable: "+app.currentVersions.stable+
+      " // Beta: "+app.currentVersions.beta+
+      " // Experimental: "+app.currentVersions.experimental);
 
     $(".firmwareTable table tbody").html('');
     var sortedrouters = [];
@@ -388,7 +398,7 @@ var app = function(){
     $.get(dir, function(data) {
       html = $.parseHTML(data);
 
-      // create tiles
+      // parse filenames
       $(html).find("a").each(function(i, element){
         if (isValidFilename(element.getAttribute('href'))) {
           parseFilename(dir, element.getAttribute('href'), type, branch);
@@ -415,7 +425,7 @@ var app = function(){
   app.showFirmwareTable = function() {
     $('.firmwareTable').show();
     $('.firmwareTableLink').hide();
-  }
+  };
 
   if (location.hash == "#firmwareTable") {
     app.showFirmwareTable();

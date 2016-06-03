@@ -2,6 +2,12 @@ h1 {
   color: rgb(220, 0, 103);
 }
 
+.currentVersions {
+  float:right;
+  padding: .5em;
+  color: #ccc;
+}
+
 .firmwareTable {
   padding-top: 4em;
 }
