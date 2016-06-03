@@ -5,7 +5,7 @@ h1 {
 .currentVersions {
   float:right;
   padding: .5em;
-  color: #ccc;
+  color: #999;
 }
 
 .firmwareTable {
