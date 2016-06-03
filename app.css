@@ -1,0 +1,45 @@
+h1 {
+  color: rgb(220, 0, 103);
+}
+
+.firmwareTable {
+  padding-top: 4em;
+}
+
+.firmwareTableLink {
+  float:right;
+}
+
+.wizard {
+  width: 60%;
+  padding-bottom: 4em;
+}
+
+.wizard p {
+  margin: 1em auto;
+}
+
+.wizard .radiogroup input {
+  display: none;
+}
+
+.wizard .radiogroup label {
+  display: inline-block;
+  list-style-type: none;
+  background-color: #ffb400;
+  margin: .5em;
+  padding: .5em;
+  font-weight: normal;
+  cursor: pointer;
+  border: .15em solid #ffb400;
+  border-radius: .5em;
+}
+
+.wizard .radiogroup input[type="radio"]:checked + label {
+  border: 0.15em solid #cc8100;
+  box-shadow: 0 0 5px #cc8100 inset;
+}
+
+.initiallyhidden {
+  display: none;
+}

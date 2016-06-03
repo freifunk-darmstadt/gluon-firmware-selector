@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Firmware - Freifunk Darmstadt</title>
+    <link href="vendor/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="container wizard">
+      <img src="./router.png" >
+      <div class="tab-content">
+        <div class="tab-pane step-model active">
+          <a href="#firmwareTable" class="firmwareTableLink" onclick="app.showFirmwareTable();">Tabelle anzeigen</a>
+          <h1>Wähle deine Firmware</h1>
+          <p>Erst mit der Freifunk-Firmware wird dein Router zu einem Teil des Freifunk-Netzes. Sie ist fertig vorkonfiguriert, um Kontakt mit benachbarten Freifunk-Knoten aufzunehmen, ein offenes und anonymes Freifunk-WLAN auszusenden und dich dabei vor der Störerhaftung zu schützen.</p>
+          <p><small>
+            <strong> Warnung für User von Ubiquiti Geräten mit AirOS Firmware Version höher 5.6.X:</strong><br />
+            Das Flashen mit der Freifunkfirmware kann das Gerät unbenutzbar machen. Anleitung zum Downgrade gibt es <a href="https://wiki.darmstadt.freifunk.net/Ubiquiti_AirOS_5.6.x_mit_Gluon_Flashen" target="_blank">hier</a>.
+          </small></p>
+          <select class="ulselect vendorselect"
+                  onchange="app.setVendor(this.value)"></select>
+          <select class="ulselect modelselect initiallyhidden"
+                  onchange="app.setModel(this.value)"></select>
+          <select class="ulselect revisionselect initiallyhidden"
+                  onchange="app.setRevision(this.value)"></select>
+        </div>
+        <div class="tab-pane step-type">
+          <hr>
+          <p>
+            Bitte verwende das Erstinstallationsimage, wenn dein Router neu ist und sich darauf noch die Originalfirmware des Herstellers befindet. Ist bereits eine Freifunk- oder OpenWRT-Firmware installiert, verwende bitte die mit Upgrade bezeichnete Version. Weitere Informationen zum Firmware-Update findest Du in unserem <a href="https://wiki.darmstadt.freifunk.net/Firmware_Update">Wiki</a>.
+          </p>
+          <div class="radiogroup typeselect"></div>
+        </div>
+        <div class="tab-pane step-branch">
+          <hr>
+          <p>Unsere Freifunk-Firmware bieten wir derzeit in drei Versionen an:</p>
+          <ul>
+            <li>
+              <strong>Stable <sup><span style="color: #ffb400">Empfehlung</span></sup></strong><br />
+              Gut getestet, zuverl&auml;ssig und stabil.<br />
+            </li>
+            <li>
+              <strong>Beta</strong><br />
+              Vorabtests neuer Stable-Kandidaten.<br />
+            </li>
+            <li>
+              <strong>Experimental</strong><br />
+              Ungetestet, automatisch generiert. Nightly-Build des Gluon-Entwicklungszweigs.<br />
+            </li>
+          </ul>
+          <p>Die Auswahl der passenden Version entscheidet &uuml;ber die Stablit&auml;t des Routers und den potentiell anfallenden Wartungsaufwand.</p>
+          <p>Für das gewählte Routermodell sind folgende Versionen vorhanden:</p>
+          <ul class="radiogroup branchselect"></ul>
+        </div>
+        <div class="tab-pane step-download">
+          <hr>
+          <a class="btn btn-primary download-button">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container firmwareTable initiallyhidden">
+      <hr>
+      <a name="firmwareTable"></a>
+      <h1>Firmware</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Hersteller</th>
+            <th>Modell</th>
+            <th>Version</th>
+            <th>Erstinstallation</th>
+            <th>Upgrade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="4">Loading...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="vendor/jquery-2.2.0.min.js"></script>
+    <script src="vendor/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
