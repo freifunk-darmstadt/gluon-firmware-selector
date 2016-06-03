@@ -30,6 +30,7 @@ var app = function(){
       "meraki": "Meraki",
       "netgear": "Netgear",
       "onion": "Onion",
+      "openmesh": "Open-Mesh",
       "tp-link": "TP-Link",
       "ubiquiti": "Ubiquiti",
       "wd": "Western Digital",
@@ -358,7 +359,7 @@ var app = function(){
     for (key in sortedrouters) {
       var router = routers[sortedrouters[key]];
 
-      var vendorFullname = config.vendors[router.vendor];
+      var vendorFullname = config.vendors[router.vendor] || router.vendor;
 
       var upgradeHTML = {
         "stable": '',
@@ -387,7 +388,13 @@ var app = function(){
       }
 
       $(".firmwareTable table tbody").append(
-        '<tr><td>'+vendorFullname+'</td><td>'+router.model+'</td><td>'+router.revisions[0].version+'</td>'+'<td>stable: '+(factoryHTML.stable||'-')+'<br>beta: '+(factoryHTML.beta||'-')+'<br>experimental: '+(factoryHTML.experimental||'-')+'</td>'+'<td>stable: '+(upgradeHTML.stable||'-')+'<br>beta: '+(upgradeHTML.beta||'-')+'<br>experimental: '+(upgradeHTML.experimental||'-')+'<br></td></tr>'
+        '<tr><td>'+vendorFullname+'</td><td>'+router.model+'</td><td>stable: ' +
+        (factoryHTML.stable||'-')+'<br>beta: ' +
+        (factoryHTML.beta||'-')+'<br>experimental: ' +
+        (factoryHTML.experimental||'-')+'</td>'+'<td>stable: ' +
+        (upgradeHTML.stable||'-')+'<br>beta: ' +
+        (upgradeHTML.beta||'-')+'<br>experimental: ' +
+        (upgradeHTML.experimental||'-')+'<br></td></tr>'
       );
     }
   }
