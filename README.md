@@ -1,7 +1,7 @@
 Gluon Firmware Wizard
 ---
 
-This Gluon Firmware Wizard lets a user select the right firmware for his device. Unlike some other solutions out there, this wizard does not depend on any server-side code. Instead, directory listings are used to parse the list of available images.
+This Gluon Firmware Wizard lets a user select the correct firmware for his device. Unlike some other solutions out there, this wizard does not depend on any server-side code. Instead, directory listings are used to parse the list of available images.
 
 A demo is available [here](https://codedust.github.io/gluon-firmware-wizard/).
 
