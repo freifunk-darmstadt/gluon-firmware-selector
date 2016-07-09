@@ -26,6 +26,7 @@ var app = function(){
       "buffalo": "Buffalo",
       "d-link": " D-Link",
       "gl-inet": "GL.iNet",
+      "gl": "GL.iNet",
       "linksys": "Linksys",
       "meraki": "Meraki",
       "netgear": "Netgear",
@@ -278,7 +279,7 @@ var app = function(){
       }
     }
     if (vendor == "unknown") {
-      console.log(rname);
+      console.log("Unknown verndor", rname, name);
     }
     var vendorFullname = config.vendors[vendor];
 
