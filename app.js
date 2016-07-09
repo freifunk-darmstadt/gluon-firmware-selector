@@ -25,8 +25,7 @@ var app = function(){
       "allnet": "Allnet",
       "buffalo": "Buffalo",
       "d-link": " D-Link",
-      "gl-inet": "GL.iNet",
-      "gl": "GL.iNet",
+      "gl": "GL Innovations",
       "linksys": "Linksys",
       "meraki": "Meraki",
       "netgear": "Netgear",
@@ -306,8 +305,8 @@ var app = function(){
         model = model.replace('CPE', 'CPE ');
       }
       model = model.replace('N-ND', 'N/ND');
-    } else if (vendor == 'gl-inet') {
-      model = rname;
+    } else if (vendor == 'gl') {
+      model = rname.replace('inet-', 'iNet ');
     } else if (vendor == 'd-link') {
       model = rname.replace('-rev', '').toUpperCase();
     } else {
