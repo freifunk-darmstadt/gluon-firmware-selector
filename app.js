@@ -388,14 +388,21 @@ var app = function(){
         }
       }
 
+      var showStable = upgradeHTML.stable !== '' || factoryHTML.stable !== '';
+      var showBeta   = upgradeHTML.beta !== '' || factoryHTML.beta !== '';
+      var showExperimental = upgradeHTML.experimental !== '' ||
+                             factoryHTML.experimental !== '';
+
       $(".firmwareTable table tbody").append(
-        '<tr><td>'+vendorFullname+'</td><td>'+router.model+'</td><td>stable: ' +
-        (factoryHTML.stable||'-')+'<br>beta: ' +
-        (factoryHTML.beta||'-')+'<br>experimental: ' +
-        (factoryHTML.experimental||'-')+'</td>'+'<td>stable: ' +
-        (upgradeHTML.stable||'-')+'<br>beta: ' +
-        (upgradeHTML.beta||'-')+'<br>experimental: ' +
-        (upgradeHTML.experimental||'-')+'<br></td></tr>'
+        '<tr><td>'+vendorFullname+'</td><td>'+router.model+'</td><td>'+
+        (showStable?'stable: '+(factoryHTML.stable||'-')+'<br>':'')+
+        (showBeta?'beta: '+(factoryHTML.beta||'-')+'<br>':'')+
+        (showExperimental?'experimental: '+(factoryHTML.experimental||'-'):'')+
+        '</td>'+'<td>'+
+        (showStable?'stable: '+(upgradeHTML.stable||'-')+'<br>':'')+
+        (showBeta?'beta: '+(upgradeHTML.beta||'-')+'<br>':'')+
+        (showExperimental?'experimental: '+(upgradeHTML.experimental||'-'):'')+
+        '</td></tr>'
       );
     }
   }
