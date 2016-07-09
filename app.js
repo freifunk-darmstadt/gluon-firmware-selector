@@ -253,9 +253,10 @@ var app = function(){
       revision = rname.substring(revisionposition);
       rname = rname.substring(0, revisionposition-1);
     } else {
-      revisionposition = rname.search(/-(b|c)[0-9]$/);
+      revisionposition = rname.search(/-(a|b|c)[0-9]$/);
       if (revisionposition != -1) {
         revision = rname.substring(revisionposition+1);
+        rname = rname.substring(0, revisionposition);
       }
     }
 
