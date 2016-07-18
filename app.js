@@ -17,7 +17,7 @@ var app = function(){
   var app = {};
 
   var config = {
-    imageBasePath: './demoFileListings/',
+    imageBasePath: './archive/',
     gluonPrefix: 'gluon-ffda-',
     vendors: {
       "8devices": "8devices",
