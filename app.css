@@ -29,9 +29,10 @@ h1 {
   display: none;
 }
 
-.wizard .radiogroup label {
+.wizard .radiogroup label, .abutton {
   display: inline-block;
   list-style-type: none;
+  color: black;
   background-color: #ffb400;
   margin: .5em;
   padding: .5em;
@@ -39,6 +40,10 @@ h1 {
   cursor: pointer;
   border: .15em solid #ffb400;
   border-radius: .5em;
+}
+
+.abutton:hover {
+  color: black
 }
 
 .wizard .radiogroup input[type="radio"]:checked + label {

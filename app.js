@@ -143,7 +143,7 @@ var app = function(){
     for (var i in routers[wizard.model].revisions) {
       var rev = routers[wizard.model].revisions[i];
       if (rev.revision == wizard.revision && rev.type == wizard.type) {
-        $('.branchselect').append('<input type="radio" id="'+rev.branch+'" name="firmwareBranch" onclick="app.setBranch(\''+rev.branch+'\', \''+rev.version+'\')"><label for="'+rev.branch+'">'+rev.branch+' (' +rev.version+')</label>');
+        $('.branchselect').append('<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>');
       }
     }
   }
@@ -200,26 +200,6 @@ var app = function(){
     $('.tab-pane.step-type').addClass('active');
     $('.tab-pane.step-branch').addClass('active');
   };
-
-  app.setBranch = function(branch, version) {
-    wizard.branch = branch;
-    $('.choosenbranch').text(branch+' '+version);
-
-    for (var i in routers[wizard.model].revisions) {
-      var rev = routers[wizard.model].revisions[i];
-      if (rev.revision == wizard.revision && rev.branch == wizard.branch &&
-          rev.type == wizard.type) {
-        $('.download-button').attr("href", rev.location);
-      }
-    }
-
-    $('.tab-pane').removeClass('active');
-    $('.tab-pane.step-model').addClass('active');
-    $('.tab-pane.step-type').addClass('active');
-    $('.tab-pane.step-branch').addClass('active');
-    $('.tab-pane.step-download').addClass('active');
-  };
-
 
   // ----- methods to parse the directory listings
   function isValidFilename(name) {
