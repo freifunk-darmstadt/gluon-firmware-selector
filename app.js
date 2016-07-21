@@ -46,6 +46,8 @@ var app = function(){
                           'Parent Directory', 'SHA256SUMS', 'stable.manifest',
                           'beta.manifest', 'experimental.manifest'];
 
+  var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
+
   var wizard = {
     "tab": 1,
     "vendor": -1,
@@ -149,9 +151,22 @@ var app = function(){
   }
 
 
+  function showPane(pane) {
+    $('.tab-pane').removeClass('active');
+    console.log(pane, PANE.MODEL, PANE.IMAGETYPE);
+    if (pane >= PANE.MODEL)     $('.tab-pane.step-model').addClass('active');
+    if (pane >= PANE.IMAGETYPE) $('.tab-pane.step-type').addClass('active');
+    if (pane >= PANE.BRANCH)    $('.tab-pane.step-branch').addClass('active');
+  }
+
   // ----- methods to set options -----
   app.setVendor = function(vendor) {
-    if (vendor == -1) return;
+    if (vendor == -1) {
+      $('.modelselect').hide();
+      $('.revisionselect').hide();
+      showPane(PANE.MODEL);
+      return;
+    }
 
     wizard.vendor = vendor;
     $('.choosenvendor').text(config.vendors[vendor]);
@@ -159,46 +174,43 @@ var app = function(){
     showModels();
     $('.modelselect').show();
     $('.revisionselect').hide();
-    $('.tab-pane').removeClass('active');    $('.tab-pane.step-model').addClass('active');
+    showPane(PANE.MODEL);
   };
 
   app.setModel = function(model) {
-    if (model == -1) return;
+    if (model == -1) {
+      $('.revisionselect').hide();
+      showPane(PANE.MODEL);
+      return;
+    }
 
     wizard.model = model;
     $('.choosenmodel').text(routers[model].model);
 
-    $('.modelselect').show();
     $('.revisionselect').show();
-    $('.tab-pane').removeClass('active');
-    $('.tab-pane.step-model').addClass('active');
-
+    showPane(PANE.MODEL);
     showRevisions(routers[wizard.model].revisions);
   };
 
   app.setRevision = function(revision) {
-    if (revision == -1) return;
+    if (revision == -1) {
+      showPane(PANE.MODEL);
+      return;
+    }
 
     wizard.revision = revision;
     $('.choosenrevision').text(revision);
 
+    showPane(PANE.IMAGETYPE);
     showTypes();
-
-    $('.tab-pane').removeClass('active');
-    $('.tab-pane.step-model').addClass('active');
-    $('.tab-pane.step-type').addClass('active');
   };
 
   app.setType = function(type) {
     wizard.type = type;
     $('.choosentype').text(type);
 
+    showPane(PANE.BRANCH);
     showBranches();
-
-    $('.tab-pane').removeClass('active');
-    $('.tab-pane.step-model').addClass('active');
-    $('.tab-pane.step-type').addClass('active');
-    $('.tab-pane.step-branch').addClass('active');
   };
 
   // ----- methods to parse the directory listings
