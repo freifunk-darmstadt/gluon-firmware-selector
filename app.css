@@ -17,12 +17,16 @@ h1 {
 }
 
 .wizard {
-  width: 60%;
+  width: 70%;
   padding-bottom: 4em;
 }
 
 .wizard p {
   margin: 1em auto;
+}
+
+.wizard select {
+  margin-bottom: .5em;
 }
 
 .wizard .radiogroup input {
