@@ -26,11 +26,13 @@ var app = function(){
       "buffalo": "Buffalo",
       "d-link": " D-Link",
       "gl": "GL Innovations",
+      "lemaker": "LeMaker",
       "linksys": "Linksys",
       "meraki": "Meraki",
       "netgear": "Netgear",
       "onion": "Onion",
       "openmesh": "Open-Mesh",
+      "raspberry": "Raspberry Pi Foundation",
       "tp-link": "TP-Link",
       "ubiquiti": "Ubiquiti",
       "wd": "Western Digital",
@@ -153,7 +155,6 @@ var app = function(){
 
   function showPane(pane) {
     $('.tab-pane').removeClass('active');
-    console.log(pane, PANE.MODEL, PANE.IMAGETYPE);
     if (pane >= PANE.MODEL)     $('.tab-pane.step-model').addClass('active');
     if (pane >= PANE.IMAGETYPE) $('.tab-pane.step-type').addClass('active');
     if (pane >= PANE.BRANCH)    $('.tab-pane.step-branch').addClass('active');
