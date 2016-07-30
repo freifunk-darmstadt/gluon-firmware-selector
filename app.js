@@ -72,7 +72,7 @@ var app = function(){
     wizard.model             = wizard.model || -1;
     wizard.revision          = wizard.revision || -1;
     wizard.imageType         = wizard.imageType || -1;
-    wizard.showFirmwareTable = wizard.showFirmwareTable || false;
+    wizard.showFirmwareTable = wizard.showFirmwareTable == "true";
     return wizard;
   }
 
