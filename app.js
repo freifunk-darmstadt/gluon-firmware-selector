@@ -51,167 +51,66 @@ var app = function(){
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
   var wizard = {
-    "tab": 1,
     "vendor": -1,
     "model": -1,
-    "branch": -1,
     "revision": -1,
-    "type": -1
+    "imageType": -1,
+    "firmwareTable": false
   };
 
   app.currentVersions = {};
-
   var routers = {};
 
   app.genericError = function() {
     alert("Da ist was schiefgelaufen. Frage doch bitte einmal im Chat nach.");
   };
 
-
-  // ----- methods to show options -----
-  function showVendors() {
-    $('.vendorselect').html('');
-    $('.vendorselect').append(
-      createOption(-1, "-- Bitte Hersteller wählen --"));
-
-    for (var vendor in config.vendors) {
-      if (config.vendors.hasOwnProperty(vendor)) {
-        if (vendor != 'x86') {
-          $('.vendorselect').append(
-            createOption((vendor), config.vendors[vendor]));
-        }
-      }
-    }
-  }
-
-  function showModels() {
-    $('.modelselect').html('');
-    $('.modelselect').append(
-      createOption(-1, "-- Bitte Modell wählen --"));
-
-    for (var r in routers) {
-      if (routers.hasOwnProperty(r) &&
-          routers[r].vendor == wizard.vendor) {
-        $('.modelselect').append(
-          createOption(r, routers[r].model));
-      }
-    }
-  }
-
-  function showRevisions(revisions) {
-    $('.revisionselect').html('');
-
-    if (!revisions) {
-      alert("Keine Revisionen gefunden!");
-      return;
-    }
-    if (!$.isArray(revisions)) {
-      app.genericError();
-      return;
-    }
-
-    $('.revisionselect').append(
-      createOption(-1, "-- Bitte Hardwarerevision wählen --"));
-    var addedRevs = [];
-    for (var i in revisions) {
-      var rev = revisions[i];
-      if ($.inArray(rev.revision, addedRevs) == -1) {
-        addedRevs.push(rev.revision);
-        $('.revisionselect').append(
-          createOption(rev.revision, rev.revision));
-      }
-    }
-
-    if (addedRevs.length == 1 && addedRevs[0] == 'alle') {
-      $('.revisionselect').val('alle');
-      app.setRevision('alle');
-    }
-  }
-
-
-  function showTypes() {
-    $('.typeselect').html('');
-    var addedTypes = [];
-    for (var i in routers[wizard.model].revisions) {
-      var rev = routers[wizard.model].revisions[i];
-      if ($.inArray(rev.type, addedTypes) == -1) {
-        addedTypes.push(rev.type);
-        var displayType = config.typeNames[rev.type]||rev.type;
-        $('.typeselect').append('<input type="radio" id="'+rev.type+'" name="firmwareType" onclick="app.setType(\''+rev.type+'\')"><label for="'+rev.type+'">'+displayType+'</label>');
-      }
-    }
-  }
-
-  function showBranches() {
-    $('.branchselect').html('');
-    for (var i in routers[wizard.model].revisions) {
-      var rev = routers[wizard.model].revisions[i];
-      if (rev.revision == wizard.revision && rev.type == wizard.type) {
-        $('.branchselect').append('<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>');
-      }
-    }
-  }
-
-
-  function showPane(pane) {
-    $('.tab-pane').removeClass('active');
-    if (pane >= PANE.MODEL)     $('.tab-pane.step-model').addClass('active');
-    if (pane >= PANE.IMAGETYPE) $('.tab-pane.step-type').addClass('active');
-    if (pane >= PANE.BRANCH)    $('.tab-pane.step-branch').addClass('active');
-  }
-
   // ----- methods to set options -----
   app.setVendor = function(vendor) {
-    if (vendor == -1) {
-      $('.modelselect').hide();
-      $('.revisionselect').hide();
-      showPane(PANE.MODEL);
-      return;
-    }
-
+    console.log("Setting vendor: " + vendor);
     wizard.vendor = vendor;
-    $('.choosenvendor').text(config.vendors[vendor]);
-
-    showModels();
-    $('.modelselect').show();
-    $('.revisionselect').hide();
-    showPane(PANE.MODEL);
+    wizard.model = -1;
+    wizard.revision = -1;
+    wizard.imageType = -1;
+    updateHTML(wizard);
   };
 
   app.setModel = function(model) {
-    if (model == -1) {
-      $('.revisionselect').hide();
-      showPane(PANE.MODEL);
-      return;
+    console.log("Setting model: " + model);
+    wizard.model = model;
+    wizard.revision = -1;
+    wizard.imageType = -1;
+
+
+    if (wizard.model != -1) {
+      // skip revision selection if there is only the option 'alle'
+      var addedRevs = [];
+      var revisions = getRevisions();
+      if (revisions == -1) return;
+      for (var i in revisions) {
+        if ($.inArray(revisions[i].revision, addedRevs) == -1) {
+          addedRevs.push(revisions[i].revision);
+        }
+      }
+      if (addedRevs.length == 1 && addedRevs[0] == 'alle') {
+        app.setRevision('alle');
+      }
     }
 
-    wizard.model = model;
-    $('.choosenmodel').text(routers[model].model);
-
-    $('.revisionselect').show();
-    showPane(PANE.MODEL);
-    showRevisions(routers[wizard.model].revisions);
+    updateHTML(wizard);
   };
 
   app.setRevision = function(revision) {
-    if (revision == -1) {
-      showPane(PANE.MODEL);
-      return;
-    }
-
+    console.log("Setting revision: " + revision);
     wizard.revision = revision;
-    $('.choosenrevision').text(revision);
-
-    showPane(PANE.IMAGETYPE);
-    showTypes();
+    wizard.imageType = -1;
+    updateHTML(wizard);
   };
 
-  app.setType = function(type) {
-    wizard.type = type;
-    $('.choosentype').text(type);
-
-    showPane(PANE.BRANCH);
-    showBranches();
+  app.setImageType = function(type) {
+    console.log("Setting image type: " + type);
+    wizard.imageType = type;
+    updateHTML(wizard);
   };
 
   // ----- methods to parse the directory listings
@@ -327,22 +226,163 @@ var app = function(){
     }
   }
 
-  function createOption(value, title) {
+  function createOption(value, title, selectedOption) {
     var o = document.createElement('option');
     o.value = value;
     o.innerHTML = title;
+    o.selected = (value === selectedOption);
     return o;
   }
 
-  // update the table and show the vendors for the wizard
-  function updateHTML() {
+  // update all elements of the page according to the wizard object
+  function updateHTML(wizard) {
+    if (wizard.showFirmwareTable) {
+      $('.firmwareTable').show();
+      $('.firmwareTableLink').hide();
+    } else {
+      $('.firmwareTable').hide();
+      $('.firmwareTableLink').show();
+    }
+
+    // ----- methods to show options -----
+    function showVendors() {
+      $('.vendorselect').html('');
+      $('.vendorselect').append(
+        createOption(-1, "-- Bitte Hersteller wählen --"));
+
+      for (var vendor in config.vendors) {
+        if (config.vendors.hasOwnProperty(vendor)) {
+          if (vendor != 'x86') {
+            $('.vendorselect').append(
+              createOption((vendor), config.vendors[vendor], wizard.vendor));
+          }
+        }
+      }
+    }
     showVendors();
+
+    function showModels() {
+      $('.modelselect').html('');
+      $('.modelselect').append(
+        createOption(-1, "-- Bitte Modell wählen --"));
+
+      for (var r in routers) {
+        if (routers.hasOwnProperty(r) && routers[r].vendor == wizard.vendor) {
+          $('.modelselect').append(
+            createOption(r, routers[r].model, wizard.model));
+        }
+      }
+    }
+    showModels();
+
+    function getRevisions() {
+      if (!routers.hasOwnProperty(wizard.model) ||
+          !routers[wizard.model].revisions) {
+        return -1;
+      }
+
+      if (!$.isArray(routers[wizard.model].revisions)) {
+        app.genericError();
+        return -1;
+      }
+
+      return routers[wizard.model].revisions;
+    }
+
+    function showRevisions() {
+      $('.revisionselect').html('');
+      var revisions = getRevisions();
+      if (revision == -1) return;
+
+      $('.revisionselect').append(
+        createOption(-1, "-- Bitte Hardwarerevision wählen --",
+                     wizard.revision));
+      var addedRevs = [];
+      for (var i in revisions) {
+        var rev = revisions[i];
+        if ($.inArray(rev.revision, addedRevs) == -1) {
+          addedRevs.push(rev.revision);
+          $('.revisionselect').append(
+            createOption(rev.revision, rev.revision, wizard.revision));
+        }
+      }
+    }
+    showRevisions();
+
+    function showImageTypes() {
+      $('.typeselect').html('');
+      var revisions = getRevisions();
+      if (revision == -1) return;
+
+      var addedTypes = [];
+      for (var i in revisions) {
+        var rev = revisions[i];
+        if ($.inArray(rev.type, addedTypes) == -1) {
+          addedTypes.push(rev.type);
+          var displayType = config.typeNames[rev.type]||rev.type;
+          $('.typeselect').append('<input type="radio" id="radiogroup-typeselect-'+rev.type+'" '+((rev.type == wizard.imageType)?'checked ':'')+'name="firmwareType" onclick="app.setImageType(\''+rev.type+'\');"><label for="radiogroup-typeselect-'+rev.type+'">'+displayType+'</label>');
+        }
+      }
+    }
+    showImageTypes();
+
+    function showBranches() {
+      if (wizard.revision == -1 || wizard.imageType == -1) {
+        return;
+      }
+      var revisions = getRevisions();
+      if (revision == -1) return;
+
+      $('.branchselect').html('');
+      for (var i in revisions) {
+        var rev = revisions[i];
+        if (rev.revision == wizard.revision && rev.type == wizard.imageType) {
+          if (rev.branch == 'experimental') {
+            $('.branchselect').append('<button class="btn abutton dl-expermental">'+rev.branch+' (' +rev.version+')</a>');
+            //href="'+rev.location+'"
+          } else {
+            $('.branchselect').append('<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>');
+          }
+        }
+      }
+    }
+    showBranches();
+
+    function updateHardwareSelection() {
+      if (wizard.vendor == -1) {
+        $('.modelselect').hide();
+        $('.revisionselect').hide();
+      } else {
+        $('.modelselect').show();
+        if (wizard.model == -1) {
+          $('.revisionselect').hide();
+        } else {
+          $('.revisionselect').show();
+        }
+      }
+    }
+    updateHardwareSelection();
+
+    function updatePanes() {
+      var pane = PANE.MODEL;
+      if (wizard.vendor != -1 && wizard.model != -1 && wizard.revision != -1) {
+        pane = PANE.IMAGETYPE;
+        if (wizard.imageType != -1) pane = PANE.BRANCH;
+      }
+
+      $('.tab-pane').removeClass('active');
+      if (pane >= PANE.MODEL)     $('.tab-pane.step-model').addClass('active');
+      if (pane >= PANE.IMAGETYPE) $('.tab-pane.step-type').addClass('active');
+      if (pane >= PANE.BRANCH)    $('.tab-pane.step-branch').addClass('active');
+    }
+    updatePanes();
 
     $('.currentVersions').text(
       "Stable: "+app.currentVersions.stable+
       " // Beta: "+app.currentVersions.beta+
       " // Experimental: "+app.currentVersions.experimental);
 
+    // === show the firmware table ===
     $(".firmwareTable table tbody").html('');
     var sortedrouters = [];
     for(var key in routers) {
@@ -413,7 +453,7 @@ var app = function(){
         }
       });
 
-      updateHTML();
+      updateHTML(wizard);
     });
   }
 
@@ -430,13 +470,9 @@ var app = function(){
   loadDirectory('experimental', 'sysupgrade',
                 config.imageBasePath+'experimental/sysupgrade/');
 
-  app.showFirmwareTable = function() {
-    $('.firmwareTable').show();
-    $('.firmwareTableLink').hide();
-  };
-
   if (location.hash == "#firmwareTable") {
-    app.showFirmwareTable();
+    wizard.firmwareTable = true;
+    updateHTML(wizard);
   }
 
   return app;
