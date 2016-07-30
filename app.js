@@ -388,12 +388,13 @@ var app = function(){
       if (revision == -1) return;
 
       $('.branchselect').html('');
+      $('.branch-experimental-dl').html('');
       for (var i in revisions) {
         var rev = revisions[i];
         if (rev.revision == wizard.revision && rev.type == wizard.imageType) {
           if (rev.branch == 'experimental') {
-            $('.branchselect').append('<button class="btn abutton dl-expermental">'+rev.branch+' (' +rev.version+')</a>');
-            //href="'+rev.location+'"
+            $('.branchselect').append('<button class="btn abutton dl-expermental" onclick="$(\'.warning-experimental\').toggle();">'+rev.branch+' (' +rev.version+')</button>');
+            $('.branch-experimental-dl').append('<a href="'+rev.location+'" class="abutton">Download für Experimentierfreudige</a>');
           } else {
             $('.branchselect').append('<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>');
           }
