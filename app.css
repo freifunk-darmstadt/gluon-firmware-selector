@@ -14,6 +14,12 @@ h1 {
 
 .firmwareTableLink {
   float:right;
+  color: #337ab7;
+  cursor: pointer;
+}
+
+.firmwareTableLink:hover {
+  text-decoration: underline;
 }
 
 .wizard {
@@ -46,7 +52,12 @@ h1 {
   border-radius: .5em;
 }
 
-.abutton:hover {
+.wizard .box-inset {
+  width: 100%;
+  background-color: #444;
+}
+
+.wizard .abutton:hover {
   color: black
 }
 
