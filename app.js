@@ -50,16 +50,51 @@ var app = function(){
 
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
-  var wizard = {
-    "vendor": -1,
-    "model": -1,
-    "revision": -1,
-    "imageType": -1,
-    "firmwareTable": false
-  };
-
+  var wizard = parseWizardObject();
   app.currentVersions = {};
   var routers = {};
+
+  function createHistoryState(wizard) {
+    if (!window.history || !history.pushState) return;
+
+    var parameters = "";
+    for (var key in wizard) {
+      parameters += "&"+key+"="+encodeURIComponent(wizard[key])
+    }
+    // replace first occurence of "&" by "?"
+    parameters = parameters.replace('&','?');
+    history.pushState(wizard, "", parameters);
+  }
+
+  function parseWizardObject(wizard) {
+    if (wizard === undefined || wizard === null) wizard = {};
+    wizard.vendor            = wizard.vendor || -1;
+    wizard.model             = wizard.model || -1;
+    wizard.revision          = wizard.revision || -1;
+    wizard.imageType         = wizard.imageType || -1;
+    wizard.showFirmwareTable = wizard.showFirmwareTable || false;
+    return wizard;
+  }
+
+  window.onpopstate = function(event) {
+    if (event.state === null) return;
+    wizard = parseWizardObject(event.state);
+    updateHTML(wizard);
+  }
+
+  window.onload = function() {
+    function parseURLasJSON() {
+      var search = location.search.substring(1);
+      return search?JSON.parse(
+        '{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
+        function(key, value) {
+          return key===""?value:decodeURIComponent(value)
+        }):{};
+    }
+    var parsedURL = parseURLasJSON();
+    wizard = parseWizardObject(parsedURL);
+    updateHTML(wizard);
+  }
 
   app.genericError = function() {
     alert("Da ist was schiefgelaufen. Frage doch bitte einmal im Chat nach.");
@@ -72,6 +107,7 @@ var app = function(){
     wizard.model = -1;
     wizard.revision = -1;
     wizard.imageType = -1;
+    createHistoryState(wizard);
     updateHTML(wizard);
   };
 
@@ -93,25 +129,43 @@ var app = function(){
         }
       }
       if (addedRevs.length == 1 && addedRevs[0] == 'alle') {
-        app.setRevision('alle');
+        app.setRevision('alle', true);
       }
     }
 
+    createHistoryState(wizard);
     updateHTML(wizard);
   };
 
-  app.setRevision = function(revision) {
+  app.setRevision = function(revision, silentUpdate) {
+    if (silentUpdate === undefined) silentUpdate = false;
     console.log("Setting revision: " + revision);
     wizard.revision = revision;
     wizard.imageType = -1;
-    updateHTML(wizard);
+    if (!silentUpdate) {
+      createHistoryState(wizard);
+      updateHTML(wizard);
+    }
   };
 
   app.setImageType = function(type) {
     console.log("Setting image type: " + type);
     wizard.imageType = type;
+    createHistoryState(wizard);
     updateHTML(wizard);
   };
+
+  app.showFirmwareTable = function() {
+    wizard.showFirmwareTable = true;
+    createHistoryState(wizard);
+    updateHTML(wizard);
+  }
+
+  app.hideFirmwareTable = function() {
+    wizard.showFirmwareTable = false;
+    createHistoryState(wizard);
+    updateHTML(wizard);
+  }
 
   // ----- methods to parse the directory listings
   function isValidFilename(name) {
@@ -170,7 +224,7 @@ var app = function(){
       }
     }
     if (vendor == "unknown") {
-      console.log("Unknown verndor", rname, name);
+      console.log("Unknown vendor", rname, name);
     }
     var vendorFullname = config.vendors[vendor];
 
@@ -234,14 +288,28 @@ var app = function(){
     return o;
   }
 
+  function getRevisions() {
+    if (!routers.hasOwnProperty(wizard.model) ||
+        !routers[wizard.model].revisions) {
+      return -1;
+    }
+
+    if (!$.isArray(routers[wizard.model].revisions)) {
+      app.genericError();
+      return -1;
+    }
+
+    return routers[wizard.model].revisions;
+  }
+
   // update all elements of the page according to the wizard object
   function updateHTML(wizard) {
     if (wizard.showFirmwareTable) {
       $('.firmwareTable').show();
-      $('.firmwareTableLink').hide();
+      $('.wizard').hide();
     } else {
+      $('.wizard').show();
       $('.firmwareTable').hide();
-      $('.firmwareTableLink').show();
     }
 
     // ----- methods to show options -----
@@ -274,20 +342,6 @@ var app = function(){
       }
     }
     showModels();
-
-    function getRevisions() {
-      if (!routers.hasOwnProperty(wizard.model) ||
-          !routers[wizard.model].revisions) {
-        return -1;
-      }
-
-      if (!$.isArray(routers[wizard.model].revisions)) {
-        app.genericError();
-        return -1;
-      }
-
-      return routers[wizard.model].revisions;
-    }
 
     function showRevisions() {
       $('.revisionselect').html('');
@@ -416,8 +470,6 @@ var app = function(){
           factoryHTML[revision.branch] += html;
         } else {
           app.genericError();
-          console.log(revision);
-          console.log(revision.type);
         }
       }
 
@@ -469,11 +521,6 @@ var app = function(){
                 config.imageBasePath+'experimental/factory/');
   loadDirectory('experimental', 'sysupgrade',
                 config.imageBasePath+'experimental/sysupgrade/');
-
-  if (location.hash == "#firmwareTable") {
-    wizard.firmwareTable = true;
-    updateHTML(wizard);
-  }
 
   return app;
 }();
