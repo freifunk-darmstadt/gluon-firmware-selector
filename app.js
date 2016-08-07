@@ -13,31 +13,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var app = function(){
+var firmwarewizard = function(){
   var app = {};
 
   var config = {
     imageBasePath: './images/',
     gluonPrefix: 'gluon-ffda-',
-    vendors: {
-      "8devices": "8devices",
-      "alfa": "ALFA Network",
-      "allnet": "Allnet",
-      "buffalo": "Buffalo",
-      "d-link": " D-Link",
-      "gl": "GL Innovations",
-      "lemaker": "LeMaker",
-      "linksys": "Linksys",
-      "meraki": "Meraki",
-      "netgear": "Netgear",
-      "onion": "Onion",
-      "openmesh": "Open-Mesh",
-      "raspberry": "Raspberry Pi Foundation",
-      "tp-link": "TP-Link",
-      "ubiquiti": "Ubiquiti",
-      "wd": "Western Digital",
-      "x86": "-"
-    },
     typeNames: {
       "factory": "Erstinstallation",
       "sysupgrade": "Upgrade"
@@ -52,7 +33,7 @@ var app = function(){
 
   var wizard = parseWizardObject();
   app.currentVersions = {};
-  var routers = {};
+  var available_images = {};
 
   function createHistoryState(wizard) {
     if (!window.history || !history.pushState) return;
@@ -102,7 +83,6 @@ var app = function(){
 
   // ----- methods to set options -----
   app.setVendor = function(vendor) {
-    console.log("Setting vendor: " + vendor);
     wizard.vendor = vendor;
     wizard.model = -1;
     wizard.revision = -1;
@@ -112,11 +92,9 @@ var app = function(){
   };
 
   app.setModel = function(model) {
-    console.log("Setting model: " + model);
     wizard.model = model;
     wizard.revision = -1;
     wizard.imageType = -1;
-
 
     if (wizard.model != -1) {
       // skip revision selection if there is only the option 'alle'
@@ -139,7 +117,6 @@ var app = function(){
 
   app.setRevision = function(revision, silentUpdate) {
     if (silentUpdate === undefined) silentUpdate = false;
-    console.log("Setting revision: " + revision);
     wizard.revision = revision;
     wizard.imageType = -1;
     if (!silentUpdate) {
@@ -149,7 +126,6 @@ var app = function(){
   };
 
   app.setImageType = function(type) {
-    console.log("Setting image type: " + type);
     wizard.imageType = type;
     createHistoryState(wizard);
     updateHTML(wizard);
@@ -184,28 +160,6 @@ var app = function(){
 
     rname = decodeURIComponent(name).substring(config.gluonPrefix.length);
 
-    var revision = 'alle';
-    var revisionposition = rname.search(/v[0-9]+(.[0-9]+)?./);
-
-    rname = rname.replace('-sysupgrade', '');
-    rname = rname.replace(/\.bin$/, '');
-    rname = rname.replace(/\.img$/, '');
-    rname = rname.replace(/\.tar$/, '');
-    rname = rname.replace(/\.img.gz$/, '');
-    rname = rname.replace(/\.vdi$/, '');
-    rname = rname.replace(/\.vmdk$/, '');
-
-    if (revisionposition != -1) {
-      revision = rname.substring(revisionposition);
-      rname = rname.substring(0, revisionposition-1);
-    } else {
-      revisionposition = rname.search(/-(a|b|c)[0-9]$/);
-      if (revisionposition != -1) {
-        revision = rname.substring(revisionposition+1);
-        rname = rname.substring(0, revisionposition);
-      }
-    }
-
     var version;
     if (rname.search(/[0-9]+.[0-9]+.[0-9]+-[0-9]{8}/) != -1) {
       // version with date in it (e.g. 0.8.0-20160502)
@@ -213,50 +167,73 @@ var app = function(){
     } else {
       version = rname.substring(0, rname.search('-'));
     }
-
     rname = rname.substring(version.length+1);
 
-    var vendor = "unknown";
-    for (var v in config.vendors) {
-      if (config.vendors.hasOwnProperty(v) && rname.startsWith(v)) {
+    rname = rname.replace('-sysupgrade', '');
+    rname = rname.replace(/\.bin$/, '');
+    rname = rname.replace(/\.img$/, '');
+    rname = rname.replace(/\.tar$/, '');
+
+    var vendor;
+    for (var v in vendormodels) {
+      if (vendormodels.hasOwnProperty(v) && rname.startsWith(v)) {
         vendor = v;
         break;
       }
     }
-    if (vendor == "unknown") {
-      console.log("Unknown vendor", rname, name);
+    if (vendor === undefined) {
+      console.log("Unknown vendor", name);
+      return;
     }
-    var vendorFullname = config.vendors[vendor];
+    var vendorFullname = vendormodels[vendor].displayName;
 
     rname = rname.substring(vendor.length+1);
 
-    var model = '';
-    if (vendor == 'ubiquiti') {
-      m = rname.split('-');
-      for(var i = 0; i < m.length; i++) {
-        if (m[i] == 'ls') {
-          model += 'LiteStation';
-        } else if (m[i].replace(/[0-9]/g, '').length < 3) {
-          model += m[i].toUpperCase();
-        } else {
-          model += m[i].charAt(0).toUpperCase() + m[i].slice(1);
+    var model, revision;
+    for (var regex in vendormodels[vendor].models) {
+      matches = (new RegExp("^"+regex)).exec(rname);
+      if (matches === null) continue;
+
+      if (!$.isArray(matches)) {
+        console.log("[ERROR] matches is not an array", matches);
+        return;
+      }
+      if (rname.length != matches[0].length) {
+        console.log("[ERROR] device not parsed completely. Saw",
+                    matches[0], "instead of", rname, "||", name);
+        return;
+      }
+
+      model = vendormodels[vendor].models[regex];
+
+      if (model == "--ignore--"){
+        //console.log("ignoring", name);
+        return;
+      }
+
+      // e.g. "(om5p-ac$)()": ["OM5P-AC", "v1"]
+      // or   "(om5p-ac$)()": ["OM5P-AC"]
+      if ($.isArray(model)) {
+        if (model.length > 1) {
+          revision = model[1];
         }
-        if (i != m.length) model += ' ';
+        model = model[0];
       }
-    } else if (vendor == 'tp-link') {
-      model = rname.toUpperCase();
-      if (!rname.startsWith('tl')) {
-        model = model.replace('-', ' ');
-        model = model.replace('ARCHER', 'Archer');
-        model = model.replace('CPE', 'CPE ');
+
+      if (revision === undefined && matches.length == 3) {
+        revision = matches[2];
+        if (revision === "") revision = "alle";
       }
-      model = model.replace('N-ND', 'N/ND');
-    } else if (vendor == 'gl') {
-      model = rname.replace('inet-', 'iNet ');
-    } else if (vendor == 'd-link') {
-      model = rname.replace('-rev', '').toUpperCase();
-    } else {
-      model = rname.toUpperCase();
+
+      if (model === undefined || revision === undefined) {
+        console.log("Unable to parse model / revision", name);
+        return;
+      }
+    }
+
+    if (model === undefined) {
+      console.log("Unknown model", rname, "|| vendor:", vendor, "||", name);
+      return;
     }
 
     var routerRevision = {
@@ -269,10 +246,10 @@ var app = function(){
 
     app.currentVersions[branch] = version;
 
-    if(routers.hasOwnProperty(vendor+model)) {
-      routers[vendor+model].revisions.push(routerRevision);
+    if(available_images.hasOwnProperty(vendor+model)) {
+      available_images[vendor+model].revisions.push(routerRevision);
     } else {
-      routers[vendor+model] = {
+      available_images[vendor+model] = {
         "vendor": vendor,
         "model": model,
         "revisions": [routerRevision]
@@ -289,17 +266,17 @@ var app = function(){
   }
 
   function getRevisions() {
-    if (!routers.hasOwnProperty(wizard.model) ||
-        !routers[wizard.model].revisions) {
+    if (!available_images.hasOwnProperty(wizard.model) ||
+        !available_images[wizard.model].revisions) {
       return -1;
     }
 
-    if (!$.isArray(routers[wizard.model].revisions)) {
+    if (!$.isArray(available_images[wizard.model].revisions)) {
       app.genericError();
       return -1;
     }
 
-    return routers[wizard.model].revisions;
+    return available_images[wizard.model].revisions;
   }
 
   // update all elements of the page according to the wizard object
@@ -318,11 +295,12 @@ var app = function(){
       $('.vendorselect').append(
         createOption(-1, "-- Bitte Hersteller wählen --"));
 
-      for (var vendor in config.vendors) {
-        if (config.vendors.hasOwnProperty(vendor)) {
+      for (var vendor in vendormodels) {
+        if (vendormodels.hasOwnProperty(vendor)) {
           if (vendor != 'x86') {
             $('.vendorselect').append(
-              createOption((vendor), config.vendors[vendor], wizard.vendor));
+              createOption(vendor, vendormodels[vendor].displayName,
+                           wizard.vendor));
           }
         }
       }
@@ -334,10 +312,18 @@ var app = function(){
       $('.modelselect').append(
         createOption(-1, "-- Bitte Modell wählen --"));
 
-      for (var r in routers) {
-        if (routers.hasOwnProperty(r) && routers[r].vendor == wizard.vendor) {
+      var sortedrouters = [];
+      for(var key in available_images) {
+        sortedrouters[sortedrouters.length] = key;
+      }
+      sortedrouters.sort();
+
+      for (key in sortedrouters) {
+        var r = sortedrouters[key];
+        if (available_images.hasOwnProperty(r) &&
+            available_images[r].vendor == wizard.vendor) {
           $('.modelselect').append(
-            createOption(r, routers[r].model, wizard.model));
+            createOption(r, available_images[r].model, wizard.model));
         }
       }
     }
@@ -440,15 +426,16 @@ var app = function(){
     // === show the firmware table ===
     $(".firmwareTable table tbody").html('');
     var sortedrouters = [];
-    for(var key in routers) {
+    for(var key in available_images) {
       sortedrouters[sortedrouters.length] = key;
     }
     sortedrouters.sort();
 
     for (key in sortedrouters) {
-      var router = routers[sortedrouters[key]];
+      var router = available_images[sortedrouters[key]];
 
-      var vendorFullname = config.vendors[router.vendor] || router.vendor;
+      var vendorFullname = vendormodels[router.vendor].displayName ||
+                           router.vendor;
 
       var upgradeHTML = {
         "stable": '',
