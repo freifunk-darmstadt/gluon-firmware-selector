@@ -360,7 +360,7 @@ var firmwarewizard = function(){
         if ($.inArray(rev.type, addedTypes) == -1) {
           addedTypes.push(rev.type);
           var displayType = config.typeNames[rev.type]||rev.type;
-          $('.typeselect').append('<input type="radio" id="radiogroup-typeselect-'+rev.type+'" '+((rev.type == wizard.imageType)?'checked ':'')+'name="firmwareType" onclick="app.setImageType(\''+rev.type+'\');"><label for="radiogroup-typeselect-'+rev.type+'">'+displayType+'</label>');
+          $('.typeselect').append('<input type="radio" id="radiogroup-typeselect-'+rev.type+'" '+((rev.type == wizard.imageType)?'checked ':'')+'name="firmwareType" onclick="firmwarewizard.setImageType(\''+rev.type+'\');"><label for="radiogroup-typeselect-'+rev.type+'">'+displayType+'</label>');
         }
       }
     }
