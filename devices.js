@@ -14,7 +14,8 @@ var vendormodels = {
       "network-(ap121u)()": "AP121U",
       "(hornet-ub)()": "Hornet-UB",
       "network-(hornet-ub)()": "Hornet-UB",
-      "network-(tube2h)()": "Tube2H"
+      "network-(tube2h)()": "Tube2H",
+      "network-(n2-n5$)()": "N2 / N5"
     }
   },
   "allnet": {
