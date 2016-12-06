@@ -2,13 +2,13 @@ h1 {
   color: rgb(220, 0, 103);
 }
 
-.currentVersions {
+#currentVersions {
   float:right;
   padding: .5em;
   color: #999;
 }
 
-.firmwareTable {
+#firmwareTable {
   padding-top: 4em;
 }
 
@@ -22,24 +22,24 @@ h1 {
   text-decoration: underline;
 }
 
-.wizard {
+#wizard {
   width: 70%;
   padding-bottom: 4em;
 }
 
-.wizard p {
+#wizard p {
   margin: 1em auto;
 }
 
-.wizard select {
+#wizard select {
   margin-bottom: .5em;
 }
 
-.wizard .radiogroup input {
+#wizard .radiogroup input {
   display: none;
 }
 
-.wizard .radiogroup label, .abutton {
+#wizard .radiogroup label, .abutton {
   display: inline-block;
   list-style-type: none;
   color: black;
@@ -52,7 +52,7 @@ h1 {
   border-radius: .5em;
 }
 
-.wizard .box-inset {
+#wizard .box-inset {
   margin: 1em 0;
   padding: 1em;
   box-shadow: 0px 0px .5em black inset;
@@ -61,17 +61,17 @@ h1 {
   font-weight: lighter;
 }
 
-.wizard .box-inset .branch-experimental-dl {
+#wizard .box-inset .branch-experimental-dl {
   margin: .75em 0 0 0;
   padding: 0;
   opacity: .85;
 }
 
-.wizard .abutton:hover {
+#wizard .abutton:hover {
   color: black
 }
 
-.wizard .radiogroup input[type="radio"]:checked + label {
+#wizard .radiogroup input[type="radio"]:checked + label {
   border: 0.15em solid #cc8100;
   box-shadow: 0 0 5px #cc8100 inset;
 }

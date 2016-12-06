@@ -5,36 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Firmware - Freifunk Darmstadt</title>
-    <link href="vendor/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-3.3.6.min.css" rel="stylesheet">
     <link rel="stylesheet" href="app.css" />
   </head>
   <body>
-    <div class="currentVersions">
+    <div id="currentVersions">
     </div>
-    <div class="container wizard">
+    <div id="wizard" class="container">
       <img src="./router.png" >
       <div class="tab-content">
-        <div class="tab-pane step-model active">
+        <div id="model-pane" style="display: block;">
+	  <span class="firmwareTableLink" onclick="firmwarewizard.showFirmwareFolder();">Ordner anzeigen</span>
           <span class="firmwareTableLink" onclick="firmwarewizard.showFirmwareTable();">Tabelle anzeigen</span>
           <h1>Wähle deine Firmware</h1>
           <p>Erst mit der Freifunk-Firmware wird dein Router zu einem Teil des Freifunk-Netzes. Sie ist fertig vorkonfiguriert, um Kontakt mit benachbarten Freifunk-Knoten aufzunehmen, ein offenes und anonymes Freifunk-WLAN auszusenden und dich dabei vor der Störerhaftung zu schützen.</p>
-          <select class="ulselect vendorselect"
-                  onchange="firmwarewizard.setVendor(this.value)"></select>
-          <select class="ulselect modelselect initiallyhidden"
-                  onchange="firmwarewizard.setModel(this.value)"></select>
-          <select class="ulselect revisionselect initiallyhidden"
-                  onchange="firmwarewizard.setRevision(this.value)"></select>
+          <select id="vendorselect" class="ulselect" onchange="firmwarewizard.setVendor(this.value)"></select>
+          <select id="modelselect" class="ulselect initiallyhidden" onchange="firmwarewizard.setModel(this.value)"></select>
+          <select id="revisionselect" class="ulselect initiallyhidden" onchange="firmwarewizard.setRevision(this.value)"></select>
         </div>
-        <div class="tab-pane step-type">
+        <div id="type-pane">
           <hr>
           <p>
-            Bitte verwende das <em>Erstinstallationsimage</em>, wenn Du deinen Router gerade erst gekauft hast und sich darauf noch keine Freifunk-/OpenWRT-Firmware befindet. Ist bereits eine Freifunk- oder OpenWRT-Firmware installiert, verwende bitte die mit <em>Upgrade</em> bezeichnete Version. Weitere Informationen zum Firmware-Upgrade findest Du in unserem <a href="https://wiki.darmstadt.freifunk.net/Firmware_Update">Wiki</a>.
+            Bitte verwende das <em>Erstinstallationsimage</em>, wenn Du deinen Router gerade erst gekauft hast und sich darauf noch keine Freifunk-/OpenWRT-Firmware befindet. Ist bereits eine Freifunk- oder OpenWRT-Firmware installiert, verwende bitte die mit <em>Upgrade</em> bezeichnete Version.
           </p>
-          <div class="radiogroup typeselect"></div>
+          <div id="typeselect" class="radiogroup"></div>
         </div>
-        <div class="tab-pane step-branch">
+        <div id="branch-pane">
           <hr>
-          <p>Unsere Freifunk-Firmware bieten wir derzeit in drei Versionen an:</p>
+          <p>Diese Freifunk-Firmware bieten wir in verschiedenen Versionen an:</p>
           <ul>
             <li>
               <strong>Stable <sup><span style="color: #ffb400">Empfehlung</span></sup></strong><br />
@@ -46,21 +44,21 @@
             </li>
             <li>
               <strong>Experimental</strong><br />
-              Ungetestet, automatisch generiert. Nightly-Build des Gluon-Entwicklungszweigs.<br />
+              Ungetestet, automatisch generiert.<br />
             </li>
           </ul>
           <p>Die Auswahl der passenden Version entscheidet &uuml;ber die Stablit&auml;t des Routers und den potentiell anfallenden Wartungsaufwand.</p>
           <p>Für das gewählte Routermodell sind folgende Versionen vorhanden:</p>
-          <div class="box-inset warning-experimental initiallyhidden">
+          <div id="warning-experimental" class="box-inset initiallyhidden">
             Vorsicht! Unsere experimentell Firmware wurde <b>nicht</b> getestet und kann dein Gerät jederzeit und unangekündigt in einen Zustand versetzen, in dem du nur mit einem Lötkolben und dem Öffnen des Gehäuses weiter kommst. Verwende diese Version nur, wenn Dir darüber im Klaren bist!
-            <div class="branch-experimental-dl"></div>
+            <div id="branch-experimental-dl"></div>
           </div>
-          <div class="branchselect"></div>
+          <div id="branchselect"></div>
         </div>
       </div>
     </div>
 
-    <div class="container firmwareTable initiallyhidden">
+    <div id="firmwareTable" class="container initiallyhidden">
       <hr>
       <span class="firmwareTableLink"
             onclick="firmwarewizard.hideFirmwareTable();">
@@ -77,7 +75,7 @@
             <th>Upgrade</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="firmwareTableBody">
           <tr>
             <td colspan="4">Loading...</td>
           </tr>
@@ -85,8 +83,6 @@
       </table>
     </div>
 
-    <script src="vendor/jquery-2.2.0.min.js"></script>
-    <script src="vendor/bootstrap-3.3.6/js/bootstrap.min.js"></script>
     <script src="devices.js"></script>
     <script src="app.js"></script>
   </body>
