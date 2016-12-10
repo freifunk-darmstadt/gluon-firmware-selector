@@ -21,7 +21,8 @@ var config = {
   },
   // relative image paths and branch
   directories: {
-    'stable/sysupgrade/' : 'stable'
+    'stable/sysupgrade/' : 'stable',
+    'stable/factory/' : 'stable'
     /*
     'stable/sysupgrade/': 'stable',
     'beta/factory/': 'beta',
@@ -238,15 +239,13 @@ var firmwarewizard = function() {
 
   function findVersion(name) {
     // version with optional date in it (e.g. 0.8.0~20160502)
-    var match = /-([0-9]+.[0-9]+.[0-9]+(~[0-9]+)?)-/.exec(name);
-    return match ? match[1] : "";
+    var m = /-([0-9]+.[0-9]+.[0-9]+(~[0-9]+)?)-/.exec(name);
+    return m ? m[1] : "";
   }
 
-  function findRevision(name, match, rev) {
-    if (rev.length) {
-      return rev;
-    }
-    var m =/-([a-z][0-9]+(.[0-9]+)?)[.-]/.exec(name.replace(match));
+  function findRevision(name) {
+    // reversion identifier like a1, v2
+    var m =/-([a-z][0-9]+(.[0-9]+)?)[.-]/.exec(name);
     return m ? m[1] : "alle";
   }
 
@@ -266,8 +265,8 @@ var firmwarewizard = function() {
     }
   }
 
-  function parseFilename(path, match, fileName, branch) {
-    if (!isValidFilename(fileName)) {
+  function parseFilename(match, path, name, branch) {
+    if (!isValidFilename(name)) {
       return;
     }
 
@@ -276,10 +275,14 @@ var firmwarewizard = function() {
       return;
     }
 
-    var type = findType(fileName);
-    var version = findVersion(path);
-    var revision = findRevision(fileName, match, device.revision);
-    var region = findRegion(fileName);
+    var type = findType(name);
+    var version = findVersion(path+name);
+    var region = findRegion(name);
+    var revision = device.revision;
+
+    if (revision.length == 0) {
+      revision = findRevision(name);
+    }
 
     if (region.length) {
       revision += "-" + region;
@@ -292,7 +295,7 @@ var firmwarewizard = function() {
       "branch": branch,
       "type": type,
       "version": version,
-      "location": path + fileName
+      "location": path + name
     });
   }
 
@@ -464,10 +467,16 @@ var firmwarewizard = function() {
     updatePanes();
 
     function updateFirmwareTable() {
-      $('#currentVersions').innerHTML =
-        "Stable: " + app.currentVersions.stable
-        + " // Beta: " + app.currentVersions.beta
-        + " // Experimental: " + app.currentVersions.experimental;
+      var branches = Object.values(config.directories)
+        .filter(function(value, index, self) { return self.indexOf(value) === index; })
+        .sort();
+
+      $('#currentVersions').innerHTML = branches.reduce(function(ret, branch, i) {
+        ret += (i == 0) ? '' : ' // ';
+        ret += branch.charAt(0).toUpperCase() + branch.slice(1);
+        ret += (branch in app.currentVersions) ?  (": "  + app.currentVersions[branch]) : '';
+        return ret;
+      }, '');
 
       $("#firmwareTableBody").innerHTML = '';
 
@@ -574,8 +583,8 @@ var firmwarewizard = function() {
             var href = m[1];
             var match = m[2];
             var href = decodeURIComponent(href);
-            var fileName = href.substring(href.lastIndexOf('/') + 1);
-            parseFilename(path, match, fileName, branch);
+            var name = href.substring(href.lastIndexOf('/') + 1);
+            parseFilename(match, path, name, branch);
           }
         } while (m);
 
