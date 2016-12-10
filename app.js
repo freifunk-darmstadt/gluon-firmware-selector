@@ -46,6 +46,11 @@ function hide(e) {
   $(e).style.display = 'none';
 }
 
+// Object.values() replacement
+function ObjectValues(obj) {
+	return Object.keys(obj).map(function(key) { return obj[key]; });
+}
+
 function isEmptyObject(obj) {
     for (var name in obj) {
         return false;
@@ -201,7 +206,7 @@ var firmwarewizard = function() {
   // exclude file names containing a string
   function isValidFileName(name) {
     for (var i in IGNORED_ELEMENTS) {
-      if (name.includes(IGNORED_ELEMENTS[i])) {
+      if (name.indexOf(IGNORED_ELEMENTS[i]) != -1) {
         return false;
       }
     }
@@ -222,7 +227,7 @@ var firmwarewizard = function() {
   }
 
   function findType(name) {
-    return name.includes("sysupgrade") ? "sysupgrade" : "factory";
+    return (name.indexOf("sysupgrade") != -1) ? "sysupgrade" : "factory";
   }
 
   function findVersion(name) {
@@ -457,7 +462,7 @@ var firmwarewizard = function() {
     updatePanes();
 
     function updateFirmwareTable() {
-      var branches = Object.values(config.directories)
+      var branches = ObjectValues(config.directories)
         .filter(function(value, index, self) { return self.indexOf(value) === index; })
         .sort();
 
