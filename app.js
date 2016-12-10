@@ -14,15 +14,14 @@
  */
 
 var config = {
-  imageBasePath: './images/',
   typeNames: {
     "factory": "Erstinstallation",
     "sysupgrade": "Upgrade"
   },
   // relative image paths and branch
   directories: {
-    'gluon-factory.html' : 'stable',
-    'gluon-sysupgrade.html' : 'stable'
+    './images/gluon-factory.html' : 'stable',
+    './images/gluon-sysupgrade.html' : 'stable'
   }
 };
 
@@ -193,10 +192,6 @@ var firmwarewizard = function() {
     updateHTML(wizard);
   }
 
-  app.showFirmwareFolder = function() {
-    window.location = config.imageBasePath;
-  }
-
   app.hideFirmwareTable = function() {
     wizard.showFirmwareTable = false;
     createHistoryState(wizard);
@@ -204,7 +199,7 @@ var firmwarewizard = function() {
   }
 
   // exclude file names containing a string
-  function isValidFilename(name) {
+  function isValidFileName(name) {
     for (var i in IGNORED_ELEMENTS) {
       if (name.includes(IGNORED_ELEMENTS[i])) {
         return false;
@@ -258,8 +253,8 @@ var firmwarewizard = function() {
     }
   }
 
-  function parseFilename(match, path, name, branch) {
-    if (!isValidFilename(name)) {
+  function parseFilePath(match, path, href, branch) {
+    if (!isValidFileName(path)) {
       return;
     }
 
@@ -268,19 +263,21 @@ var firmwarewizard = function() {
       return;
     }
 
-    var type = findType(name);
-    var version = findVersion(path+name);
-    var region = findRegion(name);
+    var location = path + href;
+    var type = findType(href);
+    var version = findVersion(location);
+    var region = findRegion(href);
     var revision = device.revision;
 
     if (revision.length == 0) {
-      revision = findRevision(name);
+      revision = findRevision(href);
     }
 
     if (region.length) {
       revision += "-" + region;
     }
 
+    // collect branch versions
     app.currentVersions[branch] = version;
 
     addImage(device.vendor, device.model, {
@@ -288,7 +285,7 @@ var firmwarewizard = function() {
       "branch": branch,
       "type": type,
       "version": version,
-      "location": path + name
+      "location": location
     });
   }
 
@@ -561,12 +558,12 @@ var firmwarewizard = function() {
 
   // parse the contents of the given directories
   function loadDirectories() {
-    for(var relativePath in config.directories) {
-      var branch = config.directories[relativePath];
-      var path = config.imageBasePath + relativePath;
+    for(var indexPath in config.directories) {
+      var branch = config.directories[indexPath];
+      var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
 
       // retrieve the contents of the directory
-      loadSite(path, function(data) {
+      loadSite(indexPath, function(data) {
         image_re.lastIndex = 0; // reset regex
         var m;
 
@@ -575,9 +572,7 @@ var firmwarewizard = function() {
           if (m) {
             var href = m[1];
             var match = m[2];
-            var href = decodeURIComponent(href);
-            var name = href.substring(href.lastIndexOf('/') + 1);
-            parseFilename(match, path, name, branch);
+            parseFilePath(match, basePath, href, branch);
           }
         } while (m);
 
