@@ -21,15 +21,8 @@ var config = {
   },
   // relative image paths and branch
   directories: {
-    'stable/sysupgrade/' : 'stable',
-    'stable/factory/' : 'stable'
-    /*
-    'stable/sysupgrade/': 'stable',
-    'beta/factory/': 'beta',
-    'beta/sysupgrade/': 'beta',
-    'experimental/factory/': 'experimental',
-    'experimental/sysupgrade/': 'experimental'
-    */
+    'gluon-factory.html' : 'stable',
+    'gluon-sysupgrade.html' : 'stable'
   }
 };
 
