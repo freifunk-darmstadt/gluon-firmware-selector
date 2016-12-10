@@ -233,7 +233,7 @@ var firmwarewizard = function() {
 
   function findRevision(name) {
     // reversion identifier like a1, v2
-    var m =/-([a-z][0-9]+(.[0-9]+)?)[.-]/.exec(name);
+    var m =/-([a-z][0-9]*(.[0-9]+)?)[.-]/.exec(name);
     return m ? m[1] : "alle";
   }
 
@@ -254,7 +254,7 @@ var firmwarewizard = function() {
   }
 
   function parseFilePath(match, path, href, branch) {
-    if (!isValidFileName(path)) {
+    if (!isValidFileName(href)) {
       return;
     }
 
