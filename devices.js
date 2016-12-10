@@ -16,7 +16,7 @@ var vendormodels = {
     "ALL0315N": "all0315n"
   },
 
-  "Buffalo" : {
+  "Buffalo": {
     "WZR-600DHP": {"wzr-600dhp": "v2"},
     "WZR-HP-AG300H": "wzr-hp-ag300h",
     "WZR-HP-G300H": "wzr-hp-g300h",
@@ -60,7 +60,7 @@ var vendormodels = {
     "WNDR3700": {"wndr3700v2": "v2"},
     "WNDR3800": "wndr3800",
     "WNDR4300": "wndr4300",
-    "WNDRMAC": {"wndrmac" : "v1", "wndrmacv2": "v2"},
+    "WNDRMAC": {"wndrmac": "v1", "wndrmacv2": "v2"},
   },
 
   "Onion": {
@@ -79,7 +79,7 @@ var vendormodels = {
     "OM5P": "om5p"
   },
 
-  "Raspberry Pi Foundation" : {
+  "Raspberry Pi Foundation": {
     "pi.img.gz": "PI",
     "pi-2.img.gz": "PI 2"
   },
@@ -115,22 +115,22 @@ var vendormodels = {
     "TL-WR740N-ND": "tl-wr740n",
     "TL-WR741N-ND": "tl-wr741nd",
     "TL-WR743N-ND": "tl-wr743nd",
-    "TL-WR841N-ND": {"tl-wr841nd" :  "", "tl-wr841n": ""},
+    "TL-WR841N-ND": {"tl-wr841nd":  "", "tl-wr841n": ""},
     "TL-WR842N-ND": "tl-wr842n",
     "TL-WR843N-ND": "tl-wr843nd",
     "TL-WR940N-ND": "tl-wr940n",
     "TL-WR941N-ND": "tl-wr941nd"
   },
 
-  "Ubiquiti" : {
+  "Ubiquiti": {
     "AirGateway": "ubnt-air-gateway",
     "airgateway": "AirGateway",
     "airrouter": "AirRouter",
     "Bullet": {"bullet-m2": "M2", "bullet-m5": "M5"},
-    "Nanostation Loco": {"loco-m-xw": "M XW" },
-    "Nanostation" : {"nanostation-m2": "M2", "nanostation-m5": "M5"},
+    "Nanostation Loco": {"loco-m-xw": "M XW", "bullet-m": },
+    "Nanostation": {"nanostation-m2": "M2", "nanostation-m5": "M5"},
     "Picostation": {"picostation-m2": "M2" },
-    "Rocket" : {"rocket-m-xw": "M XW", "rocket-m2": "M2", "rocket-m5": "M5"},
+    "Rocket": {"rocket-m-xw": "M XW", "rocket-m2": "M2", "rocket-m5": "M5"},
     "UniFi AP":  "unifi",
     "UniFi AP Pro": "unifi-ap-pro",
     "UniFi AP AC Pro": "unifi-ac-pro",
@@ -139,12 +139,12 @@ var vendormodels = {
     "UniFi AP Outdoor+": "unifi-outdoor-plus"
   },
 
-  "Western Digital" : {
+  "Western Digital": {
     "My Net N600": "my-net-n600",
     "My Net N750": "my-net-n750"
   },
 
-  "x86" : {
+  "x86": {
     "generic 32bit": "generic.img.gz",
     "generic 64bit": "64.img.gz",
     "VirtualBox 32bit": "virtualbox.vdi",
