@@ -56,7 +56,7 @@ function isEmptyObject(obj) {
 var firmwarewizard = function() {
   var app = {};
 
-  var IGNORED_ELEMENTS = ['-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA', '-x2-', '-cn-'];
+  var IGNORED_ELEMENTS = ['-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA', '-x2-'];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
   var wizard = parseWizardObject();
