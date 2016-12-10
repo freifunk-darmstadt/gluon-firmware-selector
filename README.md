@@ -20,7 +20,7 @@ Options +Indexes
 #### Nginx Webserver
 For `nginx`, auto-indexing has to be turned on:
 ```
-location /path/to/gluon/builds/ {
+location /path/to/builds/ {
     autoindex on;
 }
 ```
