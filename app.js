@@ -270,7 +270,7 @@ var firmwarewizard = function() {
     var revision = device.revision;
 
     if (revision.length == 0) {
-      revision = findRevision(href);
+      revision = findRevision(href.replace(match, ''));
     }
 
     if (region.length) {
