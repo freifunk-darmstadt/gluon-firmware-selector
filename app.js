@@ -13,6 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 var config = {
   typeNames: {
     'factory': 'Erstinstallation',
@@ -20,8 +21,9 @@ var config = {
   },
   // relative image paths and branch
   directories: {
-    './images/gluon-factory.html' : 'stable',
-    './images/gluon-sysupgrade.html' : 'stable'
+    // some demo sources
+    './images/gluon-factory.html': 'Stable',
+    './images/gluon-sysupgrade.html': 'Stable'
   }
 };
 
@@ -48,7 +50,7 @@ function hide(e) {
 
 // Object.values() replacement
 function ObjectValues(obj) {
-	return Object.keys(obj).map(function(key) { return obj[key]; });
+  return Object.keys(obj).map(function(key) { return obj[key]; });
 }
 
 function isEmptyObject(obj) {
@@ -453,8 +455,7 @@ var firmwarewizard = function() {
         .sort();
 
       $('#currentVersions').innerHTML = branches.reduce(function(ret, branch, i) {
-        ret += (i == 0) ? '' : ' // ';
-        ret += branch.charAt(0).toUpperCase() + branch.slice(1);
+        ret += ((i == 0) ? '' : ' // ') + branch;
         ret += (branch in app.currentVersions) ?  (': '  + app.currentVersions[branch]) : '';
         return ret;
       }, '');
@@ -551,7 +552,7 @@ var firmwarewizard = function() {
   function loadDirectories() {
     buildReverseVendorModels();
 
-    // sort to get the longest match
+    // sort by length to get the longest match
     var ms = Object.keys(vendormodels_reverse).sort(function(a, b) {
       if (a.length < b.length) return 1;
       if (a.length > b.length) return -1;
