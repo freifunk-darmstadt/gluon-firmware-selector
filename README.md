@@ -47,6 +47,10 @@ If two matches overlap, the longest match will be assigned the matching files. O
 ### Configuration
 Image paths and available branches can be set in file app.js.
 
+### TODO
+- remove bootstrap.js dependency (it is >100KB!)
+- generic branch names support (only stable, beta, experimental supported)
+
 ### License
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
