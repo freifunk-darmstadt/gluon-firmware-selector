@@ -247,23 +247,19 @@ var firmwarewizard = function() {
     return m ? m[1] : "";
   }
 
-  function addImage(v, m, img) {
-    if (!(v in images)) {
-      images[v] = {};
-    }
-    if (m in images[v]) {
-      images[v][m].push(img);
+  function addArray(obj, key, value) {
+    if (key in obj) {
+      obj[key].push(value);
     } else {
-      images[v][m] = [img];
+      obj[key] = [value];
     }
   }
 
-  function parseFilePath(match, path, href, branch) {
+  function parseFilePath(device, match, path, href, branch) {
     if (!isValidFileName(href)) {
       return;
     }
 
-    var device = vendormodels_reverse[match];
     if (device.model == "--ignore--") {
       return;
     }
@@ -285,7 +281,11 @@ var firmwarewizard = function() {
     // collect branch versions
     app.currentVersions[branch] = version;
 
-    addImage(device.vendor, device.model, {
+    if (!(device.vendor in images)) {
+      images[device.vendor] = {};
+    }
+
+    addArray(images[device.vendor], device.model, {
       "revision": revision,
       "branch": branch,
       "type": type,
@@ -577,7 +577,9 @@ var firmwarewizard = function() {
           if (m) {
             var href = m[1];
             var match = m[2];
-            parseFilePath(match, basePath, href, branch);
+            for(var i in devices) {
+              parseFilePath(devices[i], match, basePath, href, branch);
+            }
           }
         } while (m);
 
@@ -592,17 +594,15 @@ var firmwarewizard = function() {
     }
   }
 
-  // create a map of {match : [vendor, model, default-revision], ...}
+  // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
   for(var vendor in vendormodels) {
     var models = vendormodels[vendor];
     for(var model in models) {
       var match = models[model];
       if (typeof match == 'string') {
-        vendormodels_reverse[match] = {"vendor": vendor, "model": model, "revision": ""};
-      } else {
-        for(var m in match) {
-          vendormodels_reverse[m] = {"vendor": vendor, "model": model, "revision": match[m]};
-        }
+        addArray(vendormodels_reverse, match, {"vendor": vendor, "model": model, "revision": ""});
+      } else for(var m in match) {
+        addArray(vendormodels_reverse, m, {"vendor": vendor, "model": model, "revision": match[m]});
       }
     }
   }
