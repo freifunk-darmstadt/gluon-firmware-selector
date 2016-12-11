@@ -41,6 +41,9 @@ If no hardware revision is given or is it is empty, the revision is extracted fr
   }, ...
 }
 ```
+
+If two matches overlap, the longest match will be assigned the matching files. On the other hand, the same match can be used by multiple models without problems.
+
 ### Configuration
 Image paths and available branches can be set in file app.js.
 
