@@ -577,6 +577,7 @@ var firmwarewizard = function() {
           if (m) {
             var href = m[1];
             var match = m[2];
+            var devices = vendormodels_reverse[match];
             for(var i in devices) {
               parseFilePath(devices[i], match, basePath, href, branch);
             }
