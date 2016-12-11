@@ -61,7 +61,7 @@ function isEmptyObject(obj) {
 var firmwarewizard = function() {
   var app = {};
 
-  var IGNORED_ELEMENTS = ['-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA', '-x2-'];
+  var IGNORED_ELEMENTS = ['-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA', '-x2-', '-hsv2'];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
   var wizard = parseWizardObject();
@@ -69,34 +69,20 @@ var firmwarewizard = function() {
   var images = {};
   var vendormodels_reverse = {};
 
-  // create regex to extract images paths
-  function createModelRegex() {
-      var ms = [];
-      for (var vendor in vendormodels) {
-        var models = vendormodels[vendor];
-        for (var model in models) {
-          var m = models[model];
-          if (typeof m == 'string') {
-            ms.push(m);
-          } else {
-             for(var mn in m) {
-               ms.push(mn);
-             }
-          }
+  function buildReverseVendorModels() {
+    // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
+    for(var vendor in vendormodels) {
+      var models = vendormodels[vendor];
+      for(var model in models) {
+        var match = models[model];
+        if (typeof match == 'string') {
+          addArray(vendormodels_reverse, match, {"vendor": vendor, "model": model, "revision": ""});
+        } else for(var m in match) {
+          addArray(vendormodels_reverse, m, {"vendor": vendor, "model": model, "revision": match[m]});
         }
       }
-
-      // sort to get the longest match
-      ms.sort(function(a, b) {
-        if (a.length < b.length) return 1;
-        if (a.length > b.length) return -1;
-        return 0;
-      });
-
-      return new RegExp('"([^"]*(' + ms.join("|") + ')[-.][^"]*)"', 'g');
+    }
   }
-
-  var image_re = createModelRegex();
 
   function createHistoryState(wizard) {
     if (!window.history || !history.pushState) return;
@@ -214,7 +200,7 @@ var firmwarewizard = function() {
   }
 
   // simplified version string sort
-  function sortRevisions(revisions) {
+  function sortByRevision(revisions) {
     revisions.sort(function(a, b) {
         a = a.revision; b = b.revision;
         if (a.length > b.length) return 1;
@@ -303,7 +289,7 @@ var firmwarewizard = function() {
   }
 
   function getRevisions() {
-    return sortRevisions(images[wizard.vendor][wizard.model])
+    return sortByRevision(images[wizard.vendor][wizard.model])
       .map(function(e) { return e.revision; })
       .filter(function(value, index, self) { return self.indexOf(value) === index; });
   }
@@ -482,7 +468,7 @@ var firmwarewizard = function() {
         var models = Object.keys(images[vendor]).sort();
         for(var m in models) {
           var model = models[m];
-          var revisions = sortRevisions(images[vendor][model]);
+          var revisions = sortByRevision(images[vendor][model]);
 
           var upgradeHTML = {
             "stable": '',
@@ -563,17 +549,29 @@ var firmwarewizard = function() {
 
   // parse the contents of the given directories
   function loadDirectories() {
+    buildReverseVendorModels();
+
+    // sort to get the longest match
+    var ms = Object.keys(vendormodels_reverse).sort(function(a, b) {
+      if (a.length < b.length) return 1;
+      if (a.length > b.length) return -1;
+      return 0;
+    });
+
+    // create regex for extracting image paths
+    var re = new RegExp('"([^"]*(' + ms.join("|") + ')[-.][^"]*)"', 'g');
+
     for(var indexPath in config.directories) {
       var branch = config.directories[indexPath];
       var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
 
       // retrieve the contents of the directory
       loadSite(indexPath, function(data) {
-        image_re.lastIndex = 0; // reset regex
+        re.lastIndex = 0; // reset regex
         var m;
 
         do {
-          m = image_re.exec(data);
+          m = re.exec(data);
           if (m) {
             var href = m[1];
             var match = m[2];
@@ -592,19 +590,6 @@ var firmwarewizard = function() {
 
         updateHTML(wizard);
       });
-    }
-  }
-
-  // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
-  for(var vendor in vendormodels) {
-    var models = vendormodels[vendor];
-    for(var model in models) {
-      var match = models[model];
-      if (typeof match == 'string') {
-        addArray(vendormodels_reverse, match, {"vendor": vendor, "model": model, "revision": ""});
-      } else for(var m in match) {
-        addArray(vendormodels_reverse, m, {"vendor": vendor, "model": model, "revision": match[m]});
-      }
     }
   }
 
