@@ -22,8 +22,8 @@ var config = {
   // relative image paths and branch
   directories: {
     // some demo sources
-    './images/gluon-factory.html': 'Stable',
-    './images/gluon-sysupgrade.html': 'Stable'
+    './images/gluon-factory.html': 'stable',
+    './images/gluon-sysupgrade.html': 'stable'
   }
 };
 
@@ -71,7 +71,7 @@ var firmwarewizard = function() {
   var images = {};
   var vendormodels_reverse = {};
 
-  function buildReverseVendorModels() {
+  function buildVendorModelsReverse() {
     // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
     for (var vendor in vendormodels) {
       var models = vendormodels[vendor];
@@ -486,7 +486,6 @@ var firmwarewizard = function() {
           for (var r in revisions) {
             var rev = revisions[r];
             var html = '[<a href="' + rev.location + '" title="' + rev.version + '">' + rev.revision + '</a>] ';
-
             if (rev.type == 'sysupgrade') {
               upgradeHTML[rev.branch] += html;
             } else if (rev.type == 'factory') {
@@ -550,7 +549,7 @@ var firmwarewizard = function() {
 
   // parse the contents of the given directories
   function loadDirectories() {
-    buildReverseVendorModels();
+    buildVendorModelsReverse();
 
     // sort by length to get the longest match
     var ms = Object.keys(vendormodels_reverse).sort(function(a, b) {
