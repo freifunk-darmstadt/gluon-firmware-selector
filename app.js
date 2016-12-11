@@ -71,13 +71,13 @@ var firmwarewizard = function() {
 
   function buildReverseVendorModels() {
     // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
-    for(var vendor in vendormodels) {
+    for (var vendor in vendormodels) {
       var models = vendormodels[vendor];
-      for(var model in models) {
+      for (var model in models) {
         var match = models[model];
         if (typeof match == 'string') {
           addArray(vendormodels_reverse, match, {'vendor': vendor, 'model': model, 'revision': ''});
-        } else for(var m in match) {
+        } else for (var m in match) {
           addArray(vendormodels_reverse, m, {'vendor': vendor, 'model': model, 'revision': match[m]});
         }
       }
@@ -320,7 +320,7 @@ var firmwarewizard = function() {
       );
 
       var vendors = Object.keys(images).sort();
-      for(var i in vendors) {
+      for (var i in vendors) {
         select.appendChild(
           createOption(vendors[i], vendors[i], wizard.vendor)
         );
@@ -342,7 +342,7 @@ var firmwarewizard = function() {
       }
 
       var models = Object.keys(images[wizard.vendor]).sort();
-      for(var i in models) {
+      for (var i in models) {
           select.appendChild(
             createOption(models[i], models[i], wizard.model)
           );
@@ -365,7 +365,7 @@ var firmwarewizard = function() {
       }
 
       var revisions = getRevisions();
-      for(var i in revisions) {
+      for (var i in revisions) {
         select.appendChild(
           createOption(revisions[i], revisions[i], wizard.revision)
         );
@@ -405,7 +405,7 @@ var firmwarewizard = function() {
       $('#branchselect').innerHTML = '';
       $('#branch-experimental-dl').innerHTML = '';
 
-      for(var i in revisions) {
+      for (var i in revisions) {
         var rev = revisions[i];
         if (rev.branch == 'experimental') {
           $('#branchselect').innerHTML = '<button class="btn abutton dl-expermental" onclick="toggleDisplay(\'#warning-experimental\');">'+rev.branch+' (' +rev.version+')</button>';
@@ -463,10 +463,10 @@ var firmwarewizard = function() {
 
       var lines = '';
       var vendors = Object.keys(images).sort();
-      for(var v in vendors) {
+      for (var v in vendors) {
         var vendor = vendors[v];
         var models = Object.keys(images[vendor]).sort();
-        for(var m in models) {
+        for (var m in models) {
           var model = models[m];
           var revisions = sortByRevision(images[vendor][model]);
 
@@ -482,7 +482,7 @@ var firmwarewizard = function() {
             'experimental': ''
           };
 
-          for(var r in revisions) {
+          for (var r in revisions) {
             var rev = revisions[r];
             var html = '[<a href="' + rev.location + '" title="' + rev.version + '">' + rev.revision + '</a>] ';
 
@@ -561,7 +561,7 @@ var firmwarewizard = function() {
     // create regex for extracting image paths
     var re = new RegExp('"([^"]*(' + ms.join('|') + ')[-.][^"]*)"', 'g');
 
-    for(var indexPath in config.directories) {
+    for (var indexPath in config.directories) {
       var branch = config.directories[indexPath];
       var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
 
@@ -576,7 +576,7 @@ var firmwarewizard = function() {
             var href = m[1];
             var match = m[2];
             var devices = vendormodels_reverse[match];
-            for(var i in devices) {
+            for (var i in devices) {
               parseFilePath(devices[i], match, basePath, href, branch);
             }
           }
