@@ -69,7 +69,7 @@ var firmwarewizard = function() {
   var images = {};
   var vendormodels_reverse = {};
 
-  // create regexp to extract images paths
+  // create regex to extract images paths
   function createModelRegex() {
       var ms = [];
       for (var vendor in vendormodels) {
