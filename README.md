@@ -49,7 +49,7 @@ Image paths and available branches can be set in file app.js.
 
 ### TODO
 - remove bootstrap.js dependency (it is >100KB!)
-- generic branch names support (only stable, beta, experimental supported)
+- generic branch name support (only stable, beta, experimental supported)
 - support rootfs/kernel image combinations
 
 ### License
