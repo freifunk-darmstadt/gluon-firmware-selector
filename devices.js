@@ -118,8 +118,8 @@ var vendormodels = {
     "TL-WR841N-ND": {"tl-wr841nd":  "", "tl-wr841n": ""},
     "TL-WR842N-ND": "tl-wr842n",
     "TL-WR843N-ND": "tl-wr843nd",
-    "TL-WR940N-ND": "tl-wr940n",
-    "TL-WR941N-ND": "tl-wr941nd"
+    "TL-WR940N-ND": {"tl-wr940n": "", "tl-wr941nd-v3": "v6"},
+    "TL-WR941N-ND": {"tl-wr941nd" : "", "tl-wr941nd-v3": ""},
   },
 
   "Ubiquiti": {
