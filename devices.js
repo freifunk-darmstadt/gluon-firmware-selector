@@ -26,7 +26,7 @@ var vendormodels = {
 
   "D-Link": {
     "DIR-505": "dir-505",
-    "DIR-615": {"dir-615": "", "dir-615-d": "d"},
+    "DIR-615": {"dir-615-c1": "c1/c2", "dir-615-d": "d1-d4", "dir-615-e1": "e1/e2", "dir-615-e4": "e3-e5", "dir-615-h1": "h1/h2"},
     "DIR-825": "dir-825",
     "DIR-860L": "dir-860l"
   },
