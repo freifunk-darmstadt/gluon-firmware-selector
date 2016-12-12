@@ -9,6 +9,8 @@ This a fork of the [gluon-firmware-wizard](https://github.com/freifunk-darmstadt
 - simpler configuration
 - no static branch names
 
+Some [Screenshots](docs/screenshots.md).
+
 ### Configuration
 
 #### Apache Webserver
