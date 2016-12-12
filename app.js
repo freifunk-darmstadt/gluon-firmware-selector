@@ -13,38 +13,93 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var firmwarewizard = function(){
+
+var config = {
+  typeNames: {
+    'factory': 'Erstinstallation',
+    'sysupgrade': 'Upgrade'
+  },
+  // relative image paths and branch
+  directories: {
+    // some demo sources
+    './images/gluon-factory.html': 'stable',
+    './images/gluon-sysupgrade.html': 'stable'
+  }
+};
+
+function $(s) {
+  return document.getElementById(s.substring(1));
+}
+
+function toggleDisplay(id) {
+  var e = $(id);
+  e.style.display = (e.style.display == 'none') ? 'block' : 'none'
+}
+
+function show_inline(e) {
+  $(e).style.display = 'inline-block';
+}
+
+function show_block(e) {
+  $(e).style.display = 'block';
+}
+
+function hide(e) {
+  $(e).style.display = 'none';
+}
+
+// Object.values() replacement
+function ObjectValues(obj) {
+  return Object.keys(obj).map(function(key) { return obj[key]; });
+}
+
+function isEmptyObject(obj) {
+    for (var name in obj) {
+        return false;
+    }
+    return true;
+}
+
+var firmwarewizard = function() {
   var app = {};
 
-  var config = {
-    imageBasePath: './images/',
-    gluonPrefix: 'gluon-ffda-',
-    typeNames: {
-      "factory": "Erstinstallation",
-      "sysupgrade": "Upgrade"
-    }
-  };
-
-  var IGNORED_ELEMENTS = ['../', 'Name', 'Last modified', 'Size', 'Description',
-                          'Parent Directory', 'SHA256SUMS', 'stable.manifest',
-                          'beta.manifest', 'experimental.manifest'];
-
+  var IGNORED_ELEMENTS = ['-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA', '-x2-', '-hsv2'];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
   var wizard = parseWizardObject();
   app.currentVersions = {};
-  var available_images = {};
+  var images = {};
+
+  function buildVendorModelsReverse() {
+    var vendormodels_reverse = {}
+
+    // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
+    for (var vendor in vendormodels) {
+      var models = vendormodels[vendor];
+      for (var model in models) {
+        var match = models[model];
+        if (typeof match == 'string') {
+          addArray(vendormodels_reverse, match, {'vendor': vendor, 'model': model, 'revision': ''});
+        } else for (var m in match) {
+          addArray(vendormodels_reverse, m, {'vendor': vendor, 'model': model, 'revision': match[m]});
+        }
+      }
+    }
+
+    return vendormodels_reverse;
+  }
 
   function createHistoryState(wizard) {
     if (!window.history || !history.pushState) return;
 
-    var parameters = "";
+    var parameters = '';
     for (var key in wizard) {
-      parameters += "&"+key+"="+encodeURIComponent(wizard[key])
+      parameters += '&' + key + '=' + encodeURIComponent(wizard[key]);
     }
+
     // replace first occurence of "&" by "?"
-    parameters = parameters.replace('&','?');
-    history.pushState(wizard, "", parameters);
+    parameters = parameters.replace('&', '?');
+    history.pushState(wizard, '', parameters);
   }
 
   function parseWizardObject(wizard) {
@@ -53,7 +108,7 @@ var firmwarewizard = function(){
     wizard.model             = wizard.model || -1;
     wizard.revision          = wizard.revision || -1;
     wizard.imageType         = wizard.imageType || -1;
-    wizard.showFirmwareTable = wizard.showFirmwareTable == "true";
+    wizard.showFirmwareTable = (wizard.showFirmwareTable == 'true');
     return wizard;
   }
 
@@ -66,10 +121,10 @@ var firmwarewizard = function(){
   window.onload = function() {
     function parseURLasJSON() {
       var search = location.search.substring(1);
-      return search?JSON.parse(
+      return search ? JSON.parse(
         '{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
         function(key, value) {
-          return key===""?value:decodeURIComponent(value)
+          return (key=== '') ? value:decodeURIComponent(value);
         }):{};
     }
     var parsedURL = parseURLasJSON();
@@ -78,10 +133,11 @@ var firmwarewizard = function(){
   }
 
   app.genericError = function() {
-    alert("Da ist was schiefgelaufen. Frage doch bitte einmal im Chat nach.");
+    alert('Da ist was schiefgelaufen. Frage doch bitte einmal im Chat nach.');
   };
 
-  // ----- methods to set options -----
+  // methods to set options
+
   app.setVendor = function(vendor) {
     wizard.vendor = vendor;
     wizard.model = -1;
@@ -97,17 +153,10 @@ var firmwarewizard = function(){
     wizard.imageType = -1;
 
     if (wizard.model != -1) {
-      // skip revision selection if there is only the option 'alle'
-      var addedRevs = [];
+      // skip revision selection if there is only one option left
       var revisions = getRevisions();
-      if (revisions == -1) return;
-      for (var i in revisions) {
-        if ($.inArray(revisions[i].revision, addedRevs) == -1) {
-          addedRevs.push(revisions[i].revision);
-        }
-      }
-      if (addedRevs.length == 1 && addedRevs[0] == 'alle') {
-        app.setRevision('alle', true);
+      if (revisions.length == 1) {
+        app.setRevision(revisions[0], true);
       }
     }
 
@@ -116,7 +165,9 @@ var firmwarewizard = function(){
   };
 
   app.setRevision = function(revision, silentUpdate) {
-    if (silentUpdate === undefined) silentUpdate = false;
+    if (silentUpdate === undefined) {
+      silentUpdate = false;
+    }
     wizard.revision = revision;
     wizard.imageType = -1;
     if (!silentUpdate) {
@@ -143,118 +194,95 @@ var firmwarewizard = function(){
     updateHTML(wizard);
   }
 
-  // ----- methods to parse the directory listings
-  function isValidFilename(name) {
-    return $.inArray(name, IGNORED_ELEMENTS) == -1;
+  // exclude file names containing a string
+  function isValidFileName(name) {
+    for (var i in IGNORED_ELEMENTS) {
+      if (name.indexOf(IGNORED_ELEMENTS[i]) != -1) {
+        return false;
+      }
+    }
+    return true;
   }
 
-  function parseFilename(dir, name, type, branch) {
-    if (!isValidFilename(name)) {
-      return;
-    }
+  // simplified version string sort
+  function sortByRevision(revisions) {
+    revisions.sort(function(a, b) {
+        a = a.revision; b = b.revision;
+        if (a.length > b.length) return 1;
+        if (a.length < b.length) return -1;
+        if (a > b) return 1;
+        if (a < b) return -1;
+        return 0;
+      });
+    return revisions;
+  }
 
-    if(!name.startsWith(config.gluonPrefix)) {
-      console.log('Unexpected file name: '+name+" ["+dir+"]");
-      return;
-    }
+  function findType(name) {
+    return (name.indexOf('sysupgrade') != -1) ? 'sysupgrade' : 'factory';
+  }
 
-    rname = decodeURIComponent(name).substring(config.gluonPrefix.length);
+  function findVersion(name) {
+    // version with optional date in it (e.g. 0.8.0~20160502)
+    var m = /-([0-9]+.[0-9]+.[0-9]+(~[0-9]+)?)-/.exec(name);
+    return m ? m[1] : '';
+  }
 
-    var version;
-    if (rname.search(/[0-9]+.[0-9]+.[0-9]+-[0-9]{8}/) != -1) {
-      // version with date in it (e.g. 0.8.0-20160502)
-      version = rname.substring(0, rname.search('-')+9);
+  function findRevision(name) {
+    // reversion identifier like a1, v2
+    var m =/-([a-z][0-9]+(.[0-9]+)?)[.-]/.exec(name);
+    return m ? m[1] : 'alle';
+  }
+
+  function findRegion(name) {
+    var m =/-(eu|cn|de|jp|us)[.-]/.exec(name);
+    return m ? m[1] : '';
+  }
+
+  function addArray(obj, key, value) {
+    if (key in obj) {
+      obj[key].push(value);
     } else {
-      version = rname.substring(0, rname.search('-'));
+      obj[key] = [value];
     }
-    rname = rname.substring(version.length+1);
+  }
 
-    rname = rname.replace('-sysupgrade', '');
-    rname = rname.replace(/\.bin$/, '');
-    rname = rname.replace(/\.img$/, '');
-    rname = rname.replace(/\.tar$/, '');
-
-    var vendor;
-    for (var v in vendormodels) {
-      if (vendormodels.hasOwnProperty(v) && rname.startsWith(v)) {
-        vendor = v;
-        break;
-      }
-    }
-    if (vendor === undefined) {
-      console.log("Unknown vendor", name);
-      return;
-    }
-    var vendorFullname = vendormodels[vendor].displayName;
-
-    rname = rname.substring(vendor.length+1);
-
-    var model, revision;
-    for (var regex in vendormodels[vendor].models) {
-      matches = (new RegExp("^"+regex)).exec(rname);
-      if (matches === null) continue;
-
-      if (!$.isArray(matches)) {
-        console.log("[ERROR] matches is not an array", matches);
-        return;
-      }
-      if (rname.length != matches[0].length) {
-        console.log("[ERROR] device not parsed completely. Saw",
-                    matches[0], "instead of", rname, "||", name);
-        return;
-      }
-
-      model = vendormodels[vendor].models[regex];
-
-      if (model == "--ignore--"){
-        //console.log("ignoring", name);
-        return;
-      }
-
-      // e.g. "(om5p-ac$)()": ["OM5P-AC", "v1"]
-      // or   "(om5p-ac$)()": ["OM5P-AC"]
-      if ($.isArray(model)) {
-        if (model.length > 1) {
-          revision = model[1];
-        }
-        model = model[0];
-      }
-
-      if (revision === undefined && matches.length == 3) {
-        revision = matches[2];
-        if (revision === "") revision = "alle";
-      }
-
-      if (model === undefined || revision === undefined) {
-        console.log("Unable to parse model / revision", name);
-        return;
-      }
-    }
-
-    if (model === undefined) {
-      console.log("Unknown model", rname, "|| vendor:", vendor, "||", name);
+  function parseFilePath(device, match, path, href, branch) {
+    if (!isValidFileName(href)) {
       return;
     }
 
-    var routerRevision = {
-      "revision": revision,
-      "branch": branch,
-      "type": type,
-      "version": version,
-      "location": dir+name
-    };
+    if (device.model == '--ignore--') {
+      return;
+    }
 
+    var location = path + href;
+    var type = findType(href);
+    var version = findVersion(location);
+    var region = findRegion(href);
+    var revision = device.revision;
+
+    if (revision.length == 0) {
+      revision = findRevision(href.replace(match, ''));
+    }
+
+    if (region.length) {
+      revision += '-' + region;
+    }
+
+    // collect branch versions
     app.currentVersions[branch] = version;
 
-    if(available_images.hasOwnProperty(vendor+model)) {
-      available_images[vendor+model].revisions.push(routerRevision);
-    } else {
-      available_images[vendor+model] = {
-        "vendor": vendor,
-        "model": model,
-        "revisions": [routerRevision]
-      };
+    if (!(device.vendor in images)) {
+      images[device.vendor] = {};
     }
+
+    addArray(images[device.vendor], device.model, {
+      'revision': revision,
+      'branch': branch,
+      'type': type,
+      'version': version,
+      'location': location
+    });
   }
 
   function createOption(value, title, selectedOption) {
@@ -266,124 +294,129 @@ var firmwarewizard = function(){
   }
 
   function getRevisions() {
-    if (!available_images.hasOwnProperty(wizard.model) ||
-        !available_images[wizard.model].revisions) {
-      return -1;
-    }
-
-    if (!$.isArray(available_images[wizard.model].revisions)) {
-      app.genericError();
-      return -1;
-    }
-
-    return available_images[wizard.model].revisions;
+    return sortByRevision(images[wizard.vendor][wizard.model])
+      .map(function(e) { return e.revision; })
+      .filter(function(value, index, self) { return self.indexOf(value) === index; });
   }
 
-  // update all elements of the page according to the wizard object
+  function getImageTypes() {
+    return images[wizard.vendor][wizard.model]
+      .map(function(e) { return e.type; })
+      .filter(function(value, index, self) { return self.indexOf(value) === index; })
+      .sort();
+  }
+
+  // update all elements of the page according to the wizard object.
   function updateHTML(wizard) {
     if (wizard.showFirmwareTable) {
-      $('.firmwareTable').show();
-      $('.wizard').hide();
+      show_block('#firmwareTable');
+      hide('#wizard');
     } else {
-      $('.wizard').show();
-      $('.firmwareTable').hide();
+      show_block('#wizard');
+      hide('#firmwareTable');
     }
 
-    // ----- methods to show options -----
+    // show vendor dropdown menu.
     function showVendors() {
-      $('.vendorselect').html('');
-      $('.vendorselect').append(
-        createOption(-1, "-- Bitte Hersteller wählen --"));
+      var select = $('#vendorselect');
+      select.innerHTML = '';
+      select.appendChild(
+        createOption(-1, '-- Bitte Hersteller wählen --')
+      );
 
-      for (var vendor in vendormodels) {
-        if (vendormodels.hasOwnProperty(vendor)) {
-          if (vendor != 'x86') {
-            $('.vendorselect').append(
-              createOption(vendor, vendormodels[vendor].displayName,
-                           wizard.vendor));
-          }
-        }
+      var vendors = Object.keys(images).sort();
+      for (var i in vendors) {
+        select.appendChild(
+          createOption(vendors[i], vendors[i], wizard.vendor)
+        );
       }
     }
     showVendors();
 
+    // show model dropdown menu
     function showModels() {
-      $('.modelselect').html('');
-      $('.modelselect').append(
-        createOption(-1, "-- Bitte Modell wählen --"));
+      var select = $('#modelselect');
 
-      var sortedrouters = [];
-      for(var key in available_images) {
-        sortedrouters[sortedrouters.length] = key;
+      select.innerHTML = '';
+      select.appendChild(
+        createOption(-1, '-- Bitte Modell wählen --')
+      );
+
+      if (wizard.vendor == -1 || isEmptyObject(images)) {
+        return;
       }
-      sortedrouters.sort();
 
-      for (key in sortedrouters) {
-        var r = sortedrouters[key];
-        if (available_images.hasOwnProperty(r) &&
-            available_images[r].vendor == wizard.vendor) {
-          $('.modelselect').append(
-            createOption(r, available_images[r].model, wizard.model));
-        }
+      var models = Object.keys(images[wizard.vendor]).sort();
+      for (var i in models) {
+          select.appendChild(
+            createOption(models[i], models[i], wizard.model)
+          );
       }
     }
     showModels();
 
+    // show revision dropdown menu
     function showRevisions() {
-      $('.revisionselect').html('');
-      var revisions = getRevisions();
-      if (revision == -1) return;
+      var select = $('#revisionselect');
 
-      $('.revisionselect').append(
-        createOption(-1, "-- Bitte Hardwarerevision wählen --",
-                     wizard.revision));
-      var addedRevs = [];
+      select.innerHTML = '';
+
+      select.appendChild(
+        createOption(-1, '-- Bitte Hardwarerevision wählen --', wizard.revision)
+      );
+
+      if (wizard.vendor  == -1 || wizard.model == -1 || isEmptyObject(images)) {
+        return;
+      }
+
+      var revisions = getRevisions();
       for (var i in revisions) {
-        var rev = revisions[i];
-        if ($.inArray(rev.revision, addedRevs) == -1) {
-          addedRevs.push(rev.revision);
-          $('.revisionselect').append(
-            createOption(rev.revision, rev.revision, wizard.revision));
-        }
+        select.appendChild(
+          createOption(revisions[i], revisions[i], wizard.revision)
+        );
       }
     }
     showRevisions();
 
+    // show image type selection
     function showImageTypes() {
-      $('.typeselect').html('');
-      var revisions = getRevisions();
-      if (revision == -1) return;
-
-      var addedTypes = [];
-      for (var i in revisions) {
-        var rev = revisions[i];
-        if ($.inArray(rev.type, addedTypes) == -1) {
-          addedTypes.push(rev.type);
-          var displayType = config.typeNames[rev.type]||rev.type;
-          $('.typeselect').append('<input type="radio" id="radiogroup-typeselect-'+rev.type+'" '+((rev.type == wizard.imageType)?'checked ':'')+'name="firmwareType" onclick="firmwarewizard.setImageType(\''+rev.type+'\');"><label for="radiogroup-typeselect-'+rev.type+'">'+displayType+'</label>');
-        }
+      if (wizard.model == -1 || isEmptyObject(images)) {
+        return;
       }
+
+      var content = '';
+      var types = getImageTypes();
+      for (var i in types) {
+        var type = types[i];
+        var displayType = config.typeNames[type] || type;
+          content += '<input type="radio" id="radiogroup-typeselect-'
+          + type + '" ' + ((type == wizard.imageType) ? 'checked ' : '')
+          + 'name="firmwareType" onclick="firmwarewizard.setImageType(\'' + type + '\');">'
+          + '<label for="radiogroup-typeselect-' + type + '">' + displayType + '</label>';
+      }
+      $('#typeselect').innerHTML = content;
     }
     showImageTypes();
 
+    // show branch selection
     function showBranches() {
-      if (wizard.revision == -1 || wizard.imageType == -1) {
+      if (wizard.model == -1 || wizard.revision == -1 || wizard.imageType == -1 || isEmptyObject(images)) {
         return;
       }
-      var revisions = getRevisions();
-      if (revision == -1) return;
 
-      $('.branchselect').html('');
-      $('.branch-experimental-dl').html('');
+      var revisions = images[wizard.vendor][wizard.model]
+        .filter(function(e) { return e.revision == wizard.revision && e.type == wizard.imageType; });
+
+      $('#branchselect').innerHTML = '';
+      $('#branch-experimental-dl').innerHTML = '';
+
       for (var i in revisions) {
         var rev = revisions[i];
-        if (rev.revision == wizard.revision && rev.type == wizard.imageType) {
-          if (rev.branch == 'experimental') {
-            $('.branchselect').append('<button class="btn abutton dl-expermental" onclick="$(\'.warning-experimental\').toggle();">'+rev.branch+' (' +rev.version+')</button>');
-            $('.branch-experimental-dl').append('<a href="'+rev.location+'" class="abutton">Download für Experimentierfreudige</a>');
-          } else {
-            $('.branchselect').append('<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>');
-          }
+        if (rev.branch == 'experimental') {
+          $('#branchselect').innerHTML = '<button class="btn abutton dl-expermental" onclick="toggleDisplay(\'#warning-experimental\');">'+rev.branch+' (' +rev.version+')</button>';
+          $('#branch-experimental-dl').innerHTML = '<a href="'+rev.location+'" class="abutton">Download für Experimentierfreudige</a>';
+        } else {
+          $('#branchselect').innerHTML = '<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>';
         }
       }
     }
@@ -391,14 +424,14 @@ var firmwarewizard = function(){
 
     function updateHardwareSelection() {
       if (wizard.vendor == -1) {
-        $('.modelselect').hide();
-        $('.revisionselect').hide();
+        hide('#modelselect');
+        hide('#revisionselect');
       } else {
-        $('.modelselect').show();
+        show_inline('#modelselect');
         if (wizard.model == -1) {
-          $('.revisionselect').hide();
+          hide('#revisionselect');
         } else {
-          $('.revisionselect').show();
+          show_inline('#revisionselect');
         }
       }
     }
@@ -408,107 +441,134 @@ var firmwarewizard = function(){
       var pane = PANE.MODEL;
       if (wizard.vendor != -1 && wizard.model != -1 && wizard.revision != -1) {
         pane = PANE.IMAGETYPE;
-        if (wizard.imageType != -1) pane = PANE.BRANCH;
+        if (wizard.imageType != -1) {
+          pane = PANE.BRANCH;
+        }
       }
 
-      $('.tab-pane').removeClass('active');
-      if (pane >= PANE.MODEL)     $('.tab-pane.step-model').addClass('active');
-      if (pane >= PANE.IMAGETYPE) $('.tab-pane.step-type').addClass('active');
-      if (pane >= PANE.BRANCH)    $('.tab-pane.step-branch').addClass('active');
+      $('#model-pane').style.display = (pane >= PANE.MODEL) ? 'block' : 'none';
+      $('#type-pane').style.display = (pane >= PANE.IMAGETYPE) ? 'block' : 'none';
+      $('#branch-pane').style.display = (pane >= PANE.BRANCH) ? 'block' : 'none';
     }
     updatePanes();
 
-    $('.currentVersions').text(
-      "Stable: "+app.currentVersions.stable+
-      " // Beta: "+app.currentVersions.beta+
-      " // Experimental: "+app.currentVersions.experimental);
+    function updateFirmwareTable() {
+      var branches = ObjectValues(config.directories)
+        .filter(function(value, index, self) { return self.indexOf(value) === index; })
+        .sort();
 
-    // === show the firmware table ===
-    $(".firmwareTable table tbody").html('');
-    var sortedrouters = [];
-    for(var key in available_images) {
-      sortedrouters[sortedrouters.length] = key;
-    }
-    sortedrouters.sort();
+      $('#currentVersions').innerHTML = branches.reduce(function(ret, branch, i) {
+        ret += ((i == 0) ? '' : ' // ') + branch;
+        ret += (branch in app.currentVersions) ?  (': '  + app.currentVersions[branch]) : '';
+        return ret;
+      }, '');
 
-    for (key in sortedrouters) {
-      var router = available_images[sortedrouters[key]];
+      $('#firmwareTableBody').innerHTML = '';
 
-      var vendorFullname = vendormodels[router.vendor].displayName ||
-                           router.vendor;
+      var lines = '';
+      var vendors = Object.keys(images).sort();
+      for (var v in vendors) {
+        var vendor = vendors[v];
+        var models = Object.keys(images[vendor]).sort();
+        for (var m in models) {
+          var model = models[m];
+          var revisions = sortByRevision(images[vendor][model]);
 
-      var upgradeHTML = {
-        "stable": '',
-        "beta": '',
-        "experimental": ''
-      };
-      var factoryHTML = {
-        "stable": '',
-        "beta": '',
-        "experimental": ''
-      };
+          lines += '<tr><td>' + vendor + '</td><td>' + model + '</td><td>';
 
-      for (var revisionId in router.revisions) {
-        var revision = router.revisions[revisionId];
-        var html = '[<a href="'+revision.location+'" title="'+revision.version+'">'+revision.revision+'</a>] ';
+          var upgradeHTML = {};
+          var factoryHTML = {};
 
-        if (revision.type == "sysupgrade") {
-          upgradeHTML[revision.branch] += html;
-        } else if (revision.type == "factory") {
-          factoryHTML[revision.branch] += html;
-        } else {
-          app.genericError();
+          revisions.forEach(function(rev) {
+            upgradeHTML[rev.branch] = '';
+            factoryHTML[rev.branch] = '';
+          });
+
+          revisions.forEach(function(rev) {
+            var html = '[<a href="' + rev.location + '" title="' + rev.version + '">' + rev.revision + '</a>] ';
+            if (rev.type == 'sysupgrade') {
+              upgradeHTML[rev.branch] += html;
+            } else {
+              factoryHTML[rev.branch] += html;
+            }
+          });
+
+          for(var branch in factoryHTML) {
+            lines += branch + ': ' + (factoryHTML[branch] || '-')+ '<br>';
+          }
+
+          lines += '</td><td>';
+
+          for(var branch in upgradeHTML) {
+            lines += branch + ': ' + (upgradeHTML[branch] || '-') + '<br>';
+          }
+
+          lines += '</td></tr>';
         }
       }
+      $('#firmwareTableBody').innerHTML = lines;
+    }
+    updateFirmwareTable();
+  }
 
-      var showStable = upgradeHTML.stable !== '' || factoryHTML.stable !== '';
-      var showBeta   = upgradeHTML.beta !== '' || factoryHTML.beta !== '';
-      var showExperimental = upgradeHTML.experimental !== '' ||
-                             factoryHTML.experimental !== '';
+  function loadSite(url, callback) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        callback(xmlhttp.responseText, url);
+      }
+    }
+    xmlhttp.open('GET', url, true);
+    xmlhttp.send();
+  }
 
-      $(".firmwareTable table tbody").append(
-        '<tr><td>'+vendorFullname+'</td><td>'+router.model+'</td><td>'+
-        (showStable?'stable: '+(factoryHTML.stable||'-')+'<br>':'')+
-        (showBeta?'beta: '+(factoryHTML.beta||'-')+'<br>':'')+
-        (showExperimental?'experimental: '+(factoryHTML.experimental||'-'):'')+
-        '</td>'+'<td>'+
-        (showStable?'stable: '+(upgradeHTML.stable||'-')+'<br>':'')+
-        (showBeta?'beta: '+(upgradeHTML.beta||'-')+'<br>':'')+
-        (showExperimental?'experimental: '+(upgradeHTML.experimental||'-'):'')+
-        '</td></tr>'
-      );
+  // parse the contents of the given directories
+  function loadDirectories() {
+    var vendormodels_reverse = buildVendorModelsReverse();
+
+    // sort by length to get the longest match
+    var matches = Object.keys(vendormodels_reverse).sort(function(a, b) {
+      if (a.length < b.length) return 1;
+      if (a.length > b.length) return -1;
+      return 0;
+    });
+
+    // create regex for extracting image paths
+    var re = new RegExp('"([^"]*(' + matches.join('|') + ')[-.][^"]*)"', 'g');
+
+    for (var indexPath in config.directories) {
+      // retrieve the contents of the directory
+      loadSite(indexPath, function(data, indexPath) {
+        re.lastIndex = 0; // reset regex
+        var m;
+
+        do {
+          m = re.exec(data);
+          if (m) {
+            var href = m[1];
+            var match = m[2];
+            var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
+            var branch = config.directories[indexPath];
+            var devices = vendormodels_reverse[match];
+
+            for (var i in devices) {
+              parseFilePath(devices[i], match, basePath, href, branch);
+            }
+          }
+        } while (m);
+
+        /*
+        var el = document.createElement('html');
+        el.innerHTML = data;
+        var as = el.getElementsByTagName('a');
+        */
+
+        updateHTML(wizard);
+      });
     }
   }
 
-  // parse the contents of the given directory
-  function loadDirectory(branch, type, dir) {
-    // retrieve the contents of the directory
-    $.get(dir, function(data) {
-      html = $.parseHTML(data);
-
-      // parse filenames
-      $(html).find("a").each(function(i, element){
-        if (isValidFilename(element.getAttribute('href'))) {
-          parseFilename(dir, element.getAttribute('href'), type, branch);
-        }
-      });
-
-      updateHTML(wizard);
-    });
-  }
-
-  loadDirectory('stable', 'factory',
-                config.imageBasePath+'stable/factory/');
-  loadDirectory('stable', 'sysupgrade',
-                config.imageBasePath+'stable/sysupgrade/');
-  loadDirectory('beta', 'factory',
-                config.imageBasePath+'beta/factory/');
-  loadDirectory('beta', 'sysupgrade',
-                config.imageBasePath+'beta/sysupgrade/');
-  loadDirectory('experimental', 'factory',
-                config.imageBasePath+'experimental/factory/');
-  loadDirectory('experimental', 'sysupgrade',
-                config.imageBasePath+'experimental/sysupgrade/');
+  loadDirectories();
 
   return app;
 }();

@@ -1,14 +1,104 @@
-h1 {
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42;
+  color: #333;
+}
+
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+a:focus, a:hover {
+  color: #23527c;
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
   color: rgb(220, 0, 103);
 }
 
-.currentVersions {
+.container {
+  padding: 0 0.5em;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+input, select {
+  font: inherit;
+  color: inherit;
+}
+
+hr {
+  height: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  background-color: transparent;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+  background-color: #f9f9f9;
+}
+
+.table td, th {
+  padding: 8px;
+  text-align: left;
+}
+
+.table td {
+  border-top: 1px solid #ddd;
+}
+
+.table th {
+  border-top: 0;
+  border-bottom: 2px solid #ddd;
+}
+
+#currentVersions {
   float:right;
   padding: .5em;
   color: #999;
 }
 
-.firmwareTable {
+#firmwareTable {
   padding-top: 4em;
 }
 
@@ -22,24 +112,24 @@ h1 {
   text-decoration: underline;
 }
 
-.wizard {
+#wizard {
   width: 70%;
   padding-bottom: 4em;
 }
 
-.wizard p {
+#wizard p {
   margin: 1em auto;
 }
 
-.wizard select {
+#wizard select {
   margin-bottom: .5em;
 }
 
-.wizard .radiogroup input {
+#wizard .radiogroup input {
   display: none;
 }
 
-.wizard .radiogroup label, .abutton {
+#wizard .radiogroup label, .abutton {
   display: inline-block;
   list-style-type: none;
   color: black;
@@ -52,7 +142,7 @@ h1 {
   border-radius: .5em;
 }
 
-.wizard .box-inset {
+#wizard .box-inset {
   margin: 1em 0;
   padding: 1em;
   box-shadow: 0px 0px .5em black inset;
@@ -61,21 +151,17 @@ h1 {
   font-weight: lighter;
 }
 
-.wizard .box-inset .branch-experimental-dl {
+#wizard .box-inset .branch-experimental-dl {
   margin: .75em 0 0 0;
   padding: 0;
   opacity: .85;
 }
 
-.wizard .abutton:hover {
+#wizard .abutton:hover {
   color: black
 }
 
-.wizard .radiogroup input[type="radio"]:checked + label {
+#wizard .radiogroup input[type="radio"]:checked + label {
   border: 0.15em solid #cc8100;
   box-shadow: 0 0 5px #cc8100 inset;
-}
-
-.initiallyhidden {
-  display: none;
 }
