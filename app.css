@@ -12,13 +12,13 @@ body {
 }
 
 a {
-   color: #337ab7;
-    text-decoration: none;
+  color: #337ab7;
+  text-decoration: none;
 }
 
 a:focus, a:hover {
-   color: #23527c;
-   text-decoration: underline;
+  color: #23527c;
+  text-decoration: underline;
 }
 
 h1, h2, h3, h4, h5, h6 {
