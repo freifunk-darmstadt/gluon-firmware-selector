@@ -18,8 +18,8 @@
           <h1>Wähle deine Firmware</h1>
           <p>Erst mit der Freifunk-Firmware wird dein Router zu einem Teil des Freifunk-Netzes. Sie ist fertig vorkonfiguriert, um Kontakt mit benachbarten Freifunk-Knoten aufzunehmen, ein offenes und anonymes Freifunk-WLAN auszusenden und dich dabei vor der Störerhaftung zu schützen.</p>
           <select id="vendorselect" class="ulselect" onchange="firmwarewizard.setVendor(this.value)"></select>
-          <select id="modelselect" class="ulselect initiallyhidden" onchange="firmwarewizard.setModel(this.value)"></select>
-          <select id="revisionselect" class="ulselect initiallyhidden" onchange="firmwarewizard.setRevision(this.value)"></select>
+          <select id="modelselect" class="ulselect" style="display: none;" onchange="firmwarewizard.setModel(this.value)"></select>
+          <select id="revisionselect" class="ulselect" style="display: none;" onchange="firmwarewizard.setRevision(this.value)"></select>
         </div>
         <div id="type-pane">
           <hr>
@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <div id="firmwareTable" class="container initiallyhidden">
+    <div id="firmwareTable" class="container" style="display: none;">
       <hr>
       <span class="firmwareTableLink"
             onclick="firmwarewizard.hideFirmwareTable();">
