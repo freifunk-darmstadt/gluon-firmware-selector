@@ -48,7 +48,6 @@ If two matches overlap, the longest match will be assigned the matching files. O
 Image paths and available branches can be set in file app.js.
 
 ### TODO
-- remove bootstrap.js dependency, too (it is >100KB!)
 - generic branch name support (only stable, beta, experimental supported)
 - support rootfs/kernel image combinations
 - server side site generation (maybe using python?)
