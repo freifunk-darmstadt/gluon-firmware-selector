@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -8,6 +9,16 @@ body {
   font-size: 14px;
   line-height: 1.42;
   color: #333;
+}
+
+a {
+   color: #337ab7;
+    text-decoration: none;
+}
+
+a:focus, a:hover {
+   color: #23527c;
+   text-decoration: underline;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -32,6 +43,12 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 992px) {
   .container {
     width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
   }
 }
 
