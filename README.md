@@ -4,7 +4,7 @@ OpenWrt/LEDE Firmware Wizard
 This Firmware Wizard lets a user select the correct firmware for his device. Directory listings are used to parse the list of available images.
 
 This a fork of the [gluon-firmware-wizard](https://github.com/freifunk-darmstadt/gluon-firmware-wizard) containing these changes:
-- jQuery was removed
+- jQuery annd bootstrap.js were removed
 - support for other images name formats
 - simpler configuration
 - slightly faster

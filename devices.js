@@ -127,6 +127,7 @@ var vendormodels = {
     "airgateway": "AirGateway",
     "airrouter": "AirRouter",
     "Bullet": "bullet-m",
+    "Litestation SR71": "ls-sr71",
     "Nanostation Loco": {"loco-m-xw": "M XW", "bullet-m": "M XM"},
     "Nanostation": {"nano-m": "M XM", "nano-m-xw": "M XW"},
     "Picostation": {"picostation-m2": "M2"},
