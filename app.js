@@ -69,9 +69,10 @@ var firmwarewizard = function() {
   var wizard = parseWizardObject();
   app.currentVersions = {};
   var images = {};
-  var vendormodels_reverse = {};
 
   function buildVendorModelsReverse() {
+    var vendormodels_reverse = {}
+
     // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
     for (var vendor in vendormodels) {
       var models = vendormodels[vendor];
@@ -84,6 +85,8 @@ var firmwarewizard = function() {
         }
       }
     }
+
+    return vendormodels_reverse;
   }
 
   function createHistoryState(wizard) {
@@ -357,7 +360,7 @@ var firmwarewizard = function() {
       var select = $('#revisionselect');
 
       select.innerHTML = '';
-  
+
       select.appendChild(
         createOption(-1, '-- Bitte Hardwarerevision wählen --', wizard.revision)
       );
@@ -540,7 +543,7 @@ var firmwarewizard = function() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        callback(xmlhttp.responseText);
+        callback(xmlhttp.responseText, url);
       }
     }
     xmlhttp.open('GET', url, true);
@@ -549,24 +552,21 @@ var firmwarewizard = function() {
 
   // parse the contents of the given directories
   function loadDirectories() {
-    buildVendorModelsReverse();
+    var vendormodels_reverse = buildVendorModelsReverse();
 
     // sort by length to get the longest match
-    var ms = Object.keys(vendormodels_reverse).sort(function(a, b) {
+    var matches = Object.keys(vendormodels_reverse).sort(function(a, b) {
       if (a.length < b.length) return 1;
       if (a.length > b.length) return -1;
       return 0;
     });
 
     // create regex for extracting image paths
-    var re = new RegExp('"([^"]*(' + ms.join('|') + ')[-.][^"]*)"', 'g');
+    var re = new RegExp('"([^"]*(' + matches.join('|') + ')[-.][^"]*)"', 'g');
 
     for (var indexPath in config.directories) {
-      var branch = config.directories[indexPath];
-      var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
-
       // retrieve the contents of the directory
-      loadSite(indexPath, function(data) {
+      loadSite(indexPath, function(data, indexPath) {
         re.lastIndex = 0; // reset regex
         var m;
 
@@ -575,7 +575,10 @@ var firmwarewizard = function() {
           if (m) {
             var href = m[1];
             var match = m[2];
+            var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
+            var branch = config.directories[indexPath];
             var devices = vendormodels_reverse[match];
+
             for (var i in devices) {
               parseFilePath(devices[i], match, basePath, href, branch);
             }
