@@ -474,61 +474,33 @@ var firmwarewizard = function() {
           var model = models[m];
           var revisions = sortByRevision(images[vendor][model]);
 
-          var upgradeHTML = {
-            'stable': '',
-            'beta': '',
-            'experimental': ''
-          };
+          lines += '<tr><td>' + vendor + '</td><td>' + model + '</td><td>';
 
-          var factoryHTML = {
-            'stable': '',
-            'beta': '',
-            'experimental': ''
-          };
+          var upgradeHTML = {};
+          var factoryHTML = {};
 
-          for (var r in revisions) {
-            var rev = revisions[r];
+          revisions.forEach(function(rev) {
+            upgradeHTML[rev.branch] = '';
+            factoryHTML[rev.branch] = '';
+          });
+
+          revisions.forEach(function(rev) {
             var html = '[<a href="' + rev.location + '" title="' + rev.version + '">' + rev.revision + '</a>] ';
             if (rev.type == 'sysupgrade') {
               upgradeHTML[rev.branch] += html;
-            } else if (rev.type == 'factory') {
-              factoryHTML[rev.branch] += html;
             } else {
-              //kernel?
-              app.genericError();
+              factoryHTML[rev.branch] += html;
             }
-          }
+          });
 
-          var showStable = (upgradeHTML.stable !== '') || (factoryHTML.stable !== '');
-          var showBeta = (upgradeHTML.beta !== '') || (factoryHTML.beta !== '');
-          var showExperimental = (upgradeHTML.experimental !== '') || (factoryHTML.experimental !== '');
-
-          lines += '<tr><td>' + vendor + '</td><td>' + model + '</td><td>';
-
-          if (showStable) {
-            lines += 'stable: ' + (factoryHTML.stable || '-') + '<br>';
-          }
-
-          if (showBeta) {
-            lines += 'beta: ' + (factoryHTML.beta || '-') + '<br>';
-          }
-
-          if (showExperimental) {
-            lines += 'experimental: ' + (factoryHTML.experimental || '-');
+          for(var branch in factoryHTML) {
+            lines += branch + ': ' + (factoryHTML[branch] || '-')+ '<br>';
           }
 
           lines += '</td><td>';
 
-          if (showStable) {
-            lines += 'stable: ' + (upgradeHTML.stable || '-') + '<br>';
-          }
-
-          if (showBeta) {
-            lines += 'beta: ' + (upgradeHTML.beta || '-') + '<br>';
-          }
-
-          if (showExperimental) {
-            lines += 'experimental: ' + (upgradeHTML.experimental || '-');
+          for(var branch in upgradeHTML) {
+            lines += branch + ': ' + (upgradeHTML[branch] || '-') + '<br>';
           }
 
           lines += '</td></tr>';
