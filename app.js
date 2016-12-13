@@ -13,20 +13,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-var config = {
-  typeNames: {
-    'factory': 'Erstinstallation',
-    'sysupgrade': 'Upgrade'
-  },
-  // relative image paths and branch
-  directories: {
-    // some demo sources
-    './images/gluon-factory.html': 'stable',
-    './images/gluon-sysupgrade.html': 'stable'
-  }
-};
-
 function $(s) {
   return document.getElementById(s.substring(1));
 }
@@ -388,7 +374,11 @@ var firmwarewizard = function() {
       var types = getImageTypes();
       for (var i in types) {
         var type = types[i];
-        var displayType = config.typeNames[type] || type;
+        var typeNames = {
+          'factory': 'Erstinstallation',
+          'sysupgrade': 'Upgrade'
+        };
+        var displayType = typeNames[type] || type;
           content += '<input type="radio" id="radiogroup-typeselect-'
           + type + '" ' + ((type == wizard.imageType) ? 'checked ' : '')
           + 'name="firmwareType" onclick="firmwarewizard.setImageType(\'' + type + '\');">'
