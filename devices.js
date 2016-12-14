@@ -80,8 +80,8 @@ var vendormodels = {
   },
 
   "Raspberry Pi Foundation": {
-    "pi.img.gz": "PI",
-    "pi-2.img.gz": "PI 2"
+    "PI": "raspberry-pi",
+    "PI 2": "raspberry-pi-2"
   },
 
   "TP-Link": {
