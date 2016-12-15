@@ -129,7 +129,7 @@ hr {
   display: none;
 }
 
-#wizard .radiogroup label, .abutton {
+#wizard .radiogroup label, .btn {
   display: inline-block;
   list-style-type: none;
   color: black;
@@ -157,11 +157,20 @@ hr {
   opacity: .85;
 }
 
-#wizard .abutton:hover {
-  color: black
+#wizard .btn:hover {
+  color: black;
 }
 
-#wizard .radiogroup input[type="radio"]:checked + label {
-  border: 0.15em solid #cc8100;
+#wizard .radiogroup input[type="radio"]:checked + label,
+#wizard #branch-pane.show-experimental-warning button.dl-expermental {
+  border-color: #cc8100;
   box-shadow: 0 0 5px #cc8100 inset;
+}
+
+#wizard #branch-pane .warning-experimental {
+  display: none;
+}
+
+#wizard #branch-pane.show-experimental-warning .warning-experimental {
+  display: block;
 }

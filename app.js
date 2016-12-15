@@ -17,9 +17,9 @@ function $(s) {
   return document.getElementById(s.substring(1));
 }
 
-function toggleDisplay(id) {
+function toggleClass(id, cssClass) {
   var e = $(id);
-  e.style.display = (e.style.display == 'none') ? 'block' : 'none'
+  e.classList.toggle(cssClass);
 }
 
 function show_inline(e) {
@@ -403,10 +403,10 @@ var firmwarewizard = function() {
       for (var i in revisions) {
         var rev = revisions[i];
         if (rev.branch == 'experimental') {
-          $('#branchselect').innerHTML += '<button class="btn abutton dl-expermental" onclick="toggleDisplay(\'#warning-experimental\');">'+rev.branch+' (' +rev.version+')</button>';
-          $('#branch-experimental-dl').innerHTML = '<a href="'+rev.location+'" class="abutton">Download für Experimentierfreudige</a>';
+          $('#branchselect').innerHTML += '<button class="btn dl-expermental" onclick="toggleClass(\'#branch-pane\', \'show-experimental-warning\');">'+rev.branch+' (' +rev.version+')</button>';
+          $('#branch-experimental-dl').innerHTML = '<a href="'+rev.location+'" class="btn">Download für Experimentierfreudige</a>';
         } else {
-          $('#branchselect').innerHTML += '<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>';
+          $('#branchselect').innerHTML += '<a href="'+rev.location+'" class="btn">'+rev.branch+' (' +rev.version+')</a>';
         }
       }
     }
