@@ -403,10 +403,10 @@ var firmwarewizard = function() {
       for (var i in revisions) {
         var rev = revisions[i];
         if (rev.branch == 'experimental') {
-          $('#branchselect').innerHTML = '<button class="btn abutton dl-expermental" onclick="toggleDisplay(\'#warning-experimental\');">'+rev.branch+' (' +rev.version+')</button>';
+          $('#branchselect').innerHTML += '<button class="btn abutton dl-expermental" onclick="toggleDisplay(\'#warning-experimental\');">'+rev.branch+' (' +rev.version+')</button>';
           $('#branch-experimental-dl').innerHTML = '<a href="'+rev.location+'" class="abutton">Download für Experimentierfreudige</a>';
         } else {
-          $('#branchselect').innerHTML = '<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>';
+          $('#branchselect').innerHTML += '<a href="'+rev.location+'" class="abutton">'+rev.branch+' (' +rev.version+')</a>';
         }
       }
     }
