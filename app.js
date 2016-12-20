@@ -49,7 +49,10 @@ function isEmptyObject(obj) {
 var firmwarewizard = function() {
   var app = {};
 
-  var IGNORED_ELEMENTS = ['-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA', '-x2-', '-hsv2'];
+  var IGNORED_ELEMENTS = [
+    './', '../', 'experimental.manifest', 'beta.manifest', 'stable.manifest',
+    '-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA',
+    '-x2-', '-hsv2'];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
   var wizard = parseWizardObject();
@@ -203,20 +206,10 @@ var firmwarewizard = function() {
     return revisions;
   }
 
-  function findType(name) {
-    return (name.indexOf('sysupgrade') != -1) ? 'sysupgrade' : 'factory';
-  }
-
   function findVersion(name) {
     // version with optional date in it (e.g. 0.8.0~20160502)
     var m = /-([0-9]+.[0-9]+.[0-9]+(~[0-9]+)?)-/.exec(name);
     return m ? m[1] : '';
-  }
-
-  function findRevision(name) {
-    // reversion identifier like a1, v2
-    var m =/-([a-z][0-9]+(.[0-9]+)?)[.-]/.exec(name);
-    return m ? m[1] : 'alle';
   }
 
   function findRegion(name) {
@@ -230,45 +223,6 @@ var firmwarewizard = function() {
     } else {
       obj[key] = [value];
     }
-  }
-
-  function parseFilePath(device, match, path, href, branch) {
-    if (!isValidFileName(href)) {
-      return;
-    }
-
-    if (device.model == '--ignore--') {
-      return;
-    }
-
-    var location = path + href;
-    var type = findType(href);
-    var version = findVersion(location);
-    var region = findRegion(href);
-    var revision = device.revision;
-
-    if (revision.length == 0) {
-      revision = findRevision(href.replace(match, ''));
-    }
-
-    if (region.length) {
-      revision += '-' + region;
-    }
-
-    // collect branch versions
-    app.currentVersions[branch] = version;
-
-    if (!(device.vendor in images)) {
-      images[device.vendor] = {};
-    }
-
-    addArray(images[device.vendor], device.model, {
-      'revision': revision,
-      'branch': branch,
-      'type': type,
-      'version': version,
-      'location': location
-    });
   }
 
   function createOption(value, title, selectedOption) {
@@ -523,35 +477,72 @@ var firmwarewizard = function() {
       return 0;
     });
 
-    // create regex for extracting image paths
-    var re = new RegExp('"([^"]*(' + matches.join('|') + ')[-.][^"]*)"', 'g');
-
     for (var indexPath in config.directories) {
       // retrieve the contents of the directory
       loadSite(indexPath, function(data, indexPath) {
-        re.lastIndex = 0; // reset regex
+        // create regex for extracting image paths
+        var reIndex = new RegExp('="([^"]*[-.][^"]*)"', 'g');
+
+        // find the correct reversion (e.g. a1, v2)
+        var reRevision = '[a-z][0-9]+(.[0-9]+)?';
+
+        var reMatches = new RegExp('('+matches.join('|')+')-?(rev-)?('+reRevision+')?(-sysupgrade)?.(img.gz|bin|tar|img|elf|vdi|vmdk)$');
         var m;
 
         do {
-          m = re.exec(data);
+          m = reIndex.exec(data);
+
           if (m) {
             var href = m[1];
-            var match = m[2];
-            var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
-            var branch = config.directories[indexPath];
-            var devices = vendormodels_reverse[match];
+            var match = reMatches.exec(href);
 
-            for (var i in devices) {
-              parseFilePath(devices[i], match, basePath, href, branch);
+            if (isValidFileName(href)) {
+              if (match) {
+                var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
+                var branch = config.directories[indexPath];
+                var devices = vendormodels_reverse[match[1]];
+
+                for (var i in devices) {
+                  if (devices[i].revision == '--ignore--') {
+                    continue;
+                  }
+
+                  var location = basePath + href;
+                  var type = (href.indexOf('sysupgrade') != -1) ? 'sysupgrade' : 'factory';
+                  var version = findVersion(location);
+
+                  var revision = devices[i].revision;
+                  if (revision.length == 0) {
+                    revision = match[3] || 'alle';
+                    href.replace(revision, '');
+                  }
+
+                  var region = findRegion(href);
+                  if (region.length) {
+                    revision += '-' + region;
+                  }
+
+                  // collect branch versions
+                  app.currentVersions[branch] = version;
+
+                  if (!(devices[i].vendor in images)) {
+                    images[devices[i].vendor] = {};
+                  }
+
+                  addArray(images[devices[i].vendor], devices[i].model, {
+                    'revision': revision,
+                    'branch': branch,
+                    'type': type,
+                    'version': version,
+                    'location': location
+                  });
+                }
+              } else {
+                console.log("No rule for firmware image", href);
+              }
             }
           }
         } while (m);
-
-        /*
-        var el = document.createElement('html');
-        el.innerHTML = data;
-        var as = el.getElementsByTagName('a');
-        */
 
         updateHTML(wizard);
       });
