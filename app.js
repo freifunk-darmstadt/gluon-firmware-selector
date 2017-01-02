@@ -62,8 +62,8 @@ var firmwarewizard = function() {
     var vendormodels_reverse = {}
 
     // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
-    for (var vendor in vendormodels) {
-      var models = vendormodels[vendor];
+    for (var vendor in config.vendormodels) {
+      var models = config.vendormodels[vendor];
       for (var model in models) {
         var match = models[model];
         if (typeof match == 'string') {

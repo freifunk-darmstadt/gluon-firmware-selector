@@ -14,6 +14,8 @@
  */
 
 var config = {
+  // see devices.js for different vendor model maps
+  vendormodels: vendormodels,
   // relative image paths and branch
   directories: {
     // some demo sources
