@@ -477,6 +477,9 @@ var firmwarewizard = function() {
     });
 
     for (var indexPath in config.directories) {
+      var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
+      var branch = config.directories[indexPath];
+
       // retrieve the contents of the directory
       loadSite(indexPath, function(data, indexPath) {
         // create regex for extracting image paths
@@ -497,8 +500,6 @@ var firmwarewizard = function() {
 
             if (isValidFileName(href)) {
               if (match) {
-                var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
-                var branch = config.directories[indexPath];
                 var devices = vendormodels_reverse[match[1]];
 
                 for (var i in devices) {
