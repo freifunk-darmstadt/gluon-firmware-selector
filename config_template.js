@@ -14,6 +14,8 @@
  */
 
 var config = {
+  // list images on console that match no model
+  listMissingImages: false,
   // see devices.js for different vendor model maps
   vendormodels: vendormodels,
   // relative image paths and branch

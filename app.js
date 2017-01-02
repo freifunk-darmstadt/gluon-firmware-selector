@@ -183,13 +183,13 @@ var firmwarewizard = function() {
   }
 
   // exclude file names containing a string
-  function isValidFileName(name) {
+  function ignoreFileName(name) {
     for (var i in IGNORED_ELEMENTS) {
       if (name.indexOf(IGNORED_ELEMENTS[i]) != -1) {
-        return false;
+        return true;
       }
     }
-    return true;
+    return false;
   }
 
   // simplified version string sort
@@ -215,6 +215,12 @@ var firmwarewizard = function() {
     return m ? m[1] : '';
   }
 
+  function findRevision(name) {
+    // reversion identifier like a1, v2
+    var m = /-([a-z][0-9]+(.[0-9]+)?)[.-]/.exec(name);
+    return m ? m[1] : 'alle';
+  }
+
   function findRegion(name) {
     var m = /-(eu|cn|de|jp|us)[.-]/.exec(name);
     return m ? m[1] : '';
@@ -226,6 +232,41 @@ var firmwarewizard = function() {
     } else {
       obj[key] = [value];
     }
+  }
+
+  function parseFilePath(device, match, path, href, branch) {
+    if (device.model == '--ignore--' || device.revision == '--ignore--') {
+      return;
+    }
+
+    var location = path + href;
+    var type = findType(href);
+    var version = findVersion(href);
+    var region = findRegion(href);
+    var revision = device.revision;
+
+    if (revision.length == 0) {
+      revision = findRevision(href.replace(match, ''));
+    }
+
+    if (region.length) {
+      revision += '-' + region;
+    }
+
+    // collect branch versions
+    app.currentVersions[branch] = version;
+
+    if (!(device.vendor in images)) {
+      images[device.vendor] = {};
+    }
+
+    addArray(images[device.vendor], device.model, {
+      'revision': revision,
+      'branch': branch,
+      'type': type,
+      'version': version,
+      'location': location
+    });
   }
 
   function createOption(value, title, selectedOption) {
@@ -480,70 +521,32 @@ var firmwarewizard = function() {
       return 0;
     });
 
-    for (var indexPath in config.directories) {
-      var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
-      var branch = config.directories[indexPath];
+    // match all links
+    var reLink = new RegExp('href="([^"]*)"', 'g');
 
+    // match image files
+    var reMatch = new RegExp('('+matches.join('|')+')[.-]');
+
+    for (var indexPath in config.directories) {
       // retrieve the contents of the directory
       loadSite(indexPath, function(data, indexPath) {
-        // create regex for extracting image paths
-        var reIndex = new RegExp('="([^"]*[-.][^"]*)"', 'g');
+	var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
+	var branch = config.directories[indexPath];
+        reLink.lastIndex = 0;
 
-        // find the correct reversion (e.g. a1, v2)
-        var reRevision = '[a-z][0-9]+(.[0-9]+)?';
-
-        var reMatches = new RegExp('('+matches.join('|')+')-?(rev-)?('+reRevision+')?(-sysupgrade)?.(img.gz|bin|tar|img|elf|vdi|vmdk)$');
         var m;
-
         do {
-          m = reIndex.exec(data);
-
+          m = reLink.exec(data);
           if (m) {
             var href = m[1];
-            var match = reMatches.exec(href);
-
-            if (isValidFileName(href)) {
-              if (match) {
-                var devices = vendormodels_reverse[match[1]];
-
-                for (var i in devices) {
-                  if (devices[i].model == '--ignore--' || devices[i].revision == '--ignore--') {
-                    continue;
-                  }
-
-                  var location = basePath + href;
-                  var type = findType(href);
-                  var version = findVersion(href);
-
-                  var revision = devices[i].revision;
-                  if (revision.length == 0) {
-                    revision = match[3] || 'alle';
-                    href.replace(revision, '');
-                  }
-
-                  var region = findRegion(href);
-                  if (region.length) {
-                    revision += '-' + region;
-                  }
-
-                  // collect branch versions
-                  app.currentVersions[branch] = version;
-
-                  if (!(devices[i].vendor in images)) {
-                    images[devices[i].vendor] = {};
-                  }
-
-                  addArray(images[devices[i].vendor], devices[i].model, {
-                    'revision': revision,
-                    'branch': branch,
-                    'type': type,
-                    'version': version,
-                    'location': location
-                  });
-                }
-              } else {
-                console.log("No rule for firmware image", href);
+            var match = reMatch.exec(href);
+            if (match) {
+              var devices = vendormodels_reverse[match[1]];
+              for (var i in devices) {
+                parseFilePath(devices[i], match, basePath, href, branch);
               }
+            } else if(config.listMissingImages && !ignoreFileName(href)) {
+              console.log("No rule for firmware image:", href);
             }
           }
         } while (m);
