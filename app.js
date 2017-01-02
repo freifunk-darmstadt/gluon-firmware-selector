@@ -17,21 +17,20 @@ function $(s) {
   return document.getElementById(s.substring(1));
 }
 
-function toggleClass(id, cssClass) {
-  var e = $(id);
-  e.classList.toggle(cssClass);
+function toggleClass(s, cssClass) {
+  $(s).classList.toggle(cssClass);
 }
 
-function show_inline(e) {
-  $(e).style.display = 'inline-block';
+function show_inline(s) {
+  $(s).style.display = 'inline-block';
 }
 
-function show_block(e) {
-  $(e).style.display = 'block';
+function show_block(s) {
+  $(s).style.display = 'block';
 }
 
-function hide(e) {
-  $(e).style.display = 'none';
+function hide(s) {
+  $(s).style.display = 'none';
 }
 
 // Object.values() replacement
@@ -213,7 +212,7 @@ var firmwarewizard = function() {
   }
 
   function findRegion(name) {
-    var m =/-(eu|cn|de|jp|us)[.-]/.exec(name);
+    var m = /-(eu|cn|de|jp|us)[.-]/.exec(name);
     return m ? m[1] : '';
   }
 
