@@ -507,7 +507,7 @@ var firmwarewizard = function() {
                 var devices = vendormodels_reverse[match[1]];
 
                 for (var i in devices) {
-                  if (devices[i].revision == '--ignore--') {
+                  if (devices[i].model == '--ignore--' || devices[i].revision == '--ignore--') {
                     continue;
                   }
 
