@@ -205,6 +205,10 @@ var firmwarewizard = function() {
     return revisions;
   }
 
+  function findType(name) {
+    return (name.indexOf('sysupgrade') != -1) ? 'sysupgrade' : 'factory';
+  }
+
   function findVersion(name) {
     // version with optional date in it (e.g. 0.8.0~20160502)
     var m = /-([0-9]+.[0-9]+.[0-9]+(~[0-9]+)?)-/.exec(name);
@@ -508,8 +512,8 @@ var firmwarewizard = function() {
                   }
 
                   var location = basePath + href;
-                  var type = (href.indexOf('sysupgrade') != -1) ? 'sysupgrade' : 'factory';
-                  var version = findVersion(location);
+                  var type = findType(href);
+                  var version = findVersion(href);
 
                   var revision = devices[i].revision;
                   if (revision.length == 0) {
