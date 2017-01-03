@@ -51,7 +51,7 @@ var firmwarewizard = function() {
   var IGNORED_ELEMENTS = [
     './', '../', 'experimental.manifest', 'beta.manifest', 'stable.manifest',
     '-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA',
-    '-x2-', '-hsv2'];
+    '-x2-', '-hsv2', '-p1020'];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
   var wizard = parseWizardObject();
