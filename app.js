@@ -383,7 +383,7 @@ var firmwarewizard = function() {
         if (type == '') continue;
 
         var displayType = typeNames[type] || type;
-          content += '<input type="radio" id="radiogroup-typeselect-'
+        content += '<input type="radio" id="radiogroup-typeselect-'
           + type + '" ' + ((type == wizard.imageType) ? 'checked ' : '')
           + 'name="firmwareType" onclick="firmwarewizard.setImageType(\'' + type + '\');">'
           + '<label for="radiogroup-typeselect-' + type + '">' + displayType + '</label>';
@@ -536,8 +536,8 @@ var firmwarewizard = function() {
     for (var indexPath in config.directories) {
       // retrieve the contents of the directory
       loadSite(indexPath, function(data, indexPath) {
-	var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
-	var branch = config.directories[indexPath];
+        var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
+        var branch = config.directories[indexPath];
         reLink.lastIndex = 0;
 
         var m;
