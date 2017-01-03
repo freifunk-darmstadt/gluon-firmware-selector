@@ -206,7 +206,8 @@ var firmwarewizard = function() {
   }
 
   function findType(name) {
-    return (name.indexOf('sysupgrade') != -1) ? 'sysupgrade' : 'factory';
+    var m = /-(sysupgrade|factory|rootfs|kernel)[-.]/.exec(name);
+    return m ? m[1] : '';
   }
 
   function findVersion(name) {
@@ -370,12 +371,17 @@ var firmwarewizard = function() {
 
       var content = '';
       var types = getImageTypes();
+      var typeNames = {
+        'factory': 'Erstinstallation',
+        'sysupgrade': 'Upgrade',
+        'rootfs': "Root-Image",
+        'kernel': "Kernel-Image"
+      };
+
       for (var i in types) {
         var type = types[i];
-        var typeNames = {
-          'factory': 'Erstinstallation',
-          'sysupgrade': 'Upgrade'
-        };
+        if (type == '') continue;
+
         var displayType = typeNames[type] || type;
           content += '<input type="radio" id="radiogroup-typeselect-'
           + type + '" ' + ((type == wizard.imageType) ? 'checked ' : '')
