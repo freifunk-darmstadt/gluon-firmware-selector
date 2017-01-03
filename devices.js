@@ -1,6 +1,6 @@
 var vendormodels = {
   "8devices": {
-    "Carambola Board 2": "8devices-carambola2-board"
+    "Carambola Board 2": "carambola2"
   },
 
   "Alfa": {
@@ -54,7 +54,7 @@ var vendormodels = {
   },
 
   "Mikrotik": {
-    "vmlinux": "mikrotik-vmlinux-lzma"
+    "vmlinux": {"mikrotik-vmlinux-lzma" : "", "mikrotik-vmlinux.lzma" : ""},
   },
 
   "Netgear": {
