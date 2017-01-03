@@ -467,11 +467,9 @@ var firmwarewizard = function() {
         for (var m in models) {
           var model = models[m];
           var revisions = sortByRevision(images[vendor][model]);
-
-          lines += '<tr><td>' + vendor + '</td><td>' + model + '</td><td>';
-
           var upgradeHTML = {};
           var factoryHTML = {};
+          var show = false;
 
           revisions.forEach(function(rev) {
             upgradeHTML[rev.branch] = '';
@@ -482,10 +480,18 @@ var firmwarewizard = function() {
             var html = '[<a href="' + rev.location + '" title="' + rev.version + '">' + rev.revision + '</a>] ';
             if (rev.type == 'sysupgrade') {
               upgradeHTML[rev.branch] += html;
-            } else {
+              show = true;
+            } else if (rev.type == 'factory') {
               factoryHTML[rev.branch] += html;
+              show = true;
             }
           });
+
+          if (!show) {
+            continue;
+          }
+
+          lines += '<tr><td>' + vendor + '</td><td>' + model + '</td><td>';
 
           for(var branch in factoryHTML) {
             lines += branch + ': ' + (factoryHTML[branch] || '-')+ '<br>';
@@ -545,13 +551,16 @@ var firmwarewizard = function() {
           m = reLink.exec(data);
           if (m) {
             var href = m[1];
+            if (ignoreFileName(href)) {
+              continue;
+            }
             var match = reMatch.exec(href);
             if (match) {
               var devices = vendormodels_reverse[match[1]];
               for (var i in devices) {
-                parseFilePath(devices[i], match, basePath, href, branch);
+                parseFilePath(devices[i], match[1], basePath, href, branch);
               }
-            } else if(config.listMissingImages && !ignoreFileName(href)) {
+            } else if (config.listMissingImages) {
               console.log("No rule for firmware image:", href);
             }
           }
