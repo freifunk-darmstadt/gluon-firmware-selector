@@ -50,7 +50,7 @@ var firmwarewizard = function() {
 
   var IGNORED_ELEMENTS = [
     './', '../', 'experimental.manifest', 'beta.manifest', 'stable.manifest',
-    '-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-il-', '-NA',
+    '-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-NA',
     '-x2-', '-hsv2', '-p1020'];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
@@ -223,7 +223,7 @@ var firmwarewizard = function() {
   }
 
   function findRegion(name) {
-    var m = /-(eu|cn|de|jp|us)[.-]/.exec(name);
+    var m = /-(cn|de|en|il|jp|us)[.-]/.exec(name);
     return m ? m[1] : '';
   }
 
