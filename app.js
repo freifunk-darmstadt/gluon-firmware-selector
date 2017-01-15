@@ -223,7 +223,7 @@ var firmwarewizard = function() {
   }
 
   function findRegion(name) {
-    var m = /-(cn|de|en|il|jp|us)[.-]/.exec(name);
+    var m = /-(cn|de|en|eu|il|jp|us)[.-]/.exec(name);
     return m ? m[1] : '';
   }
 
