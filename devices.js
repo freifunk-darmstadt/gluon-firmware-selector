@@ -93,6 +93,8 @@ var vendormodels = {
     "CPE 220": "cpe220",
     "CPE 510": "cpe510",
     "CPE 520": "cpe520",
+    "WBS 210": "wbs210",
+    "WBS 510": "wbs510",
     "TL-MR13U": "tl-mr13u",
     "TL-MR3020": "tl-mr3020",
     "TL-MR3040": "tl-mr3040",
