@@ -90,9 +90,9 @@ var vendormodels = {
     "Archer C5": "archer-c5",
     "Archer C7": "archer-c7",
     "CPE 210": "cpe210",
-    "CPE 220": "cpe210",
+    "CPE 220": "cpe220",
     "CPE 510": "cpe510",
-    "CPE 520": "cpe510",
+    "CPE 520": "cpe520",
     "TL-MR13U": "tl-mr13u",
     "TL-MR3020": "tl-mr3020",
     "TL-MR3040": "tl-mr3040",
@@ -121,16 +121,16 @@ var vendormodels = {
     "TL-WR842N-ND": "tl-wr842n",
     "TL-WR843N-ND": "tl-wr843n",
     "TL-WR940N-ND": {"tl-wr940n": "", "tl-wr941nd-v4": "v1", "tl-wr941nd-v5": "v2", "tl-wr941nd-v6": "v3"},
-    "TL-WR941N-ND": {"tl-wr941nd": "", "tl-wr941nd-v4": "v4", "tl-wr941nd-v5": "v5", "tl-wr941nd-v6": "v6"}
+    "TL-WR941N-ND": {"wr941n-nd": "", "tl-wr941nd": "", "tl-wr941nd-v4": "v4", "tl-wr941nd-v5": "v5", "tl-wr941nd-v6": "v6"}
   },
 
   "Ubiquiti": {
     "AirGateway": {"ubnt-air-gateway": "", "ubiquiti-airgateway": ""},
     "AirRouter": {"ubnt-air-router": "", "ubiquiti-airrouter": ""},
-    "Bullet": {"bullet-m2": "M2", "bullet-m5": "M5", "bullet-m": ""},
+    "Bullet": {"bullet-m2": "M2", "bullet-m5": "M5", "bullet-m": "--ignore--"},
     "Litestation SR71": "ls-sr71",
-    "Nanostation Loco": {"loco-m-xw": "M XW", "bullet-m": "M XM"},
-    "Nanostation": {"nano-m": "M XM", "nano-m-xw": "M XW"},
+    "Nanostation Loco": {"loco-m-xw": "--ignore--", "nanostation-loco-m2": "M2 XM", "nanostation-loco-m5": "M5 XM", "nanostation-loco-m2-xw": "M2 XW", "nanostation-loco-m5-xw": "M5 XW"},
+    "Nanostation": {"nano-m": "--ignore--", "nano-m-xw": "--ignore--", "nanostation-m": "--ignore--", "nanostation-m-xw": "--ignore--", "nanostation-m2": "M2 XM", "nanostation-m2-xw": "M2 XW", "nanostation-m5": "M5 XM", "nanostation-m5-xw": "M5 XW", },
     "Picostation": "picostation",
     "Rocket": {"rocket-m-xw": "M XW", "rocket": ""},
     "UniFi AP": "unifi",
@@ -153,7 +153,7 @@ var vendormodels = {
     "VirtualBox 32bit": "x86-virtualbox",
     "VirtualBox 64bit": "x86-64-virtualbox",
     "VMware 32bit": "vmware",
-    "VMware 64bit": "64-vmware",
+    "VMware 64bit": "x86-64-vmware",
     "KVM 32bit": "x86-kvm",
     "XEN 32bit": "x86-xen",
   }
