@@ -207,7 +207,7 @@ var firmwarewizard = function() {
 
   function findType(name) {
     var m = /-(sysupgrade|factory|rootfs|kernel)[-.]/.exec(name);
-    return m ? m[1] : '';
+    return m ? m[1] : 'factory';
   }
 
   function findVersion(name) {
