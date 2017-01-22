@@ -50,8 +50,8 @@ var firmwarewizard = function() {
 
   var IGNORED_ELEMENTS = [
     './', '../', 'experimental.manifest', 'beta.manifest', 'stable.manifest',
-    '-kernel', '-rootfs', '-tftp', '-16M-', '-fat', '-loader', '-NA',
-    '-x2-', '-hsv2', '-p1020'];
+    '-tftp', '-fat', '-loader', '-NA', '-x2-', '-hsv2', '-p1020'
+  ];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
   var wizard = parseWizardObject();
@@ -227,6 +227,11 @@ var firmwarewizard = function() {
     return m ? m[1] : '';
   }
 
+  function findSize(name) {
+    var m = /-(4M|8M|16M|32M|64M)[.-]/.exec(name);
+    return m ? m[1] : '';
+  }
+
   function addArray(obj, key, value) {
     if (key in obj) {
       obj[key].push(value);
@@ -245,6 +250,7 @@ var firmwarewizard = function() {
     var version = findVersion(href);
     var region = findRegion(href);
     var revision = device.revision;
+    var size = findSize(href);
 
     if (revision.length == 0) {
       revision = findRevision(href.replace(match, ''));
@@ -266,7 +272,8 @@ var firmwarewizard = function() {
       'branch': branch,
       'type': type,
       'version': version,
-      'location': location
+      'location': location,
+      'size': size
     });
   }
 
