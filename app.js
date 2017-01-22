@@ -573,5 +573,11 @@ var firmwarewizard = function() {
 
   loadDirectories();
 
+  // set link to firmware source directory
+  for(var path in config.directories) {
+    $('#firmware-source-dir').href = path.replace(/\/[^\/]*$/, '');
+    break;
+  }
+
   return app;
 }();
