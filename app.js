@@ -495,8 +495,8 @@ var firmwarewizard = function() {
           var factoryHTML = {};
           var show = false;
 
-          revisions.forEach(initializeRevHTML(rev));
-          revisions.forEach(addToRevHTML(rev));
+          revisions.forEach(initializeRevHTML);
+          revisions.forEach(addToRevHTML);
 
           if (!show) {
             continue;
@@ -533,34 +533,6 @@ var firmwarewizard = function() {
     xmlhttp.send();
   }
 
-  function parseSite(data, indexPath) {
-    var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
-    var branch = config.directories[indexPath];
-    reLink.lastIndex = 0;
-
-    var m;
-    do {
-      m = reLink.exec(data);
-      if (m) {
-        var href = m[1];
-        if (ignoreFileName(href)) {
-          continue;
-        }
-        var match = reMatch.exec(href);
-        if (match) {
-          var devices = vendormodels_reverse[match[1]];
-          for (var i in devices) {
-            parseFilePath(devices[i], match[1], basePath, href, branch);
-          }
-        } else if (config.listMissingImages) {
-          console.log("No rule for firmware image:", href);
-        }
-      }
-    } while (m);
-
-    updateHTML(wizard);
-  }
-
   // parse the contents of the given directories
   function loadDirectories() {
     var vendormodels_reverse = buildVendorModelsReverse();
@@ -571,6 +543,34 @@ var firmwarewizard = function() {
       if (a.length > b.length) return -1;
       return 0;
     });
+
+    var parseSite = function(data, indexPath) {
+      var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
+      var branch = config.directories[indexPath];
+      reLink.lastIndex = 0;
+
+      var m;
+      do {
+        m = reLink.exec(data);
+        if (m) {
+          var href = m[1];
+          if (ignoreFileName(href)) {
+            continue;
+          }
+          var match = reMatch.exec(href);
+          if (match) {
+            var devices = vendormodels_reverse[match[1]];
+            for (var i in devices) {
+              parseFilePath(devices[i], match[1], basePath, href, branch);
+            }
+          } else if (config.listMissingImages) {
+            console.log("No rule for firmware image:", href);
+          }
+        }
+      } while (m);
+
+      updateHTML(wizard);
+    }
 
     // match all links
     var reLink = new RegExp('href="([^"]*)"', 'g');
