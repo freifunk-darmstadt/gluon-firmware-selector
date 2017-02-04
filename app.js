@@ -453,17 +453,19 @@ var firmwarewizard = function() {
     }
     updatePanes();
 
-    function updateFirmwareTable() {
+    function updateCurrentVersions() {
       var branches = ObjectValues(config.directories)
-        .filter(function(value, index, self) { return self.indexOf(value) === index; })
-        .sort();
+        .filter(function(value, index, self) { return self.indexOf(value) === index; });
 
       $('#currentVersions').innerHTML = branches.reduce(function(ret, branch, i) {
         ret += ((i === 0) ? '' : ' // ') + branch;
         ret += (branch in app.currentVersions) ?  (': '  + app.currentVersions[branch]) : '';
         return ret;
       }, '');
+    }
+    updateCurrentVersions();
 
+    function updateFirmwareTable() {
       $('#firmwareTableBody').innerHTML = '';
 
       var initializeRevHTML = function(rev) {
