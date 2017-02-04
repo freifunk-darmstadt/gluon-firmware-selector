@@ -81,6 +81,10 @@ var vendormodels = {
     "OM5P": "om5p"
   },
 
+  "PC Engines": {
+    "ALIX": "x86-geode"
+  },
+
   "Raspberry Pi Foundation": {
     "PI": "raspberry-pi",
     "PI 2": "raspberry-pi-2"
