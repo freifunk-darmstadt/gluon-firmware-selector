@@ -59,7 +59,7 @@ var firmwarewizard = function() {
   var images = {};
 
   function buildVendorModelsReverse() {
-    var vendormodels_reverse = {}
+    var vendormodels_reverse = {};
 
     // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
     for (var vendor in config.vendormodels) {
@@ -104,7 +104,7 @@ var firmwarewizard = function() {
     if (event.state === null) return;
     wizard = parseWizardObject(event.state);
     updateHTML(wizard);
-  }
+  };
 
   window.onload = function() {
     function parseURLasJSON() {
@@ -118,7 +118,7 @@ var firmwarewizard = function() {
     var parsedURL = parseURLasJSON();
     wizard = parseWizardObject(parsedURL);
     updateHTML(wizard);
-  }
+  };
 
   app.genericError = function() {
     alert('Da ist was schiefgelaufen. Frage doch bitte einmal im Chat nach.');
@@ -174,13 +174,13 @@ var firmwarewizard = function() {
     wizard.showFirmwareTable = true;
     createHistoryState(wizard);
     updateHTML(wizard);
-  }
+  };
 
   app.hideFirmwareTable = function() {
     wizard.showFirmwareTable = false;
     createHistoryState(wizard);
     updateHTML(wizard);
-  }
+  };
 
   // exclude file names containing a string
   function ignoreFileName(name) {
@@ -252,7 +252,7 @@ var firmwarewizard = function() {
     var revision = device.revision;
     var size = findSize(href);
 
-    if (revision.length == 0) {
+    if (revision.length === 0) {
       revision = findRevision(href.replace(match, ''));
     }
 
@@ -387,13 +387,13 @@ var firmwarewizard = function() {
 
       for (var i in types) {
         var type = types[i];
-        if (type == '') continue;
+        if (type === '') continue;
 
         var displayType = typeNames[type] || type;
-        content += '<input type="radio" id="radiogroup-typeselect-'
-          + type + '" ' + ((type == wizard.imageType) ? 'checked ' : '')
-          + 'name="firmwareType" onclick="firmwarewizard.setImageType(\'' + type + '\');">'
-          + '<label for="radiogroup-typeselect-' + type + '">' + displayType + '</label>';
+        content += '<input type="radio" id="radiogroup-typeselect-' +
+          type + '" ' + ((type == wizard.imageType) ? 'checked ' : '') +
+          'name="firmwareType" onclick="firmwarewizard.setImageType(\'' + type + '\');">' +
+          '<label for="radiogroup-typeselect-' + type + '">' + displayType + '</label>';
       }
       $('#typeselect').innerHTML = content;
     }
@@ -459,12 +459,29 @@ var firmwarewizard = function() {
         .sort();
 
       $('#currentVersions').innerHTML = branches.reduce(function(ret, branch, i) {
-        ret += ((i == 0) ? '' : ' // ') + branch;
+        ret += ((i === 0) ? '' : ' // ') + branch;
         ret += (branch in app.currentVersions) ?  (': '  + app.currentVersions[branch]) : '';
         return ret;
       }, '');
 
       $('#firmwareTableBody').innerHTML = '';
+
+      var initializeRevHTML = function(rev) {
+        upgradeHTML[rev.branch] = '';
+        factoryHTML[rev.branch] = '';
+      };
+
+      var addToRevHTML = function(rev) {
+        var html = '[<a href="' + rev.location + '" title="' + rev.version + '">' + rev.revision + '</a>] ';
+        if (rev.type == 'sysupgrade') {
+          upgradeHTML[rev.branch] += html;
+          show = true;
+        } else if (rev.type == 'factory') {
+          factoryHTML[rev.branch] += html;
+          show = true;
+        }
+      };
+
 
       var lines = '';
       var vendors = Object.keys(images).sort();
@@ -478,21 +495,8 @@ var firmwarewizard = function() {
           var factoryHTML = {};
           var show = false;
 
-          revisions.forEach(function(rev) {
-            upgradeHTML[rev.branch] = '';
-            factoryHTML[rev.branch] = '';
-          });
-
-          revisions.forEach(function(rev) {
-            var html = '[<a href="' + rev.location + '" title="' + rev.version + '">' + rev.revision + '</a>] ';
-            if (rev.type == 'sysupgrade') {
-              upgradeHTML[rev.branch] += html;
-              show = true;
-            } else if (rev.type == 'factory') {
-              factoryHTML[rev.branch] += html;
-              show = true;
-            }
-          });
+          revisions.forEach(initializeRevHTML(rev));
+          revisions.forEach(addToRevHTML(rev));
 
           if (!show) {
             continue;
@@ -506,7 +510,7 @@ var firmwarewizard = function() {
 
           lines += '</td><td>';
 
-          for(var branch in upgradeHTML) {
+          for(branch in upgradeHTML) {
             lines += branch + ': ' + (upgradeHTML[branch] || '-') + '<br>';
           }
 
@@ -524,9 +528,37 @@ var firmwarewizard = function() {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         callback(xmlhttp.responseText, url);
       }
-    }
+    };
     xmlhttp.open('GET', url, true);
     xmlhttp.send();
+  }
+
+  function parseSite(data, indexPath) {
+    var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
+    var branch = config.directories[indexPath];
+    reLink.lastIndex = 0;
+
+    var m;
+    do {
+      m = reLink.exec(data);
+      if (m) {
+        var href = m[1];
+        if (ignoreFileName(href)) {
+          continue;
+        }
+        var match = reMatch.exec(href);
+        if (match) {
+          var devices = vendormodels_reverse[match[1]];
+          for (var i in devices) {
+            parseFilePath(devices[i], match[1], basePath, href, branch);
+          }
+        } else if (config.listMissingImages) {
+          console.log("No rule for firmware image:", href);
+        }
+      }
+    } while (m);
+
+    updateHTML(wizard);
   }
 
   // parse the contents of the given directories
@@ -548,33 +580,7 @@ var firmwarewizard = function() {
 
     for (var indexPath in config.directories) {
       // retrieve the contents of the directory
-      loadSite(indexPath, function(data, indexPath) {
-        var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
-        var branch = config.directories[indexPath];
-        reLink.lastIndex = 0;
-
-        var m;
-        do {
-          m = reLink.exec(data);
-          if (m) {
-            var href = m[1];
-            if (ignoreFileName(href)) {
-              continue;
-            }
-            var match = reMatch.exec(href);
-            if (match) {
-              var devices = vendormodels_reverse[match[1]];
-              for (var i in devices) {
-                parseFilePath(devices[i], match[1], basePath, href, branch);
-              }
-            } else if (config.listMissingImages) {
-              console.log("No rule for firmware image:", href);
-            }
-          }
-        } while (m);
-
-        updateHTML(wizard);
-      });
+      loadSite(indexPath, parseSite);
     }
   }
 
