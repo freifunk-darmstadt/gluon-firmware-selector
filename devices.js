@@ -117,7 +117,7 @@ var vendormodels = {
     "TL-WDR4300": "tl-wdr4300",
     "TL-WDR4900": "tl-wdr4900",
     "TL-WR1043N-ND": {"tl-wr1043n": "", "tl-wr1043nd": ""},
-    "TL-WR2543N-ND": {"tl-wr2543n": "", "tl-wr2543nd": ""},
+    "TL-WR2543N-ND": {"tl-wr2543": "", "tl-wr2543n": ""},
     "TL-WR703N": "tl-wr703n",
     "TL-WR710N": "tl-wr710n",
     "TL-WR740N-ND": "tl-wr740n",
