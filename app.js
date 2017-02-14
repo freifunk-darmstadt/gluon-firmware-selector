@@ -14,7 +14,7 @@
  */
 
 function $(s) {
-  return document.getElementById(s.substring(1));
+  return document.querySelector(s);
 }
 
 function toggleClass(s, cssClass) {
