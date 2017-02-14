@@ -115,8 +115,6 @@ var firmwarewizard = function() {
   };
 
   window.onload = function() {
-    $('.modelSearch').value = '';
-
     function parseURLasJSON() {
       var search = location.search.substring(1);
       return search ? JSON.parse(
@@ -157,9 +155,6 @@ var firmwarewizard = function() {
         app.setRevision(revisions[0], true);
       }
     }
-
-    $('.imagePreview').innerHTML = '';
-    $('.imagePreview').innerHTML += createPicturePreview(wizard.vendor, wizard.model);
 
     createHistoryState(wizard);
     updateHTML(wizard);
@@ -311,16 +306,34 @@ var firmwarewizard = function() {
       .sort();
   }
 
-  function createPicturePreview(vendor, model) {
+  // format string for searching
+  function searchable(q) {
+    return q.toLowerCase().replace(/[-/ ]/g, '');
+  }
+
+  // create a list with all models optimized for searching
+  function createSearchableModellist() {
+    var modelList = [];
+    var vendors = Object.keys(images);
+    for(var i in vendors) {
+      var models = Object.keys(images[vendors[i]]);
+      for (var j in models) {
+        modelList.push([searchable(vendors[i]+models[j]), vendors[i], models[j]]);
+      }
+    }
+    return modelList;
+  }
+
+  function createPicturePreview(vendor, model, searchstring) {
     if (!(vendor in images)) return '';
     if (!(model in images[vendor])) return '';
 
-    var name = vendor+' '+model;
+    // determine revision index (use image for latest revision)
     var latestRevisionIndex = 0;
     var highesRevision = 1;
     for (var r in images[vendor][model]) {
       var rev = images[vendor][model][r].revision.substr(1);
-      if (parseInt(rev) > highesRevision && rev.toString() == parseInt(rev).toString()) {
+      if (parseInt(rev) > highesRevision){// && rev.toString() == parseInt(rev).toString()) {
         latestRevisionIndex = r;
         highesRevision = parseInt(rev);
       }
@@ -329,90 +342,89 @@ var firmwarewizard = function() {
     var location = images[vendor][model][latestRevisionIndex].location;
     var startIndex = location.lastIndexOf(vendor.toLowerCase().replace(/ /g, '-'));
     var src = location.substr(startIndex);
-    src = src.replace('.bin', '.jpg');
+    src = src.replace(/(.bin|.img)$/, '.jpg');
     src = src.replace('-sysupgrade', '');
-    var image = '<img src="pictures/'+src+'" alt="'+name+'" '+
-                     'onerror="firmwarewizard.setDefaultImg(this);">';
-    var onclick = 'onclick="firmwarewizard.setVendor(\''+vendor+'\');'+
-                          ' firmwarewizard.setModel(\''+model+'\'); scrollDown();"';
-    var wrapper = '<div class="preview" '+onclick+'>'+image+' <span>'+name+'</span></div>';
+    src = src.replace('alfa-network', 'alfa');
+
+    var image = document.createElement('img');
+    image.src = 'pictures/'+src;
+    image.alt = name;
+    image.addEventListener('error', firmwarewizard.setDefaultImg);
+
+    var caption = document.createElement('span');
+    caption.innerText = vendor+' '+model;
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'preview';
+    wrapper.style.display = 'none';
+    wrapper.setAttribute('data-searchstring', searchstring);
+    wrapper.setAttribute('data-vendor', vendor);
+    wrapper.setAttribute('data-model', model);
+    wrapper.addEventListener('click', previewClickEventHandler);
+    wrapper.appendChild(image);
+    wrapper.appendChild(caption);
     return wrapper;
   }
 
-  function setDefaultImg(img) {
+  function previewClickEventHandler(e) {
+    var vendor = e.currentTarget.getAttribute('data-vendor');
+    var model = e.currentTarget.getAttribute('data-model');
+    app.setVendor(vendor);
+    app.setModel(model);
+    scrollDown();
+  }
+
+  function setDefaultImg(e) {
     fallbackImg = 'pictures/no_picture_available.jpg';
-    if (img.src.search(fallbackImg) == -1) {
-      img.src = fallbackImg;
+    if (e.target.src.search(fallbackImg) == -1) {
+      e.target.src = fallbackImg;
     }
   }
   app.setDefaultImg = setDefaultImg;
 
   // search for models (and vendors) by simply
   function searchModel(query) {
-    var foundVendors = [];
-    var foundModels = [];
-
-    // format string for searching
-    function searchable(q) {
-      return q.toLowerCase().replace(/[-/ ]/g, '');
+    function filterModelList(modelList, query) {
+      var filteredModelList = [];
+      query = searchable(query);
+      for (var m in modelList) {
+        if (modelList[m][0].search(query) != -1) {
+          filteredModelList.push(modelList[m]);
+        }
+      }
+      return filteredModelList;
     }
+
+    var modelList = createSearchableModellist();
 
     // search for vendors and models
     var queryparts = query.split(' ');
     for(var q in queryparts) {
-      var querypart = searchable(queryparts[q]);
-      if (querypart.length < 2) {
-        continue;
-      }
-
-      // seach for vendors
-      var vendors = Object.keys(images);
-      for (var i in vendors) {
-        var v = searchable(vendors[i]);
-        if (v.search(querypart) != -1) {
-          foundVendors.push(vendors[i]);
-        }
-
-        // search for models
-        var models = Object.keys(images[vendors[i]]);
-        for (var j in models) {
-          var m = searchable(models[j]);
-          if (m.search(querypart) != -1) {
-            var newModel = true;
-            for (var k in foundModels) {
-              if (foundModels[k][0] == vendors[i] &&
-                  foundModels[k][1] == models[j]) {
-                    newModel = false;
-              }
-            }
-            if (newModel) foundModels.push([vendors[i], models[j]]);
-          }
-        }
-      }
+      modelList = filterModelList(modelList, queryparts[q]);
     }
 
-    // update menu for manual selection
-    if (foundVendors.length == 1) {
-      app.setVendor(foundVendors[0]);
-    } else {
-      firmwarewizard.setVendor(-1);
-    }
-    if (foundModels.length == 1) {
-      app.setVendor(foundModels[0][0]);
-      app.setModel(foundModels[0][1]);
-    } else {
-      app.setModel(-1);
-    }
-
-    // add pictures for found router models
-    $('.imagePreview').innerHTML = '';
-    for (var f in foundModels) {
-      var vendor = foundModels[f][0];
-      var model = foundModels[f][1];
-      $('.imagePreview').innerHTML += createPicturePreview(vendor, model);
-    }
+    updatePreviewList(modelList);
   }
   app.searchModel = searchModel;
+
+  function updatePreviewList(modelList) {
+    var previews = document.querySelectorAll('.imagePreview .preview');
+    for(var p = 0; p < previews.length; p++) {
+      previews[p].style.display = 'none';
+    }
+
+    for (var f in modelList) {
+      var searchstring = modelList[f][0];
+      var vendor = modelList[f][1];
+      var model = modelList[f][2];
+
+      for(p = 0; p < previews.length; p++) {
+        if (previews[p].getAttribute('data-searchstring') == searchstring) {
+          previews[p].style.display = 'inline-block';
+        }
+      }
+    }
+  }
 
   // update all elements of the page according to the wizard object.
   function updateHTML(wizard) {
@@ -438,6 +450,11 @@ var firmwarewizard = function() {
           createOption(vendors[i], vendors[i], wizard.vendor)
         );
       }
+
+      if (wizard.vendor != -1) {
+        $('.modelSearch').value = wizard.vendor;
+        searchModel(wizard.vendor);
+      }
     }
     showVendors();
 
@@ -456,10 +473,18 @@ var firmwarewizard = function() {
 
       var models = Object.keys(images[wizard.vendor]).sort();
       for (var i in models) {
-          select.appendChild(
-            createOption(models[i], models[i], wizard.model)
-          );
+        select.appendChild(
+          createOption(models[i], models[i], wizard.model)
+        );
       }
+
+      if (wizard.model != -1) {
+        $('.modelSearch').value = wizard.vendor+' '+wizard.model;
+
+        updatePreviewList([[
+          searchable(wizard.vendor+wizard.model), wizard.vendor, wizard.model]]);
+      }
+
     }
     showModels();
 
@@ -473,7 +498,7 @@ var firmwarewizard = function() {
         createOption(-1, '-- Bitte Hardwarerevision wählen --', wizard.revision)
       );
 
-      if (wizard.vendor  == -1 || wizard.model == -1 || isEmptyObject(images)) {
+      if (wizard.vendor == -1 || wizard.model == -1 || isEmptyObject(images)) {
         return;
       }
 
@@ -554,6 +579,18 @@ var firmwarewizard = function() {
     }
     updateHardwareSelection();
 
+    // add pictures for router models
+    if ($('.imagePreview').innerHTML === '') {
+      var previews = $('.imagePreview');
+      var modelList = createSearchableModellist();
+      for (var m in modelList) {
+        var searchstring = modelList[m][0];
+        var vendor = modelList[m][1];
+        var model = modelList[m][2];
+        previews.append(createPicturePreview(vendor, model, searchstring));
+      }
+    }
+
     function updatePanes() {
       var pane = PANE.MODEL;
       if (wizard.vendor != -1 && wizard.model != -1 && wizard.revision != -1) {
@@ -600,8 +637,6 @@ var firmwarewizard = function() {
         }
       };
 
-
-      var lines = '';
       var vendors = Object.keys(images).sort();
       for (var v in vendors) {
         var vendor = vendors[v];
@@ -620,22 +655,35 @@ var firmwarewizard = function() {
             continue;
           }
 
-          lines += '<tr><td>' + vendor + '</td><td>' + model + '</td><td>';
+          var tr = document.createElement('tr');
 
+          var tdVendor = document.createElement('td');
+          tdVendor.innerText = vendor;
+          tr.append(tdVendor);
+
+          var tdModel = document.createElement('td');
+          tdModel.innerText = model;
+          tr.append(tdModel);
+
+          var tdFactoryHTML = '';
           for(var branch in factoryHTML) {
-            lines += branch + ': ' + (factoryHTML[branch] || '-')+ '<br>';
+            tdFactoryHTML += branch + ': ' + (factoryHTML[branch] || '-')+ '<br>';
           }
+          var tdFactory = document.createElement('td');
+          tdFactory.innerHTML = tdFactoryHTML;
+          tr.append(tdFactory);
 
-          lines += '</td><td>';
-
+          var tdUpgradeHTML = '';
           for(branch in upgradeHTML) {
-            lines += branch + ': ' + (upgradeHTML[branch] || '-') + '<br>';
+            tdUpgradeHTML += branch + ': ' + (upgradeHTML[branch] || '-') + '<br>';
           }
+          var tdUpgrade = document.createElement('td');
+          tdUpgrade.innerHTML = tdUpgradeHTML;
+          tr.append(tdUpgrade);
 
-          lines += '</td></tr>';
+          $('#firmwareTableBody').append(tr);
         }
       }
-      $('#firmwareTableBody').innerHTML = lines;
     }
     updateFirmwareTable();
   }
@@ -690,8 +738,6 @@ var firmwarewizard = function() {
       sitesLoadedSuccessfully++;
       if (sitesLoadedSuccessfully == Object.keys(config.directories).length) {
         updateHTML(wizard);
-        $('.imagePreview').innerHTML = '';
-        $('.imagePreview').innerHTML += createPicturePreview(wizard.vendor, wizard.model);
       }
     };
 
