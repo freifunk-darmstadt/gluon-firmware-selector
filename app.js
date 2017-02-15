@@ -382,7 +382,7 @@ var firmwarewizard = function() {
   }
   app.setDefaultImg = setDefaultImg;
 
-  // search for models (and vendors) by simply
+  // search for models (and vendors)
   function searchModel(query) {
     function filterModelList(modelList, query) {
       var filteredModelList = [];

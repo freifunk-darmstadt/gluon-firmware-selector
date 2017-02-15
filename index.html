@@ -26,7 +26,7 @@
              schützen.</p>
           <input type="text" class="modelSearch"
                  placeholder="Hier Hersteller oder Modell eingeben..."
-                 onkeyup="firmwarewizard.searchModel(this.value);">
+                 onkeyup="firmwarewizard.searchModel(this.value); firmwarewizard.setVendor(-1);">
           <span>manuelle Auswahl:</span>
           <select id="vendorselect" class="ulselect"
                   onchange="firmwarewizard.setVendor(this.value)"></select>
