@@ -291,6 +291,7 @@ var firmwarewizard = function() {
 
     if (strippedFilename !== '') {
       console.log("Match for file", filename, "was not exhaustive.");
+      return;
     }
 
     // collect branch versions
