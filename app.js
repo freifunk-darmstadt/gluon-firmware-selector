@@ -248,24 +248,49 @@ var firmwarewizard = function() {
     }
   }
 
-  function parseFilePath(device, match, path, href, branch) {
+  function parseFilePath(match, basePath, filename, branch) {
+    var location = basePath + filename;
+
+    var devices = vendormodels_reverse[match];
+    if (!(devices instanceof Array) || devices.length != 1) {
+      console.log("Error: vendormodels_reverse did not contain", match);
+      return;
+    }
+    var device = devices[0];
+
     if (device.model == '--ignore--' || device.revision == '--ignore--') {
       return;
     }
 
-    var location = path + href;
-    var type = findType(href);
-    var version = findVersion(href);
-    var region = findRegion(href);
-    var revision = device.revision;
-    var size = findSize(href);
+    var strippedFilename = filename;
+    strippedFilename = strippedFilename.replace(config.community_prefix, '-');
 
-    if (revision.length === 0) {
-      revision = findRevision(href.replace(match, ''));
-    }
+    var version = findVersion(strippedFilename);
+    strippedFilename = strippedFilename.replace(version, '');
+
+    strippedFilename = strippedFilename.replace(match, '');
+
+    var revision = device.revision || findRevision(strippedFilename);
+    strippedFilename = strippedFilename.replace(revision, '');
+
+    var region = findRegion(strippedFilename);
+    strippedFilename = strippedFilename.replace(region, '');
 
     if (region.length) {
       revision += '-' + region;
+    }
+
+    var size = findSize(strippedFilename);
+    strippedFilename = strippedFilename.replace(size, '');
+
+    var type = findType(strippedFilename);
+    strippedFilename = strippedFilename.replace(type, '');
+
+    strippedFilename = strippedFilename.replace(/.(bin|img.gz|img|tar|vdi|vmdk)/, '');
+    strippedFilename = strippedFilename.replace(/-/g, '');
+
+    if (strippedFilename !== '') {
+      console.log("Match for file", filename, "was not exhaustive.");
     }
 
     // collect branch versions
@@ -701,8 +726,6 @@ var firmwarewizard = function() {
 
   // parse the contents of the given directories
   function loadDirectories() {
-    var vendormodels_reverse = buildVendorModelsReverse();
-
     // sort by length to get the longest match
     var matches = Object.keys(vendormodels_reverse).sort(function(a, b) {
       if (a.length < b.length) return 1;
@@ -725,10 +748,7 @@ var firmwarewizard = function() {
           }
           var match = reMatch.exec(href);
           if (match) {
-            var devices = vendormodels_reverse[match[1]];
-            for (var i in devices) {
-              parseFilePath(devices[i], match[1], basePath, href, branch);
-            }
+            parseFilePath(match[1], basePath, href, branch);
           } else if (config.listMissingImages) {
             console.log("No rule for firmware image:", href);
           }
@@ -761,6 +781,7 @@ var firmwarewizard = function() {
     }
   }
 
+  var vendormodels_reverse = buildVendorModelsReverse();
   loadDirectories();
 
   // set link to firmware source directory

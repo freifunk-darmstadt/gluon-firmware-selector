@@ -18,6 +18,8 @@ var config = {
   listMissingImages: false,
   // see devices.js for different vendor model maps
   vendormodels: vendormodels,
+  // community prefix of the firmware images
+  community_prefix: 'gluon-ffda-',
   // relative image paths and branch
   directories: {
     // some demo sources
