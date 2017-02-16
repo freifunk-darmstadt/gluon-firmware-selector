@@ -148,7 +148,7 @@ var vendormodels = {
     "UniFi AP AC Pro": "unifi-ac-pro",
     "UniFi AP AC Lite": "unifi-ac-lite",
     "UniFi AP Outdoor": {"unifi-outdoor": "", "unifiap-outdoor": ""},
-    "UniFi AP Outdoor+": {"unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor+": "", "ubiquiti-unifiap-outdoor%2B": ""}
+    "UniFi AP Outdoor+": {"unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor\\\+": "", "ubiquiti-unifiap-outdoor%2B": ""}
   },
 
   "VoCore": {

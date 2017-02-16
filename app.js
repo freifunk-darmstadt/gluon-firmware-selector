@@ -747,6 +747,13 @@ var firmwarewizard = function() {
     // match image files
     var reMatch = new RegExp('('+matches.join('|')+')[.-]');
 
+    // check if image regexes contain regular expressions themself
+    var reCheckRegex = new RegExp(/[^\\]+[+?*]/);
+
+    if (reCheckRegex.exec(matches.join('|')) !== null) {
+      console.log("Warning! Some regular expressions for firmware images, contain unescaped characters.");
+    }
+
     var sitesLoadedSuccessfully = 0;
     for (var indexPath in config.directories) {
       // retrieve the contents of the directory
