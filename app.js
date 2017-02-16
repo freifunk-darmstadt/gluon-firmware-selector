@@ -613,7 +613,7 @@ var firmwarewizard = function() {
         var searchstring = modelList[m][0];
         var vendor = modelList[m][1];
         var model = modelList[m][2];
-        previews.append(createPicturePreview(vendor, model, searchstring));
+        previews.appendChild(createPicturePreview(vendor, model, searchstring));
       }
     }
 
@@ -648,20 +648,53 @@ var firmwarewizard = function() {
       $('#firmwareTableBody').innerHTML = '';
 
       var initializeRevHTML = function(rev) {
-        upgradeHTML[rev.branch] = '';
-        factoryHTML[rev.branch] = '';
+        if (upgradeRevBranchDict[rev.branch] === undefined) {
+          upgradeRevBranchDict[rev.branch] = document.createElement('span');
+        }
+        if (factoryRevBranchDict[rev.branch] === undefined) {
+          factoryRevBranchDict[rev.branch] = document.createElement('span');
+        }
       };
 
       var addToRevHTML = function(rev) {
-        var html = '[<a href="' + rev.location + '" title="' + rev.version + '">' + rev.revision + '</a>] ';
+        var a = document.createElement('a');
+        a.href = rev.location;
+        a.title = rev.version;
+        a.innerText = rev.revision;
+
+        var textNodeStart = document.createTextNode('[');
+        var textNodeEnd = document.createTextNode('] ');
+
         if (rev.type == 'sysupgrade') {
-          upgradeHTML[rev.branch] += html;
+          upgradeRevBranchDict[rev.branch].appendChild(textNodeStart);
+          upgradeRevBranchDict[rev.branch].appendChild(a);
+          upgradeRevBranchDict[rev.branch].appendChild(textNodeEnd);
           show = true;
         } else if (rev.type == 'factory') {
-          factoryHTML[rev.branch] += html;
+          factoryRevBranchDict[rev.branch].appendChild(textNodeStart);
+          factoryRevBranchDict[rev.branch].appendChild(a);
+          factoryRevBranchDict[rev.branch].appendChild(textNodeEnd);
           show = true;
         }
       };
+
+      function createRevTd(revBranchDict) {
+        var td = document.createElement('td');
+        for(var branch in revBranchDict) {
+          var textNode;
+          if (revBranchDict[branch].children.length === 0) {
+            textNode = document.createTextNode(branch + ': -');
+            td.appendChild(textNode);
+          } else {
+            textNode = document.createTextNode(branch + ': ');
+            td.appendChild(textNode);
+            td.appendChild(revBranchDict[branch]);
+          }
+          var br = document.createElement("br");
+          td.appendChild(br);
+        }
+        return td;
+      }
 
       var vendors = Object.keys(images).sort();
       for (var v in vendors) {
@@ -670,8 +703,8 @@ var firmwarewizard = function() {
         for (var m in models) {
           var model = models[m];
           var revisions = sortByRevision(images[vendor][model]);
-          var upgradeHTML = {};
-          var factoryHTML = {};
+          var upgradeRevBranchDict = {};
+          var factoryRevBranchDict = {};
           var show = false;
 
           revisions.forEach(initializeRevHTML);
@@ -685,29 +718,16 @@ var firmwarewizard = function() {
 
           var tdVendor = document.createElement('td');
           tdVendor.innerText = vendor;
-          tr.append(tdVendor);
+          tr.appendChild(tdVendor);
 
           var tdModel = document.createElement('td');
           tdModel.innerText = model;
-          tr.append(tdModel);
+          tr.appendChild(tdModel);
 
-          var tdFactoryHTML = '';
-          for(var branch in factoryHTML) {
-            tdFactoryHTML += branch + ': ' + (factoryHTML[branch] || '-')+ '<br>';
-          }
-          var tdFactory = document.createElement('td');
-          tdFactory.innerHTML = tdFactoryHTML;
-          tr.append(tdFactory);
+          tr.appendChild(createRevTd(factoryRevBranchDict));
+          tr.appendChild(createRevTd(upgradeRevBranchDict));
 
-          var tdUpgradeHTML = '';
-          for(branch in upgradeHTML) {
-            tdUpgradeHTML += branch + ': ' + (upgradeHTML[branch] || '-') + '<br>';
-          }
-          var tdUpgrade = document.createElement('td');
-          tdUpgrade.innerHTML = tdUpgradeHTML;
-          tr.append(tdUpgrade);
-
-          $('#firmwareTableBody').append(tr);
+          $('#firmwareTableBody').appendChild(tr);
         }
       }
     }
