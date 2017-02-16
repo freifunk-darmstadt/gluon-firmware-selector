@@ -55,6 +55,7 @@ var vendormodels = {
 
   "Mikrotik": {
     "vmlinux": {"mikrotik-vmlinux-lzma" : "", "mikrotik-vmlinux.lzma" : ""},
+    "nand": {"mikrotik-nand-64m" : "64m", "mikrotik-nand-large" : "large"}
   },
 
   "Netgear": {
