@@ -150,6 +150,10 @@ var vendormodels = {
     "UniFi AP Outdoor+": {"unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor+": "", "ubiquiti-unifiap-outdoor%2B": ""}
   },
 
+  "VoCore": {
+    "VoCore 2": "vocore2",
+  },
+
   "Western Digital": {
     "My Net N600": "my-net-n600",
     "My Net N750": "my-net-n750"
