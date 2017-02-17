@@ -220,7 +220,7 @@ var firmwarewizard = function() {
 
   function findVersion(name) {
     // version with optional date in it (e.g. 0.8.0~20160502)
-    var m = /-([0-9]+.[0-9]+.[0-9]+(~[0-9]+)?)[.-]/.exec(name);
+    var m = /-([0-9]+.[0-9]+.[0-9]+(\+[a-z0-9]+)?(~[a-z0-9]+)?)[.-]/.exec(name);
     return m ? m[1] : '';
   }
 
