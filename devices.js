@@ -45,7 +45,8 @@ var vendormodels = {
   },
 
   "Linksys": {
-    "WRT160NL": "linksys-wrt160nl"
+    "WRT160NL": "linksys-wrt160nl",
+    "WRT1200AC": "linksys-wrt1200ac"
   },
 
   "Meraki": {
