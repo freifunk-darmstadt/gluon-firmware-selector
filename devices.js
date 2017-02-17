@@ -159,7 +159,8 @@ var vendormodels = {
   },
 
   "VoCore": {
-    "VoCore 2": "vocore2",
+    "VoCore": "vocore",
+    "VoCore 2": "vocore2"
   },
 
   "Western Digital": {
