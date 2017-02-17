@@ -41,7 +41,7 @@ var vendormodels = {
   "LeMaker": {
     "Banana Pi": "lemaker-banana-pi",
     "Banana Pro": "lemaker-banana-pro",
-    "Lamobo": "lamobo"
+    "Banana Pi R1 (Lamobo)": {"lamobo-r1": "", "lemaker-lamobo-r1": ""}
   },
 
   "Linksys": {
