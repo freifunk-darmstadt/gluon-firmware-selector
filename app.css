@@ -217,6 +217,7 @@ h1, h2, h3, h4, h5, h6 {
 #wizard .radiogroup label, #wizard .btn {
   display: inline-block;
   list-style-type: none;
+  font: inherit;
   color: black;
   margin: .5em;
   padding: .5em 1em;
