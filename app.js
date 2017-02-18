@@ -90,12 +90,14 @@ var firmwarewizard = function() {
 
     var parameters = '';
     for (var key in wizard) {
-      parameters += '&' + key + '=' + encodeURIComponent(wizard[key]);
+      if (wizard[key] != -1 && wizard[key] !== false) {
+        parameters += '&' + key + '=' + encodeURIComponent(wizard[key]);
+      }
     }
 
     // replace first occurence of "&" by "?"
     parameters = parameters.replace('&', '?');
-    history.pushState(wizard, '', parameters);
+    history.pushState(wizard, '', parameters || '?');
   }
 
   function parseWizardObject(wizard) {
