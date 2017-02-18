@@ -687,7 +687,15 @@ var firmwarewizard = function() {
       }
 
       var revisions = images[currentVendor][currentModel]
-        .filter(function(e) { return e.revision == currentRevision && e.type == currentImageType; });
+        .filter(function(e) {
+          return e.revision == currentRevision && e.type == currentImageType;
+        }).sort(function(a, b) {
+          if (a.branch == 'stable') return -1;
+          if (b.branch == 'stable') return 1;
+          if (a.branch == 'beta') return -1;
+          if (b.branch == 'beta') return 1;
+          return 0;
+        });
 
       $('#branchselect').innerHTML = '';
       $('#branch-experimental-dl').innerHTML = '';
