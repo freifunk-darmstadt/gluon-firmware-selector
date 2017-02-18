@@ -9,6 +9,7 @@ body {
   font-size: 14px;
   line-height: 1.42;
   color: #333;
+  overflow-y: scroll;
 }
 
 a {
@@ -25,44 +26,28 @@ h1, h2, h3, h4, h5, h6 {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
-  color: rgb(220, 0, 103);
 }
 
-.container {
-  padding: 0 0.5em;
-  margin-right: auto;
-  margin-left: auto;
+#wizard {
+  padding-bottom: 4em;
 }
 
 @media (min-width: 768px) {
-  .container {
+  #wizard .pane {
     width: 750px;
   }
 }
 
 @media (min-width: 992px) {
-  .container {
+  #wizard .pane {
     width: 970px;
   }
 }
 
 @media (min-width: 1200px) {
-  .container {
+  #wizard .pane {
     width: 1170px;
   }
-}
-
-input, select {
-  font: inherit;
-  color: inherit;
-}
-
-hr {
-  height: 0;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border: 0;
-  border-top: 1px solid #eee;
 }
 
 .table {
@@ -108,7 +93,11 @@ hr {
 }
 
 #firmwareTable {
-  padding-top: 4em;
+  padding: 4em 1em;
+}
+
+#firmwareTable h1 {
+  color: #dc0067;
 }
 
 .firmwareTableLink {
@@ -121,53 +110,23 @@ hr {
   text-decoration: underline;
 }
 
-#wizard {
-  width: 75%;
-  padding-bottom: 4em;
+#wizard .pane-wrapper {
+  box-shadow: 0 0.15em 0.5em #ccc;
+  margin: 1em 0 3em 0;
 }
 
-#wizard p {
-  margin: 1em auto;
+#wizard .pane {
+  padding: 2em;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-#wizard select, #wizard input {
-  margin-bottom: .5em;
+#wizard #model-pane {
+  border-left: 3px solid #dc0067;
 }
 
-#wizard .radiogroup input {
-  display: none;
-}
-
-#wizard .radiogroup label, .btn {
-  display: inline-block;
-  list-style-type: none;
-  color: black;
-  background-color: #ffb400;
-  margin: .5em;
-  padding: .5em;
-  font-weight: normal;
-  cursor: pointer;
-  border: .15em solid #ffb400;
-  border-radius: .5em;
-}
-
-#wizard .box-inset {
-  margin: 1em 0;
-  padding: 1em;
-  box-shadow: 0px 0px .5em black inset;
-  background-color: #c90000;
-  color: #ffffff;
-  font-weight: lighter;
-}
-
-#wizard .box-inset .branch-experimental-dl {
-  margin: .75em 0 0 0;
-  padding: 0;
-  opacity: .85;
-}
-
-#wizard .btn:hover {
-  color: black;
+#wizard #model-pane h1 {
+  color: #dc0067;
 }
 
 #wizard #model-pane input {
@@ -175,9 +134,100 @@ hr {
   width: 100%;
 }
 
-#wizard #model-pane .revisionselectWrapper span {
-  margin-top: 2em;
+#wizard #type-pane {
+  border-left: 3px solid #ffb400;
+}
+
+#wizard #type-pane h1 {
+  color: #ffb400;
+}
+
+#wizard #type-pane .radiogroup label {
+  background-color: #ffb400;
+}
+
+#wizard #type-pane .radiogroup input[type="radio"]:checked + label {
+  box-shadow: 0 0 0.5em #cf7400 inset;
+}
+
+#wizard #branch-pane {
+  border-left: 3px solid #009ee0;
+}
+
+#wizard #branch-pane h1 {
+  color: #009ee0;
+}
+
+#wizard #branch-pane .btn {
+  background-color: #009ee0;
+}
+
+#wizard #branch-pane.show-experimental-warning button.dl-expermental {
+  box-shadow: 0 0 0.5em #005ea0 inset;
+}
+
+#wizard #branch-pane .warning-experimental {
+  display: none;
+  margin: 1em 0;
+  padding: 1em;
+  box-shadow: 0.125em 0.125em 0.5em #ccc;
+  border: .5em solid #009ee0;
+}
+
+#wizard #branch-pane.show-experimental-warning .warning-experimental {
   display: block;
+}
+
+#wizard p {
+  margin: 1em auto;
+}
+
+#wizard select, #wizard input {
+  font: inherit;
+  color: inherit;
+  margin-bottom: .5em;
+  background: #fff;
+  border: none;
+  border: 1px solid #ddd;
+  box-shadow: 1px 2px 2px 0 #ccc;
+  padding: 0.75em 0.75em;
+  margin-right: 0.5em;
+  margin-bottom: 1em;
+  transition: box-shadow 200ms ease-in-out;
+}
+
+#wizard select:focus, #wizard input:focus {
+  box-shadow: 1px 2px 2px 0 #ccc, 2px 2px 6px #ccc;
+}
+
+#wizard option {
+  font: inherit;
+  color: inherit;
+}
+
+#wizard select.invalid {
+  border: 1px solid #dc0067;
+  box-shadow: 0.125em 0.125em 0.5em rgba(219, 0, 102, 0.125);
+}
+
+#wizard .radiogroup input {
+  display: none;
+}
+
+#wizard .radiogroup label, #wizard .btn {
+  display: inline-block;
+  list-style-type: none;
+  color: black;
+  margin: .5em;
+  padding: .5em 1em;
+  border: none;
+  box-shadow: 0.125em 0.125em 0.5em #ccc;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+#wizard .btn:hover {
+  color: black;
 }
 
 #wizard .imagePreview .preview {
@@ -185,13 +235,19 @@ hr {
   height: 11em;
   margin: 0.5em;
   padding: 0.5em;
-  background: #eee;
+  border: 1px solid white;
   text-align: center;
 }
 
 #wizard .imagePreview .preview:hover {
-  background: #ddd;
+  border: 1px solid #ccc;
   cursor: pointer;
+}
+
+#wizard .imagePreview .preview.selected {
+  border: 1px solid #ccc;
+  cursor: default;
+  box-shadow: 0 0 0.5em #ccc inset;
 }
 
 #wizard .imagePreview .preview img {
@@ -202,18 +258,4 @@ hr {
 #wizard .imagePreview .preview span {
   display: block;
   margin: auto 0.5em;
-}
-
-#wizard .radiogroup input[type="radio"]:checked + label,
-#wizard #branch-pane.show-experimental-warning button.dl-expermental {
-  border-color: #cc8100;
-  box-shadow: 0 0 5px #cc8100 inset;
-}
-
-#wizard #branch-pane .warning-experimental {
-  display: none;
-}
-
-#wizard #branch-pane.show-experimental-warning .warning-experimental {
-  display: block;
 }

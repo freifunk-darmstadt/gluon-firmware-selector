@@ -17,8 +17,21 @@ function $(s) {
   return document.querySelector(s);
 }
 
-function toggleClass(s, cssClass) {
-  $(s).classList.toggle(cssClass);
+function toggleClass(e, cssClass) {
+  setClass(e, cssClass, !hasClass(e, cssClass));
+}
+
+function hasClass(e, cssClass) {
+  var searchstring = (' ' + e.className + ' ').replace(/[\n\t]/g, " ");
+  return (searchstring.indexOf(' ' + cssClass+ ' ') !== -1);
+}
+
+function setClass(e, cssClass, active) {
+  if (active && !hasClass(e, cssClass)) {
+    e.className = (e.className+' '+cssClass).trim();
+  } else if (!active && hasClass(e, cssClass)) {
+    e.className = e.className.replace(cssClass, '');
+  }
 }
 
 function show_inline(s) {
@@ -62,9 +75,29 @@ var firmwarewizard = function() {
   ];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
 
+  // the invisible separator is used to delimit searchstring parts, e.g.
+  // "NanoStation[SEPARATOR]" vs. "NanoStation Loco[SEPARATOR]"
+  var INVISIBLE_SEPARATOR = '\u2063';
+  var NON_BREAKING_SPACE = '\u00A0';
+  //var INVISIBLE_SEPARATOR = '#'; // debug
+  //var NON_BREAKING_SPACE = '?'; // debug
+
   var wizard = parseWizardObject();
   app.currentVersions = {};
   var images = {};
+  var vendormodels_reverse;
+
+  var typeNames = {
+    'factory': 'Erstinstallation',
+    'sysupgrade': 'Upgrade',
+    'rootfs': "Root-Image",
+    'kernel': "Kernel-Image"
+  };
+
+  var reFileExtension = new RegExp(/.(bin|img.gz|img|tar|vdi|vmdk)/);
+  var reRemoveDashes = new RegExp(/-/g);
+  var reSearchable = new RegExp('[-/ '+NON_BREAKING_SPACE+']', 'g');
+  var reRemoveSpaces = new RegExp(/ /g);
 
   function buildVendorModelsReverse() {
     var vendormodels_reverse = {};
@@ -102,10 +135,7 @@ var firmwarewizard = function() {
 
   function parseWizardObject(wizard) {
     if (wizard === undefined || wizard === null) wizard = {};
-    wizard.vendor            = wizard.vendor || -1;
-    wizard.model             = wizard.model || -1;
-    wizard.revision          = wizard.revision || -1;
-    wizard.imageType         = wizard.imageType || -1;
+    wizard.q                 = wizard.q || '';
     wizard.showFirmwareTable = (wizard.showFirmwareTable == 'true');
     return wizard;
   }
@@ -113,6 +143,7 @@ var firmwarewizard = function() {
   window.onpopstate = function(event) {
     if (event.state === null) return;
     wizard = parseWizardObject(event.state);
+    $('.modelSearch').value = wizard.q;
     updateHTML(wizard);
   };
 
@@ -127,58 +158,45 @@ var firmwarewizard = function() {
     }
     var parsedURL = parseURLasJSON();
     wizard = parseWizardObject(parsedURL);
-    updateHTML(wizard);
-  };
+    $('.modelSearch').value = wizard.q;
 
-  app.genericError = function() {
-    alert('Da ist was schiefgelaufen. Frage doch bitte einmal im Chat nach.');
-  };
+    vendormodels_reverse = buildVendorModelsReverse();
 
-  // methods to set options
-
-  app.setVendor = function(vendor) {
-    wizard.vendor = vendor;
-    wizard.model = -1;
-    wizard.revision = -1;
-    wizard.imageType = -1;
-    createHistoryState(wizard);
-    updateHTML(wizard);
-  };
-
-  app.setModel = function(model) {
-    wizard.model = model;
-    wizard.revision = -1;
-    wizard.imageType = -1;
-
-    if (wizard.model != -1) {
-      // skip revision selection if there is only one option left
-      var revisions = getRevisions();
-      if (revisions.length == 1) {
-        app.setRevision(revisions[0], true);
+    loadDirectories(function() {
+      // initialize pictures for router models
+      var previews = $('.imagePreview');
+      var fullModelList = createSearchableModellist();
+      for (var m in fullModelList) {
+        var searchstring = fullModelList[m][0];
+        var vendor = fullModelList[m][1];
+        var model = fullModelList[m][2];
+        previews.appendChild(createPicturePreview(vendor, model, searchstring));
       }
-    }
 
-    createHistoryState(wizard);
-    updateHTML(wizard);
-  };
-
-  app.setRevision = function(revision, silentUpdate) {
-    if (silentUpdate === undefined) {
-      silentUpdate = false;
-    }
-    wizard.revision = revision;
-    wizard.imageType = -1;
-    if (!silentUpdate) {
-      createHistoryState(wizard);
       updateHTML(wizard);
+      show_block('.manualSelection');
+      updateFirmwareTable();
+    });
+
+    // set link to firmware source directory
+    for(var path in config.directories) {
+      $('#firmware-source-dir').href = path.replace(/\/[^\/]*$/, '');
+      break;
     }
   };
 
-  app.setImageType = function(type) {
-    wizard.imageType = type;
+  function updateSearchQuery(query) {
+    wizard.q = query;
     createHistoryState(wizard);
     updateHTML(wizard);
-  };
+  }
+  app.updateSearchQuery = updateSearchQuery;
+
+  function setSearchQuery(query) {
+    $('.modelSearch').value = query;
+    updateSearchQuery(query);
+  }
+  app.setSearchQuery = setSearchQuery;
 
   app.showFirmwareTable = function() {
     wizard.showFirmwareTable = true;
@@ -288,8 +306,8 @@ var firmwarewizard = function() {
     var type = findType(strippedFilename);
     strippedFilename = strippedFilename.replace(type, '');
 
-    strippedFilename = strippedFilename.replace(/.(bin|img.gz|img|tar|vdi|vmdk)/, '');
-    strippedFilename = strippedFilename.replace(/-/g, '');
+    strippedFilename = strippedFilename.replace(reFileExtension, '');
+    strippedFilename = strippedFilename.replace(reRemoveDashes, '');
 
     if (strippedFilename !== '') {
       console.log("Match for file", filename, "was not exhaustive.");
@@ -321,22 +339,44 @@ var firmwarewizard = function() {
     return o;
   }
 
-  function getRevisions() {
-    return sortByRevision(images[wizard.vendor][wizard.model])
+  function getRevisions(currentVendor, currentModel) {
+    var models = images[currentVendor];
+    if (models === undefined) {
+      return [];
+    }
+
+    var revisions = models[currentModel];
+    if (revisions === undefined) {
+      return [];
+    }
+
+    return sortByRevision(revisions)
       .map(function(e) { return e.revision; })
       .filter(function(value, index, self) { return self.indexOf(value) === index; });
   }
 
-  function getImageTypes() {
-    return images[wizard.vendor][wizard.model]
-      .map(function(e) { return e.type; })
-      .filter(function(value, index, self) { return self.indexOf(value) === index; })
-      .sort();
+  function getImageTypes(modelList) {
+    if (modelList.length == 1) {
+      var vendor = modelList[0][1];
+      var model = modelList[0][2];
+      return images[vendor][model]
+        .map(function(e) { return e.type; })
+        .filter(function(value, index, self) { return self.indexOf(value) === index; })
+        .sort();
+    } else {
+      return [];
+    }
   }
 
   // format string for searching
   function searchable(q) {
-    return q.toLowerCase().replace(/[-/ ]/g, '');
+    return q.toLowerCase().replace(reSearchable, '');
+  }
+
+  // make string atomic (atomic strings won't get split when searching for models
+  // and have a well-defined ending)
+  function atomic(q) {
+    return q.replace(/ /g, NON_BREAKING_SPACE) + INVISIBLE_SEPARATOR;
   }
 
   // create a list with all models optimized for searching
@@ -346,10 +386,82 @@ var firmwarewizard = function() {
     for(var i in vendors) {
       var models = Object.keys(images[vendors[i]]);
       for (var j in models) {
-        modelList.push([searchable(vendors[i]+models[j]), vendors[i], models[j]]);
+        var revisions = getRevisions(vendors[i], models[j]);
+        var searchingstring = searchable(
+          vendors[i]+INVISIBLE_SEPARATOR+models[j]+INVISIBLE_SEPARATOR+
+          revisions.map(atomic).join(''));
+        // the last entry stores the matched revision
+        modelList.push([searchingstring, vendors[i], models[j], revisions, '']);
       }
     }
     return modelList;
+  }
+
+  // search for models (and vendors)
+  function searchModel(query) {
+    var foundImageType = '';
+    var modelList = createSearchableModellist();
+
+    // search for vendors and models
+    var queryparts = query.split(' ');
+    for(var i in queryparts) {
+      var q = searchable(queryparts[i]);
+      var atomicQ = q;
+      if (q.length === 0 || q[q.length-1] !== INVISIBLE_SEPARATOR) {
+        atomicQ += INVISIBLE_SEPARATOR;
+      }
+      var filteredModelList = [];
+      for (var m in modelList) {
+        if (modelList[m][0].indexOf(q) != -1) {
+          // add revision to modelList entry (if unique)
+          var revisions = getRevisions(modelList[m][1], modelList[m][2]);
+          if (revisions.length == 1 && revisions[0] == 'alle') {
+            modelList[m][4] = revisions[0];
+          } else {
+            var r = revisions.map(atomic).map(searchable).indexOf(atomicQ);
+            if (r != -1) {
+              modelList[m][4] = revisions[r]; // add revision to modelList entry
+            }
+          }
+          filteredModelList.push(modelList[m]);
+        } else {
+          var typeKeys = Object.keys(typeNames);
+          var typeValues = Object.values(typeNames);
+          for (var k in typeKeys) {
+            if (searchable(typeKeys[k]).substr(0, q.length) == q ||
+                searchable(typeValues[k]).substr(0, q.length) == q) {
+              foundImageType = Object.keys(typeNames)[k];
+              filteredModelList.push(modelList[m]);
+            }
+          }
+        }
+      }
+      modelList = filteredModelList;
+    }
+
+    var searchResult = {};
+    searchResult.vendor = getVendorFromModelList(modelList);
+    searchResult.model = '';
+    searchResult.revision = '';
+    searchResult.imageType = foundImageType;
+    searchResult.imageTypes = [];
+    searchResult.modelList = modelList;
+    if (modelList.length == 1) {
+      searchResult.model = modelList[0][2];
+      searchResult.revision = modelList[0][4];
+      searchResult.imageTypes = getImageTypes(modelList);
+    }
+    return searchResult;
+  }
+
+  // check if vendor is unique and return the vendor name
+  function getVendorFromModelList(modelList) {
+    var vendor = '';
+    for (var i in modelList) {
+      if (vendor === '') vendor = modelList[i][1];
+      if (vendor != modelList[i][1]) return '';
+    }
+    return vendor;
   }
 
   function createPicturePreview(vendor, model, searchstring) {
@@ -358,19 +470,19 @@ var firmwarewizard = function() {
 
     // determine revision index (use image for latest revision)
     var latestRevisionIndex = 0;
-    var highesRevision = 1;
+    var highestRevision = 1;
     for (var r in images[vendor][model]) {
       var rev = images[vendor][model][r].revision.substr(1);
-      if (parseInt(rev) > highesRevision){// && rev.toString() == parseInt(rev).toString()) {
+      if (parseInt(rev) > highestRevision){
         latestRevisionIndex = r;
-        highesRevision = parseInt(rev);
+        highestRevision = parseInt(rev);
       }
     }
 
     var location = images[vendor][model][latestRevisionIndex].location;
-    var startIndex = location.lastIndexOf(vendor.toLowerCase().replace(/ /g, '-'));
+    var startIndex = location.lastIndexOf(vendor.toLowerCase().replace(reRemoveSpaces, '-'));
     var src = location.substr(startIndex);
-    src = src.replace(/(.bin|.img)$/, '.jpg');
+    src = src.replace(reFileExtension, '.jpg');
     src = src.replace('-sysupgrade', '');
     src = src.replace('alfa-network', 'alfa');
 
@@ -397,48 +509,24 @@ var firmwarewizard = function() {
   function previewClickEventHandler(e) {
     var vendor = e.currentTarget.getAttribute('data-vendor');
     var model = e.currentTarget.getAttribute('data-model');
-    app.setVendor(vendor);
-    app.setModel(model);
+    app.setSearchQuery(atomic(vendor)+' '+atomic(model));
+    setClass(e.currentTarget, 'selected', true);
     scrollDown();
   }
 
   function setDefaultImg(e) {
     fallbackImg = 'pictures/no_picture_available.jpg';
-    if (e.target.src.search(fallbackImg) == -1) {
+    if (e.target.src.indexOf(fallbackImg) == -1) {
       e.target.src = fallbackImg;
     }
   }
   app.setDefaultImg = setDefaultImg;
 
-  // search for models (and vendors)
-  function searchModel(query) {
-    function filterModelList(modelList, query) {
-      var filteredModelList = [];
-      query = searchable(query);
-      for (var m in modelList) {
-        if (modelList[m][0].search(query) != -1) {
-          filteredModelList.push(modelList[m]);
-        }
-      }
-      return filteredModelList;
-    }
-
-    var modelList = createSearchableModellist();
-
-    // search for vendors and models
-    var queryparts = query.split(' ');
-    for(var q in queryparts) {
-      modelList = filterModelList(modelList, queryparts[q]);
-    }
-
-    updatePreviewList(modelList);
-  }
-  app.searchModel = searchModel;
-
   function updatePreviewList(modelList) {
     var previews = document.querySelectorAll('.imagePreview .preview');
     for(var p = 0; p < previews.length; p++) {
       previews[p].style.display = 'none';
+      setClass(previews[p], 'selected', false);
     }
 
     for (var f in modelList) {
@@ -449,6 +537,9 @@ var firmwarewizard = function() {
       for(p = 0; p < previews.length; p++) {
         if (previews[p].getAttribute('data-searchstring') == searchstring) {
           previews[p].style.display = 'inline-block';
+          if (modelList.length == 1) {
+            setClass(previews[p], 'selected', true);
+          }
         }
       }
     }
@@ -456,6 +547,9 @@ var firmwarewizard = function() {
 
   // update all elements of the page according to the wizard object.
   function updateHTML(wizard) {
+    // parse searchstring to retrieve current vendor and model
+    var s = searchModel(wizard.q);
+
     if (wizard.showFirmwareTable) {
       show_block('#firmwareTable');
       hide('#wizard');
@@ -465,117 +559,135 @@ var firmwarewizard = function() {
     }
 
     // show vendor dropdown menu.
-    function showVendors() {
+    function showVendors(currentVendor) {
       var select = $('#vendorselect');
+
       select.innerHTML = '';
       select.appendChild(
-        createOption(-1, '-- Bitte Hersteller wählen --')
+        createOption('', '-- Bitte Hersteller wählen --')
       );
 
       var vendors = Object.keys(images).sort();
       for (var i in vendors) {
         select.appendChild(
-          createOption(vendors[i], vendors[i], wizard.vendor)
+          createOption(atomic(vendors[i]), vendors[i], atomic(currentVendor))
         );
       }
-
-      if (wizard.vendor != -1) {
-        $('.modelSearch').value = wizard.vendor;
-        searchModel(wizard.vendor);
-      }
     }
-    showVendors();
+    showVendors(s.vendor);
 
     // show model dropdown menu
-    function showModels() {
+    function showModels(currentVendor, currentModel) {
       var select = $('#modelselect');
+      setClass(select, 'invalid', currentModel === '');
 
       select.innerHTML = '';
-      select.appendChild(
-        createOption(-1, '-- Bitte Modell wählen --')
+      select.appendChild(createOption(
+        atomic(currentVendor),
+        '-- Bitte Modell wählen --',
+        atomic(currentVendor))
       );
 
-      if (wizard.vendor == -1 || isEmptyObject(images)) {
+      if (currentVendor === '' || isEmptyObject(images)) {
         return;
       }
 
-      var models = Object.keys(images[wizard.vendor]).sort();
+      var prefix = atomic(currentVendor) + ' ';
+      var models = Object.keys(images[currentVendor]).sort();
       for (var i in models) {
-        select.appendChild(
-          createOption(models[i], models[i], wizard.model)
-        );
+        select.appendChild(createOption(
+          prefix + atomic(models[i]),
+          models[i],
+          prefix + atomic(currentModel)));
       }
-
-      if (wizard.model != -1) {
-        $('.modelSearch').value = wizard.vendor+' '+wizard.model;
-
-        updatePreviewList([[
-          searchable(wizard.vendor+wizard.model), wizard.vendor, wizard.model]]);
-      }
-
     }
-    showModels();
+    showModels(s.vendor, s.model);
 
     // show revision dropdown menu
-    function showRevisions() {
+    function showRevisions(currentVendor, currentModel, currentRevision) {
       var select = $('#revisionselect');
+      setClass(select, 'invalid', currentRevision === '');
 
       select.innerHTML = '';
-
-      select.appendChild(
-        createOption(-1, '-- Bitte Hardwarerevision wählen --', wizard.revision)
+      select.appendChild(createOption(
+        atomic(currentVendor) + ' ' + atomic(currentModel),
+        '-- Bitte Hardwarerevision wählen --',
+        atomic(currentVendor) + ' ' + atomic(currentModel))
       );
 
-      if (wizard.vendor == -1 || wizard.model == -1 || isEmptyObject(images)) {
+      if (currentVendor === '' || currentModel === '' || isEmptyObject(images)) {
         return;
       }
 
-      var revisions = getRevisions();
+      var prefix = atomic(currentVendor) + ' ' +
+                   atomic(currentModel) + ' ';
+      var revisions = getRevisions(currentVendor, currentModel);
       for (var i in revisions) {
-        select.appendChild(
-          createOption(revisions[i], revisions[i], wizard.revision)
+        select.appendChild(createOption(
+          prefix + atomic(revisions[i]),
+          revisions[i],
+          prefix + atomic(currentRevision))
         );
       }
     }
-    showRevisions();
+    showRevisions(s.vendor, s.model, s.revision);
+
+    updatePreviewList(s.modelList);
 
     // show image type selection
-    function showImageTypes() {
-      if (wizard.model == -1 || isEmptyObject(images)) {
+    function showImageTypes(currentVendor, currentModel, currentRevision, currentImageTypes, currentImageType) {
+      if (currentModel === '' || isEmptyObject(images)) {
         return;
       }
 
-      var content = '';
-      var types = getImageTypes();
-      var typeNames = {
-        'factory': 'Erstinstallation',
-        'sysupgrade': 'Upgrade',
-        'rootfs': "Root-Image",
-        'kernel': "Kernel-Image"
-      };
-
-      for (var i in types) {
-        var type = types[i];
-        if (type === '') continue;
-
-        var displayType = typeNames[type] || type;
-        content += '<input type="radio" id="radiogroup-typeselect-' +
-          type + '" ' + ((type == wizard.imageType) ? 'checked ' : '') +
-          'name="firmwareType" onclick="firmwarewizard.setImageType(\'' + type + '\'); scrollDown();">' +
-          '<label for="radiogroup-typeselect-' + type + '">' + displayType + '</label>';
+      function imageTypeChangedEventHandler(e) {
+        setSearchQuery(e.target.getAttribute('data-query'));
+        scrollDown();
       }
-      $('#typeselect').innerHTML = content;
+
+      var typeselect = $('#typeselect');
+      typeselect.innerHTML = '';
+
+      var prefix = atomic(currentVendor) + ' ' +
+                   atomic(currentModel) + ' ' +
+                   atomic(currentRevision) + ' ';
+
+      for (var i in currentImageTypes) {
+        var type = currentImageTypes[i];
+        if (type === '') continue;
+        var displayType = typeNames[type] || type;
+        var query = prefix + displayType;
+
+        var input = document.createElement('input');
+        input.id = 'radiogroup-typeselect-' + type;
+        input.type = 'radio';
+        input.name = 'firmwareType';
+        input.checked = (type == currentImageType);
+        input.setAttribute('data-query', query);
+        input.addEventListener('click', imageTypeChangedEventHandler);
+
+        var label = document.createElement('label');
+        label.for = 'radiogroup-typeselect-' + type;
+        label.innerText = displayType;
+        label.setAttribute('data-query', query);
+        label.addEventListener('click', imageTypeChangedEventHandler);
+
+        typeselect.appendChild(input);
+        typeselect.appendChild(label);
+      }
     }
-    showImageTypes();
+    showImageTypes(s.vendor, s.model, s.revision, s.imageTypes, s.imageType);
 
     // show branch selection
-    function showBranches() {
-      if (wizard.model == -1 || wizard.revision == -1 || wizard.imageType == -1 || isEmptyObject(images)) {
+    function showBranches(currentVendor, currentModel, currentRevision, currentImageType) {
+      if (currentVendor === '' || currentModel === '' ||
+          currentRevision === '' || currentImageType === '' ||
+          isEmptyObject(images)) {
         return;
       }
 
-      var revisions = images[wizard.vendor][wizard.model]
-        .filter(function(e) { return e.revision == wizard.revision && e.type == wizard.imageType; });
+      var revisions = images[currentVendor][currentModel]
+        .filter(function(e) { return e.revision == currentRevision && e.type == currentImageType; });
 
       $('#branchselect').innerHTML = '';
       $('#branch-experimental-dl').innerHTML = '';
@@ -583,47 +695,33 @@ var firmwarewizard = function() {
       for (var i in revisions) {
         var rev = revisions[i];
         if (rev.branch == 'experimental') {
-          $('#branchselect').innerHTML += '<button class="btn dl-expermental" onclick="toggleClass(\'#branch-pane\', \'show-experimental-warning\'); scrollDown();">'+rev.branch+' (' +rev.version+')</button>';
+          $('#branchselect').innerHTML += '<button class="btn dl-expermental" onclick="toggleClass($(\'#branch-pane\'), \'show-experimental-warning\'); scrollDown();">'+rev.branch+' (' +rev.version+')</button>';
           $('#branch-experimental-dl').innerHTML = '<a href="'+rev.location+'" class="btn">Download für Experimentierfreudige</a>';
         } else {
           $('#branchselect').innerHTML += '<a href="'+rev.location+'" class="btn">'+rev.branch+' (' +rev.version+')</a>';
         }
       }
     }
-    showBranches();
+    showBranches(s.vendor, s.model, s.revision, s.imageType);
 
-    function updateHardwareSelection() {
-      if (wizard.vendor == -1) {
-        hide('#modelselect');
-        hide('.revisionselectWrapper');
+    // update hardware dropdown menu
+    if (s.vendor === '') {
+      hide('#modelselect');
+      hide('#revisionselect');
+    } else {
+      show_inline('#modelselect');
+      if (s.model === '') {
+        hide('#revisionselect');
       } else {
-        show_inline('#modelselect');
-        if (wizard.model == -1) {
-          hide('.revisionselectWrapper');
-        } else {
-          show_inline('.revisionselectWrapper');
-        }
-      }
-    }
-    updateHardwareSelection();
-
-    // add pictures for router models
-    if ($('.imagePreview').innerHTML === '') {
-      var previews = $('.imagePreview');
-      var modelList = createSearchableModellist();
-      for (var m in modelList) {
-        var searchstring = modelList[m][0];
-        var vendor = modelList[m][1];
-        var model = modelList[m][2];
-        previews.appendChild(createPicturePreview(vendor, model, searchstring));
+        show_inline('#revisionselect');
       }
     }
 
-    function updatePanes() {
+    function updatePanes(currentVendor, currentModel, currentRevision, currentImageType) {
       var pane = PANE.MODEL;
-      if (wizard.vendor != -1 && wizard.model != -1 && wizard.revision != -1) {
+      if (currentVendor !== '' && currentModel !== '' && currentRevision !== '') {
         pane = PANE.IMAGETYPE;
-        if (wizard.imageType != -1) {
+        if (currentImageType !== '') {
           pane = PANE.BRANCH;
         }
       }
@@ -632,7 +730,7 @@ var firmwarewizard = function() {
       $('#type-pane').style.display = (pane >= PANE.IMAGETYPE) ? 'block' : 'none';
       $('#branch-pane').style.display = (pane >= PANE.BRANCH) ? 'block' : 'none';
     }
-    updatePanes();
+    updatePanes(s.vendor, s.model, s.revision, s.imageType);
 
     function updateCurrentVersions() {
       var branches = ObjectValues(config.directories)
@@ -645,95 +743,94 @@ var firmwarewizard = function() {
       }, '');
     }
     updateCurrentVersions();
+  }
 
-    function updateFirmwareTable() {
-      $('#firmwareTableBody').innerHTML = '';
+  function updateFirmwareTable() {
+    $('#firmwareTableBody').innerHTML = '';
 
-      var initializeRevHTML = function(rev) {
-        if (upgradeRevBranchDict[rev.branch] === undefined) {
-          upgradeRevBranchDict[rev.branch] = document.createElement('span');
-        }
-        if (factoryRevBranchDict[rev.branch] === undefined) {
-          factoryRevBranchDict[rev.branch] = document.createElement('span');
-        }
-      };
-
-      var addToRevHTML = function(rev) {
-        var a = document.createElement('a');
-        a.href = rev.location;
-        a.title = rev.version;
-        a.innerText = rev.revision;
-
-        var textNodeStart = document.createTextNode('[');
-        var textNodeEnd = document.createTextNode('] ');
-
-        if (rev.type == 'sysupgrade') {
-          upgradeRevBranchDict[rev.branch].appendChild(textNodeStart);
-          upgradeRevBranchDict[rev.branch].appendChild(a);
-          upgradeRevBranchDict[rev.branch].appendChild(textNodeEnd);
-          show = true;
-        } else if (rev.type == 'factory') {
-          factoryRevBranchDict[rev.branch].appendChild(textNodeStart);
-          factoryRevBranchDict[rev.branch].appendChild(a);
-          factoryRevBranchDict[rev.branch].appendChild(textNodeEnd);
-          show = true;
-        }
-      };
-
-      function createRevTd(revBranchDict) {
-        var td = document.createElement('td');
-        for(var branch in revBranchDict) {
-          var textNode;
-          if (revBranchDict[branch].children.length === 0) {
-            textNode = document.createTextNode(branch + ': -');
-            td.appendChild(textNode);
-          } else {
-            textNode = document.createTextNode(branch + ': ');
-            td.appendChild(textNode);
-            td.appendChild(revBranchDict[branch]);
-          }
-          var br = document.createElement("br");
-          td.appendChild(br);
-        }
-        return td;
+    var initializeRevHTML = function(rev) {
+      if (upgradeRevBranchDict[rev.branch] === undefined) {
+        upgradeRevBranchDict[rev.branch] = document.createElement('span');
       }
+      if (factoryRevBranchDict[rev.branch] === undefined) {
+        factoryRevBranchDict[rev.branch] = document.createElement('span');
+      }
+    };
 
-      var vendors = Object.keys(images).sort();
-      for (var v in vendors) {
-        var vendor = vendors[v];
-        var models = Object.keys(images[vendor]).sort();
-        for (var m in models) {
-          var model = models[m];
-          var revisions = sortByRevision(images[vendor][model]);
-          var upgradeRevBranchDict = {};
-          var factoryRevBranchDict = {};
-          var show = false;
+    var addToRevHTML = function(rev) {
+      var a = document.createElement('a');
+      a.href = rev.location;
+      a.title = rev.version;
+      a.innerText = rev.revision;
 
-          revisions.forEach(initializeRevHTML);
-          revisions.forEach(addToRevHTML);
+      var textNodeStart = document.createTextNode('[');
+      var textNodeEnd = document.createTextNode('] ');
 
-          if (!show) {
-            continue;
-          }
+      if (rev.type == 'sysupgrade') {
+        upgradeRevBranchDict[rev.branch].appendChild(textNodeStart);
+        upgradeRevBranchDict[rev.branch].appendChild(a);
+        upgradeRevBranchDict[rev.branch].appendChild(textNodeEnd);
+        show = true;
+      } else if (rev.type == 'factory') {
+        factoryRevBranchDict[rev.branch].appendChild(textNodeStart);
+        factoryRevBranchDict[rev.branch].appendChild(a);
+        factoryRevBranchDict[rev.branch].appendChild(textNodeEnd);
+        show = true;
+      }
+    };
 
-          var tr = document.createElement('tr');
-
-          var tdVendor = document.createElement('td');
-          tdVendor.innerText = vendor;
-          tr.appendChild(tdVendor);
-
-          var tdModel = document.createElement('td');
-          tdModel.innerText = model;
-          tr.appendChild(tdModel);
-
-          tr.appendChild(createRevTd(factoryRevBranchDict));
-          tr.appendChild(createRevTd(upgradeRevBranchDict));
-
-          $('#firmwareTableBody').appendChild(tr);
+    function createRevTd(revBranchDict) {
+      var td = document.createElement('td');
+      for(var branch in revBranchDict) {
+        var textNode;
+        if (revBranchDict[branch].children.length === 0) {
+          textNode = document.createTextNode(branch + ': -');
+          td.appendChild(textNode);
+        } else {
+          textNode = document.createTextNode(branch + ': ');
+          td.appendChild(textNode);
+          td.appendChild(revBranchDict[branch]);
         }
+        var br = document.createElement("br");
+        td.appendChild(br);
+      }
+      return td;
+    }
+
+    var vendors = Object.keys(images).sort();
+    for (var v in vendors) {
+      var vendor = vendors[v];
+      var models = Object.keys(images[vendor]).sort();
+      for (var m in models) {
+        var model = models[m];
+        var revisions = sortByRevision(images[vendor][model]);
+        var upgradeRevBranchDict = {};
+        var factoryRevBranchDict = {};
+        var show = false;
+
+        revisions.forEach(initializeRevHTML);
+        revisions.forEach(addToRevHTML);
+
+        if (!show) {
+          continue;
+        }
+
+        var tr = document.createElement('tr');
+
+        var tdVendor = document.createElement('td');
+        tdVendor.innerText = vendor;
+        tr.appendChild(tdVendor);
+
+        var tdModel = document.createElement('td');
+        tdModel.innerText = model;
+        tr.appendChild(tdModel);
+
+        tr.appendChild(createRevTd(factoryRevBranchDict));
+        tr.appendChild(createRevTd(upgradeRevBranchDict));
+
+        $('#firmwareTableBody').appendChild(tr);
       }
     }
-    updateFirmwareTable();
   }
 
   function loadSite(url, callback) {
@@ -748,7 +845,7 @@ var firmwarewizard = function() {
   }
 
   // parse the contents of the given directories
-  function loadDirectories() {
+  function loadDirectories(callback) {
     // sort by length to get the longest match
     var matches = Object.keys(vendormodels_reverse).sort(function(a, b) {
       if (a.length < b.length) return 1;
@@ -761,11 +858,11 @@ var firmwarewizard = function() {
       var branch = config.directories[indexPath];
       reLink.lastIndex = 0;
 
-      var m;
+      var hrefMatch;
       do {
-        m = reLink.exec(data);
-        if (m) {
-          var href = m[1];
+        hrefMatch = reLink.exec(data);
+        if (hrefMatch) {
+          var href = hrefMatch[1];
           if (ignoreFileName(href)) {
             continue;
           }
@@ -776,11 +873,13 @@ var firmwarewizard = function() {
             console.log("No rule for firmware image:", href);
           }
         }
-      } while (m);
+      } while (hrefMatch);
 
+
+      // check if we loaded all directories
       sitesLoadedSuccessfully++;
       if (sitesLoadedSuccessfully == Object.keys(config.directories).length) {
-        updateHTML(wizard);
+        callback();
       }
     };
 
@@ -802,15 +901,6 @@ var firmwarewizard = function() {
       // retrieve the contents of the directory
       loadSite(indexPath, parseSite);
     }
-  }
-
-  var vendormodels_reverse = buildVendorModelsReverse();
-  loadDirectories();
-
-  // set link to firmware source directory
-  for(var path in config.directories) {
-    $('#firmware-source-dir').href = path.replace(/\/[^\/]*$/, '');
-    break;
   }
 
   return app;

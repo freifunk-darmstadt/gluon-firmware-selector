@@ -10,38 +10,38 @@
   <body>
     <div id="currentVersions">
     </div>
-    <div id="wizard" class="container">
+    <div id="wizard">
       <img src="./router.png" >
-      <div class="tab-content">
-        <div id="model-pane" style="display: block;">
+      <div class="pane-wrapper">
+        <div id="model-pane" class="pane" style="display: block;">
           <span class="firmwareTableLink"
                 onclick="firmwarewizard.showFirmwareTable();">
             Tabelle anzeigen
           </span>
-          <h1>Wähle deine Firmware</h1>
+          <h1>Schritt 1: Wähle Dein Routermodell</h1>
           <p>Erst mit der Freifunk-Firmware wird dein Router zu einem Teil des
              Freifunk-Netzes. Sie ist fertig vorkonfiguriert, um Kontakt mit
              benachbarten Freifunk-Knoten aufzunehmen, ein offenes und ohne
              Registrierung zugängliches Freifunk-WLAN auszusenden und dich dabei
              vor der Störerhaftung zu schützen.</p>
-          <input type="text" class="modelSearch"
+          <input type="text" class="modelSearch" autofocus
                  placeholder="Hier Hersteller oder Modell eingeben..."
-                 onkeyup="firmwarewizard.searchModel(this.value); firmwarewizard.setVendor(-1);">
-          <span>manuelle Auswahl:</span>
-          <select id="vendorselect" class="ulselect"
-                  onchange="firmwarewizard.setVendor(this.value)"></select>
-          <select id="modelselect" class="ulselect" style="display: none;"
-                  onchange="firmwarewizard.setModel(this.value)"></select>
-          <div class="imagePreview"></div>
-
-          <div class="revisionselectWrapper" style="display: none;">
-            <span>Achte auf die Revision deiner Hardware!</span>
-            <select id="revisionselect" class="ulselect"
-            onchange="firmwarewizard.setRevision(this.value); scrollDown();"></select>
+                 onkeyup="firmwarewizard.updateSearchQuery(this.value);">
+          <div class="manualSelection" style="display: none;">
+            <span>manuelle Auswahl:</span>
+            <select id="vendorselect"
+                    onchange="firmwarewizard.setSearchQuery(this.value); scrollDown();"></select>
+            <select id="modelselect"
+                    onchange="firmwarewizard.setSearchQuery(this.value); scrollDown();"></select>
+            <select id="revisionselect"
+                    onchange="firmwarewizard.setSearchQuery(this.value); scrollDown();"></select>
           </div>
+          <div class="imagePreview"></div>
         </div>
-        <div id="type-pane">
-          <hr>
+      </div>
+      <div class="pane-wrapper">
+        <div id="type-pane" class="pane" style="display: none;">
+          <h1>Schritt 2: Wähle Deine Installationsart</h1>
           <p>
             Bitte verwende das <em>Erstinstallationsimage</em>, wenn Du deinen
             Router gerade erst gekauft hast und sich darauf noch keine
@@ -49,14 +49,16 @@
             OpenWRT-Firmware installiert, verwende bitte die mit
             <em>Upgrade</em> bezeichnete Version.
           </p>
-          <div id="typeselect" class="radiogroup"></div>
+          <radiogroup id="typeselect" class="radiogroup"></radiogroup>
         </div>
-        <div id="branch-pane">
-          <hr>
+      </div>
+      <div class="pane-wrapper">
+        <div id="branch-pane" class="pane" style="display: none;">
+          <h1>Schritt 3: Wähle Deinen Update-Kanal</h1>
           <p>Diese Freifunk-Firmware bieten wir in verschiedenen Versionen an:</p>
           <ul>
             <li>
-              <strong>Stable <sup><span style="color: #ffb400">Empfehlung</span></sup></strong><br />
+              <strong>Stable <sup><span style="color: #009ee0">Empfehlung</span></sup></strong><br />
               Gut getestet, zuverl&auml;ssig und stabil.<br />
             </li>
             <li>
@@ -72,11 +74,11 @@
              Stablit&auml;t des Routers und den potentiell anfallenden
              Wartungsaufwand.</p>
           <p>Für das gewählte Routermodell sind folgende Versionen vorhanden:</p>
-          <div class="box-inset warning-experimental">
-            Vorsicht! Unsere experimentelle Firmware wurde <b>nicht</b> getestet
-            und kann dein Gerät jederzeit und unangekündigt in einen Zustand
-            versetzen, in dem du nur mit einem Lötkolben und dem Öffnen des
-            Gehäuses weiter kommst. Verwende diese Version nur, wenn Du Dir
+          <div class="warning-experimental">
+            <b>Vorsicht!</b> Unsere experimentelle Firmware wurde <b>nicht</b>
+            getestet und kann dein Gerät jederzeit und unangekündigt in einen
+            Zustand versetzen, in dem du nur mit einem Lötkolben und dem Öffnen
+            des Gehäuses weiter kommst. Verwende diese Version nur, wenn Du Dir
             darüber im Klaren bist!
             <div id="branch-experimental-dl"></div>
           </div>
@@ -86,7 +88,6 @@
     </div>
 
     <div id="firmwareTable" class="container" style="display: none;">
-      <hr>
       <span class="firmwareTableLink"
             onclick="firmwarewizard.hideFirmwareTable();">
         zurück zum Auswahlmenü
