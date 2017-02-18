@@ -59,11 +59,24 @@ function isEmptyObject(obj) {
 }
 
 function scrollDown() {
-  window.scrollBy({
-    top: 512,
-    left: 0,
-    behavior: 'smooth'
-  });
+  try {
+    window.scrollBy({
+      top: 512,
+      left: 0,
+      behavior: 'smooth'
+    });
+  } catch (e) {
+    var start = document.body.scrollTop;
+    var lastTop = start - 1;
+    var interval = window.setInterval(function() {
+      if (document.body.scrollTop > start + 512 || lastTop - document.body.scrollTop === 0) {
+        window.clearInterval(interval);
+        console.log('stop');
+      }
+      lastTop = document.body.scrollTop;
+      document.body.scrollTop += 4;
+    }, 1);
+  }
 }
 
 var firmwarewizard = function() {
