@@ -3,7 +3,8 @@ OpenWrt/LEDE Firmware Wizard
 
 This Firmware Wizard lets a user select the correct firmware for his device. Directory listings are used to parse the list of available images.
 
-Some [Screenshots](docs/screenshots.md).
+Similiar projects:
+- https://github.com/Freifunk-Hennef/ffhef-fw-dl
 
 ### Configuration
 
