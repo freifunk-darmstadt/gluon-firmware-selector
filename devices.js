@@ -178,7 +178,7 @@ var vendormodels = {
     "generic 64bit": "x86-64",
     "VirtualBox 32bit": "x86-virtualbox",
     "VirtualBox 64bit": "x86-64-virtualbox",
-    "VMware 32bit": "vmware",
+    "VMware 32bit": "x86-vmware",
     "VMware 64bit": "x86-64-vmware",
     "KVM 32bit": "x86-kvm",
     "XEN 32bit": "x86-xen",
