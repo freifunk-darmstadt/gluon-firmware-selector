@@ -109,6 +109,7 @@ var vendormodels = {
     "TL-MR3220": "tp-link-tl-mr3220",
     "TL-MR3420": "tp-link-tl-mr3420",
     "TL-WA701N/ND": {"tp-link-tl-wa701nd": "", "tp-link-tl-wa701n-nd": ""},
+    "TL-WA7210N/ND": "tp-link-tl-wa7210n",
     "TL-WA750RE": "tp-link-tl-wa750re",
     "TL-WA7510N": "tp-link-tl-wa7510n",
     "TL-WA801N/ND": {"tp-link-tl-wa801n": "", "tp-link-tl-wa801n-nd": ""},
