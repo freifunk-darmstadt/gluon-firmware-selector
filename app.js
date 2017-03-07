@@ -111,6 +111,7 @@ var firmwarewizard = function() {
   var reRemoveDashes = new RegExp(/-/g);
   var reSearchable = new RegExp('[-/ '+NON_BREAKING_SPACE+']', 'g');
   var reRemoveSpaces = new RegExp(/ /g);
+  var reStripDashes = new RegExp(/^\-+|\-+$/g);
 
   function buildVendorModelsReverse() {
     var vendormodels_reverse = {};
@@ -354,6 +355,41 @@ var firmwarewizard = function() {
       return;
     }
 
+    // derive preview file name
+    var preview = filename;
+    preview = preview.replace(config.community_prefix, '');
+    preview = preview.replace(version, '');
+    preview = preview.replace(revision, '');
+    preview = preview.replace(region, '');
+    preview = preview.replace(size, '');
+    preview = preview.replace(type, '');
+    preview = preview.replace(reFileExtension, '');
+    preview = preview.replace(reStripDashes, '');
+
+    // vendor and model specific fine tuning
+    preview = preview.replace('alfa-network', 'alfa');
+    preview = preview.replace('buffalo-wzr-hp-ag300h', 'buffalo-wzr-hp-ag300h-wzr-600dhp');
+    preview = preview.replace('buffalo-wzr-600dhp', 'buffalo-wzr-hp-ag300h-wzr-600dhp');
+    preview = preview.replace('buffalo-wzr-hp-g300nh2', 'buffalo-wzr-hp-g300nh');
+    preview = preview.replace('d-link-dir-505-rev', 'd-link-dir-505-rev-a1');
+    preview = preview.replace('d-link-dir-825-rev', 'd-link-dir-825-rev-b1');
+    preview = preview.replace('gl-inet-6408a', 'gl-inet-6408a-v1');
+    preview = preview.replace('gl-inet-6416a', 'gl-inet-6416a-v1');
+    preview = preview.replace('netgear-wndrmac', 'netgear-wndrmacv2');
+    preview = preview.replace('openmesh-mr600', 'openmesh-mr600-v1');
+    preview = preview.replace('openmesh-mr900', 'openmesh-mr900-v1');
+    if (preview.indexOf('tp-link') != -1) preview += '-' + revision;
+    preview = preview.replace('tp-link-tl-wa801n-nd-v3', 'tp-link-tl-wa801n-nd-v2'); // no preview picture for v3 yet
+    preview = preview.replace('tp-link-tl-wr940n-v3', 'tp-link-tl-wr940n-v2'); // no preview picture for v3 yet
+    preview = preview.replace('ubiquiti-unifi-ap', 'ubiquiti-unifi'); // no preview picture for v3 yet
+    preview = preview.replace('x86-virtualbox', 'x86-virtualbox.vdi'); // no preview picture for v3 yet
+    preview = preview.replace('x86-64-virtualbox', 'x86-virtualbox.vdi'); // no preview picture for v3 yet
+    preview = preview.replace('x86-vmware', 'x86-vmware.vmdk'); // no preview picture for v3 yet
+    preview = preview.replace('x86-64-vmware', 'x86-vmware.vmdk'); // no preview picture for v3 yet
+    preview = preview.replace('x86-generic', 'x86-generic.img'); // no preview picture for v3 yet
+    preview = preview.replace('x86-64', 'x86-generic.img'); // no preview picture for v3 yet
+    preview = preview.replace('x86-kvm', 'x86-kvm.img'); // no preview picture for v3 yet
+
     // collect branch versions
     app.currentVersions[branch] = version;
 
@@ -367,7 +403,8 @@ var firmwarewizard = function() {
       'type': type,
       'version': version,
       'location': location,
-      'size': size
+      'size': size,
+      'preview': preview+".jpg"
     });
   }
 
@@ -519,15 +556,8 @@ var firmwarewizard = function() {
       }
     }
 
-    var location = images[vendor][model][latestRevisionIndex].location;
-    var startIndex = location.lastIndexOf(vendor.toLowerCase().replace(reRemoveSpaces, '-'));
-    var src = location.substr(startIndex);
-    src = src.replace(reFileExtension, '.jpg');
-    src = src.replace('-sysupgrade', '');
-    src = src.replace('alfa-network', 'alfa');
-
     var image = document.createElement('img');
-    image.src = 'pictures/'+src;
+    image.src = 'pictures/'+images[vendor][model][latestRevisionIndex].preview;
     image.alt = name;
     image.addEventListener('error', firmwarewizard.setDefaultImg);
 
