@@ -173,6 +173,33 @@ var firmwarewizard = function() {
     wizard = parseWizardObject(parsedURL);
     $('.modelSearch').value = wizard.q;
 
+    $('.modelSearch').addEventListener('keyup', function(e) {
+      firmwarewizard.updateSearchQuery($('.modelSearch').value);
+    });
+
+    $('#vendorselect').addEventListener('change', function(e) {
+      firmwarewizard.setSearchQuery($('#vendorselect').value);
+      scrollDown();
+    });
+
+    $('#modelselect').addEventListener('change', function(e) {
+      firmwarewizard.setSearchQuery($('#modelselect').value);
+      scrollDown();
+    });
+
+    $('#revisionselect').addEventListener('change', function(e) {
+      firmwarewizard.setSearchQuery($('#revisionselect').value);
+      scrollDown();
+    });
+
+    $('#wizard .firmwareTableLink').addEventListener('click', function(e) {
+      firmwarewizard.showFirmwareTable();
+    });
+
+    $('#firmwareTable .firmwareTableLink').addEventListener('click', function(e) {
+      firmwarewizard.hideFirmwareTable();
+    });
+
     vendormodels_reverse = buildVendorModelsReverse();
 
     loadDirectories(function() {

@@ -14,10 +14,7 @@
       <img src="./router.png" >
       <div class="pane-wrapper">
         <div id="model-pane" class="pane" style="display: block;">
-          <span class="firmwareTableLink"
-                onclick="firmwarewizard.showFirmwareTable();">
-            Tabelle anzeigen
-          </span>
+          <span class="firmwareTableLink">Tabelle anzeigen</span>
           <h1>Schritt 1: Wähle Dein Routermodell</h1>
           <p>Erst mit der Freifunk-Firmware wird dein Router zu einem Teil des
              Freifunk-Netzes. Sie ist fertig vorkonfiguriert, um Kontakt mit
@@ -25,16 +22,12 @@
              Registrierung zugängliches Freifunk-WLAN auszusenden und dich dabei
              vor der Störerhaftung zu schützen.</p>
           <input type="text" class="modelSearch" autofocus
-                 placeholder="Hier Hersteller oder Modell eingeben..."
-                 onkeyup="firmwarewizard.updateSearchQuery(this.value);">
+                 placeholder="Hier Hersteller oder Modell eingeben...">
           <div class="manualSelection" style="display: none;">
             <span>manuelle Auswahl:</span>
-            <select id="vendorselect"
-                    onchange="firmwarewizard.setSearchQuery(this.value); scrollDown();"></select>
-            <select id="modelselect"
-                    onchange="firmwarewizard.setSearchQuery(this.value); scrollDown();"></select>
-            <select id="revisionselect"
-                    onchange="firmwarewizard.setSearchQuery(this.value); scrollDown();"></select>
+            <select id="vendorselect"></select>
+            <select id="modelselect"></select>
+            <select id="revisionselect"></select>
           </div>
           <div class="imagePreview"></div>
         </div>
@@ -88,10 +81,7 @@
     </div>
 
     <div id="firmwareTable" class="container" style="display: none;">
-      <span class="firmwareTableLink"
-            onclick="firmwarewizard.hideFirmwareTable();">
-        zurück zum Auswahlmenü
-      </span>
+      <span class="firmwareTableLink">zurück zum Auswahlmenü</span>
       <br>
       <span class="firmwareTableLink">
         <a id="firmware-source-dir" href="..">Liste aller Dateien</a></span>
