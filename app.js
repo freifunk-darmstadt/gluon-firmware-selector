@@ -357,7 +357,7 @@ var firmwarewizard = function() {
     strippedFilename = strippedFilename.replace(reRemoveDashes, '');
 
     if (strippedFilename !== '') {
-      console.log("Match for file", filename, "was not exhaustive.");
+      console.log("Match for file", filename, "was not exhaustive. Missing filename parts:", strippedFilename);
       return;
     }
 
