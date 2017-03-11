@@ -431,7 +431,7 @@ var firmwarewizard = function() {
   function createOption(value, title, selectedOption) {
     var o = document.createElement('option');
     o.value = value;
-    o.innerHTML = title;
+    o.innerText = title;
     o.selected = (value === selectedOption);
     return o;
   }
@@ -790,13 +790,31 @@ var firmwarewizard = function() {
       $('#branchselect').innerHTML = '';
       $('#branch-experimental-dl').innerHTML = '';
 
+      var toggleExperimentalWarning = function() {
+        toggleClass($('#branch-pane'), 'show-experimental-warning');
+        scrollDown();
+      };
+
       for (var i in revisions) {
         var rev = revisions[i];
         if (rev.branch == 'experimental') {
-          $('#branchselect').innerHTML += '<button class="btn dl-expermental" onclick="toggleClass($(\'#branch-pane\'), \'show-experimental-warning\'); scrollDown();">'+rev.branch+' (' +prettyPrintVersion(rev.version)+')</button>';
-          $('#branch-experimental-dl').innerHTML = '<a href="'+rev.location+'" class="btn">Download für Experimentierfreudige</a>';
+          var button = document.createElement('button');
+          button.className = 'btn dl-expermental';
+          button.addEventListener('click', toggleExperimentalWarning);
+          button.innerText = rev.branch+' (' +prettyPrintVersion(rev.version)+')';
+          $('#branchselect').appendChild(button);
+
+          var btn = document.createElement('a');
+          btn.href = rev.location;
+          btn.className = 'btn';
+          btn.innerText = 'Download für Experimentierfreudige';
+          $('#branch-experimental-dl').appendChild(btn);
         } else {
-          $('#branchselect').innerHTML += '<a href="'+rev.location+'" class="btn">'+rev.branch+' (' +prettyPrintVersion(rev.version)+')</a>';
+          var a = document.createElement('a');
+          a.href = rev.location;
+          a.className = 'btn';
+          a.innerText = rev.branch+' (' +prettyPrintVersion(rev.version)+')';
+          $('#branchselect').appendChild(a);
         }
       }
     }
