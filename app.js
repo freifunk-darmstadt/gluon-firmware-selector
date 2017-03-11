@@ -119,6 +119,11 @@ var firmwarewizard = function() {
   }
   var reVersionRegex = new RegExp(config.version_regex);
 
+  var rePrettyPrintVersionRegex;
+  if(config.prettyPrintVersionRegex !== undefined) {
+    rePrettyPrintVersionRegex = new RegExp(config.prettyPrintVersionRegex);
+  }
+
   function buildVendorModelsReverse() {
     var vendormodels_reverse = {};
 
@@ -289,6 +294,15 @@ var firmwarewizard = function() {
     // version with optional date in it (e.g. 0.8.0~20160502)
     var m = reVersionRegex.exec(name);
     return m ? m[1] : '';
+  }
+
+  // regex that is applied to the version to print a prettier version
+  function prettyPrintVersion(version) {
+    if (rePrettyPrintVersionRegex !== undefined) {
+      var v = rePrettyPrintVersionRegex.exec(version);
+      return v ? v[1] : version;
+    }
+    return version;
   }
 
   function findRevision(name) {
@@ -779,10 +793,10 @@ var firmwarewizard = function() {
       for (var i in revisions) {
         var rev = revisions[i];
         if (rev.branch == 'experimental') {
-          $('#branchselect').innerHTML += '<button class="btn dl-expermental" onclick="toggleClass($(\'#branch-pane\'), \'show-experimental-warning\'); scrollDown();">'+rev.branch+' (' +rev.version+')</button>';
+          $('#branchselect').innerHTML += '<button class="btn dl-expermental" onclick="toggleClass($(\'#branch-pane\'), \'show-experimental-warning\'); scrollDown();">'+rev.branch+' (' +prettyPrintVersion(rev.version)+')</button>';
           $('#branch-experimental-dl').innerHTML = '<a href="'+rev.location+'" class="btn">Download für Experimentierfreudige</a>';
         } else {
-          $('#branchselect').innerHTML += '<a href="'+rev.location+'" class="btn">'+rev.branch+' (' +rev.version+')</a>';
+          $('#branchselect').innerHTML += '<a href="'+rev.location+'" class="btn">'+rev.branch+' (' +prettyPrintVersion(rev.version)+')</a>';
         }
       }
     }
@@ -822,7 +836,7 @@ var firmwarewizard = function() {
 
       $('#currentVersions').innerHTML = branches.reduce(function(ret, branch, i) {
         ret += ((i === 0) ? '' : ' // ') + branch;
-        ret += (branch in app.currentVersions) ?  (': '  + app.currentVersions[branch]) : '';
+        ret += (branch in app.currentVersions) ?  (': '  + prettyPrintVersion(app.currentVersions[branch])) : '';
         return ret;
       }, '');
     }
@@ -844,7 +858,7 @@ var firmwarewizard = function() {
     var addToRevHTML = function(rev) {
       var a = document.createElement('a');
       a.href = rev.location;
-      a.title = rev.version;
+      a.title = prettyPrintVersion(rev.version);
       a.innerText = rev.revision;
 
       var textNodeStart = document.createTextNode('[');
