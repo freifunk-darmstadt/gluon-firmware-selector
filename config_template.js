@@ -20,6 +20,8 @@ var config = {
   vendormodels: vendormodels,
   // community prefix of the firmware images
   community_prefix: 'gluon-ffda-',
+  // firmware version regex
+  version_regex: '-([0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)[.-]',
   // relative image paths and branch
   directories: {
     // some demo sources

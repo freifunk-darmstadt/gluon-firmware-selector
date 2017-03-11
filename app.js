@@ -113,6 +113,12 @@ var firmwarewizard = function() {
   var reRemoveSpaces = new RegExp(/ /g);
   var reStripDashes = new RegExp(/^\-+|\-+$/g);
 
+  if (config.version_regex === undefined) {
+    console.log("config.version_regex missing in config.js");
+    return;
+  }
+  var reVersionRegex = new RegExp(config.version_regex);
+
   function buildVendorModelsReverse() {
     var vendormodels_reverse = {};
 
@@ -281,7 +287,7 @@ var firmwarewizard = function() {
 
   function findVersion(name) {
     // version with optional date in it (e.g. 0.8.0~20160502)
-    var m = /-([0-9]+.[0-9]+.[0-9]+([+-][0-9]+)?(~[a-z0-9]+)?)[.-]/.exec(name);
+    var m = reVersionRegex.exec(name);
     return m ? m[1] : '';
   }
 
