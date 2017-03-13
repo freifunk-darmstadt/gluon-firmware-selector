@@ -44,9 +44,6 @@ If two matches overlap, the longest match will be assigned the matching files. O
 ### Configuration
 Image paths and available branches can be set in file `config_template.js` which has to be renamed to `config.js`
 
-### TODO
-- support rootfs/kernel image combinations
-
 ### License
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
