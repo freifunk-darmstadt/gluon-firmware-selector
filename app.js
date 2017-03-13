@@ -523,7 +523,7 @@ var firmwarewizard = function() {
           filteredModelList.push(modelList[m]);
         } else {
           var typeKeys = Object.keys(typeNames);
-          var typeValues = Object.values(typeNames);
+          var typeValues = ObjectValues(typeNames);
           for (var k in typeKeys) {
             if (searchable(typeKeys[k]).substr(0, q.length) == q ||
                 searchable(typeValues[k]).substr(0, q.length) == q) {
