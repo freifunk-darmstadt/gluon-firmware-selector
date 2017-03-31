@@ -859,11 +859,22 @@ var firmwarewizard = function() {
       var branches = ObjectValues(config.directories)
         .filter(function(value, index, self) { return self.indexOf(value) === index; });
 
-      $('#currentVersions').innerHTML = branches.reduce(function(ret, branch, i) {
+      $('#currentVersions').innerText = '';
+      if (config.changelog !== undefined) {
+        var a = document.createElement('a');
+        a.href = config.changelog;
+        a.innerText = 'CHANGELOG';
+        $('#currentVersions').appendChild(a);
+        var text = document.createTextNode(' // ');
+        $('#currentVersions').appendChild(text);
+      }
+
+      var versionStr = branches.reduce(function(ret, branch, i) {
         ret += ((i === 0) ? '' : ' // ') + branch;
         ret += (branch in app.currentVersions) ?  (': '  + prettyPrintVersion(app.currentVersions[branch])) : '';
         return ret;
       }, '');
+      $('#currentVersions').appendChild(document.createTextNode(versionStr));
     }
     updateCurrentVersions();
   }

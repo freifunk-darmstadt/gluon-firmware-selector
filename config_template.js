@@ -28,5 +28,8 @@ var config = {
     './images/gluon-factory-example.html': 'stable',
     './images/gluon-sysupgrade-example.html': 'stable'
   },
-  preview_pictures: 'pictures/'
+  // path to preview pictures directory
+  preview_pictures: 'pictures/',
+  // link to changelog
+  changelog: 'CHANGELOG.html'
 };
