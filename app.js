@@ -612,7 +612,7 @@ var firmwarewizard = function() {
   }
 
   function setDefaultImg(e) {
-    fallbackImg = 'pictures/no_picture_available.jpg';
+    fallbackImg = PREVIEW_PICTURES_DIR+'no_picture_available.jpg';
     if (e.target.src.indexOf(fallbackImg) == -1) {
       e.target.src = fallbackImg;
     }
