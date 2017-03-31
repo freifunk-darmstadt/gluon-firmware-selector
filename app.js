@@ -124,6 +124,12 @@ var firmwarewizard = function() {
     rePrettyPrintVersionRegex = new RegExp(config.prettyPrintVersionRegex);
   }
 
+  var PREVIEW_PICTURES_DIR = 'pictures/';
+  if(config.preview_pictures !== undefined) {
+    PREVIEW_PICTURES_DIR = config.preview_pictures;
+  }
+
+
   function buildVendorModelsReverse() {
     var vendormodels_reverse = {};
 
@@ -577,7 +583,8 @@ var firmwarewizard = function() {
     }
 
     var image = document.createElement('img');
-    image.src = 'pictures/'+images[vendor][model][latestRevisionIndex].preview;
+
+    image.src = PREVIEW_PICTURES_DIR+images[vendor][model][latestRevisionIndex].preview;
     image.alt = name;
     image.addEventListener('error', firmwarewizard.setDefaultImg);
 
