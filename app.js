@@ -95,6 +95,12 @@ var firmwarewizard = function() {
   //var INVISIBLE_SEPARATOR = '#'; // debug
   //var NON_BREAKING_SPACE = '?'; // debug
 
+  var MODEL_SEARCHSTRING = 0;
+  var MODEL_STRIPPED_SEARCHSTRING = 1;
+  var MODEL_VENDOR = 2;
+  var MODEL_MODEL = 3;
+  var MODEL_MATCHED_REVISION = 4;
+
   var wizard = parseWizardObject();
   app.currentVersions = {};
   var images = {};
@@ -225,9 +231,9 @@ var firmwarewizard = function() {
       var previews = $('.imagePreview');
       var fullModelList = createSearchableModellist();
       for (var m in fullModelList) {
-        var searchstring = fullModelList[m][0];
-        var vendor = fullModelList[m][1];
-        var model = fullModelList[m][2];
+        var searchstring = fullModelList[m][MODEL_SEARCHSTRING];
+        var vendor = fullModelList[m][MODEL_VENDOR];
+        var model = fullModelList[m][MODEL_MODEL];
         previews.appendChild(createPicturePreview(vendor, model, searchstring));
       }
 
@@ -460,8 +466,8 @@ var firmwarewizard = function() {
 
   function getImageTypes(modelList) {
     if (modelList.length == 1) {
-      var vendor = modelList[0][1];
-      var model = modelList[0][2];
+      var vendor = modelList[0][MODEL_VENDOR];
+      var model = modelList[0][MODEL_MODEL];
       return images[vendor][model]
         .map(function(e) { return e.type; })
         .filter(function(value, index, self) { return self.indexOf(value) === index; })
@@ -493,8 +499,12 @@ var firmwarewizard = function() {
         var searchingstring = searchable(
           vendors[i]+INVISIBLE_SEPARATOR+models[j]+INVISIBLE_SEPARATOR+
           revisions.map(atomic).join(''));
-        // the last entry stores the matched revision
-        modelList.push([searchingstring, vendors[i], models[j], revisions, '']);
+
+        // The 2nd searchingstring entry is used to strip already matched query
+        // parts. This is needed when vendor and model are the same (e.g.
+        // "Vocore Vocore") and there are more models from the same vendor.
+        // The last entry is used to store the revision matched by the searchstring.
+        modelList.push([searchingstring, searchingstring, vendors[i], models[j], '']);
       }
     }
     return modelList;
@@ -503,7 +513,7 @@ var firmwarewizard = function() {
   // search for models (and vendors)
   function searchModel(query) {
     var foundImageType = '';
-    var modelList = createSearchableModellist();
+    var modelList = createSearchableModellist(); // TODO: maybe generate once + deepcopy
 
     // search for vendors and models
     var queryparts = query.split(' ');
@@ -515,15 +525,16 @@ var firmwarewizard = function() {
       }
       var filteredModelList = [];
       for (var m in modelList) {
-        if (modelList[m][0].indexOf(q) != -1) {
+        if (modelList[m][MODEL_STRIPPED_SEARCHSTRING].indexOf(q) != -1) {
+          modelList[m][MODEL_STRIPPED_SEARCHSTRING] = modelList[m][MODEL_STRIPPED_SEARCHSTRING].replace(q, '');
           // add revision to modelList entry (if unique)
-          var revisions = getRevisions(modelList[m][1], modelList[m][2]);
+          var revisions = getRevisions(modelList[m][MODEL_VENDOR], modelList[m][MODEL_MODEL]);
           if (revisions.length == 1 && revisions[0] == 'alle') {
-            modelList[m][4] = revisions[0];
+            modelList[m][MODEL_MATCHED_REVISION] = revisions[0];
           } else {
             var r = revisions.map(atomic).map(searchable).indexOf(atomicQ);
             if (r != -1) {
-              modelList[m][4] = revisions[r]; // add revision to modelList entry
+              modelList[m][MODEL_MATCHED_REVISION] = revisions[r]; // add revision to modelList entry
             }
           }
           filteredModelList.push(modelList[m]);
@@ -550,8 +561,8 @@ var firmwarewizard = function() {
     searchResult.imageTypes = [];
     searchResult.modelList = modelList;
     if (modelList.length == 1) {
-      searchResult.model = modelList[0][2];
-      searchResult.revision = modelList[0][4];
+      searchResult.model = modelList[0][MODEL_MODEL];
+      searchResult.revision = modelList[0][MODEL_MATCHED_REVISION];
       searchResult.imageTypes = getImageTypes(modelList);
     }
     return searchResult;
@@ -561,8 +572,8 @@ var firmwarewizard = function() {
   function getVendorFromModelList(modelList) {
     var vendor = '';
     for (var i in modelList) {
-      if (vendor === '') vendor = modelList[i][1];
-      if (vendor != modelList[i][1]) return '';
+      if (vendor === '') vendor = modelList[i][MODEL_VENDOR];
+      if (vendor != modelList[i][MODEL_VENDOR]) return '';
     }
     return vendor;
   }
@@ -627,9 +638,9 @@ var firmwarewizard = function() {
     }
 
     for (var f in modelList) {
-      var searchstring = modelList[f][0];
-      var vendor = modelList[f][1];
-      var model = modelList[f][2];
+      var searchstring = modelList[f][MODEL_SEARCHSTRING];
+      var vendor = modelList[f][MODEL_VENDOR];
+      var model = modelList[f][MODEL_MODEL];
 
       for(p = 0; p < previews.length; p++) {
         if (previews[p].getAttribute('data-searchstring') == searchstring) {
@@ -804,23 +815,23 @@ var firmwarewizard = function() {
 
       for (var i in revisions) {
         var rev = revisions[i];
-        if (rev.branch == 'experimental') {
-          var button = document.createElement('button');
-          button.className = 'btn dl-expermental';
-          button.addEventListener('click', toggleExperimentalWarning);
-          button.innerText = rev.branch+' (' +prettyPrintVersion(rev.version)+')';
-          $('#branchselect').appendChild(button);
+        var a = document.createElement('a');
+        a.href = rev.location;
+        a.className = 'btn';
+        a.innerText = rev.branch +
+                      (rev.size!==''?' ['+rev.size+']':'') +
+                      ' (' +prettyPrintVersion(rev.version)+')';
 
-          var btn = document.createElement('a');
-          btn.href = rev.location;
-          btn.className = 'btn';
-          btn.innerText = 'Download für Experimentierfreudige';
-          $('#branch-experimental-dl').appendChild(btn);
+        if (rev.branch == 'experimental') {
+          if($('#branchselect .dl-expermental') === null) {
+            var button = document.createElement('button');
+            button.className = 'btn dl-expermental';
+            button.addEventListener('click', toggleExperimentalWarning);
+            button.innerText = 'Experimentelle Firmware anzeigen';
+            $('#branchselect').appendChild(button);
+          }
+          $('#branch-experimental-dl').appendChild(a);
         } else {
-          var a = document.createElement('a');
-          a.href = rev.location;
-          a.className = 'btn';
-          a.innerText = rev.branch+' (' +prettyPrintVersion(rev.version)+')';
           $('#branchselect').appendChild(a);
         }
       }
