@@ -180,10 +180,11 @@ var vendormodels = {
   "x86": {
     "generic 32bit": "x86-generic",
     "generic 64bit": "x86-64",
-    "VirtualBox 32bit": "x86-virtualbox",
-    "VirtualBox 64bit": "x86-64-virtualbox",
-    "VMware 32bit": "x86-vmware",
-    "VMware 64bit": "x86-64-vmware",
+    "VirtualBox 32bit": {"x86-virtualbox.vdi": "", "x86-generic.vdi": ""},
+    "VirtualBox 64bit": {"x86-64-virtualbox.vdi": "", "x86-64.vdi": ""},
+    "VMware 32bit": {"x86-vmware.vmdk": "", "x86-generic.vmdk": ""},
+    "VMware 64bit": {"x86-64-vmware.vmdk": "", "x86-64-generic.vmdk": "",
+                     "x86-64.vmdk": ""},
     "KVM 32bit": "x86-kvm",
     "XEN 32bit": "x86-xen",
   }

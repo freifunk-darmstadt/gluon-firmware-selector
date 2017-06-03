@@ -113,7 +113,7 @@ var firmwarewizard = function() {
     'kernel': "Kernel-Image"
   };
 
-  var reFileExtension = new RegExp(/.(bin|img.gz|img|tar|vdi|vmdk)/);
+  var reFileExtension = new RegExp(/.(bin|img.gz|img|tar)/);
   var reRemoveDashes = new RegExp(/-/g);
   var reSearchable = new RegExp('[-/ '+NON_BREAKING_SPACE+']', 'g');
   var reRemoveSpaces = new RegExp(/ /g);
@@ -991,13 +991,6 @@ var firmwarewizard = function() {
 
   // parse the contents of the given directories
   function loadDirectories(callback) {
-    // sort by length to get the longest match
-    var matches = Object.keys(vendormodels_reverse).sort(function(a, b) {
-      if (a.length < b.length) return 1;
-      if (a.length > b.length) return -1;
-      return 0;
-    });
-
     var parseSite = function(data, indexPath) {
       var basePath = indexPath.substring(0, indexPath.lastIndexOf('/') + 1);
       var branch = config.directories[indexPath];
@@ -1020,7 +1013,6 @@ var firmwarewizard = function() {
         }
       } while (hrefMatch);
 
-
       // check if we loaded all directories
       sitesLoadedSuccessfully++;
       if (sitesLoadedSuccessfully == Object.keys(config.directories).length) {
@@ -1031,8 +1023,20 @@ var firmwarewizard = function() {
     // match all links
     var reLink = new RegExp('href="([^"]*)"', 'g');
 
-    // match image files
-    var reMatch = new RegExp('('+matches.join('|')+')[.-]');
+    // sort by length to get the longest match
+    var matches = Object.keys(vendormodels_reverse).sort(function(a, b) {
+      if (a.length < b.length) return 1;
+      if (a.length > b.length) return -1;
+      return 0;
+    });
+
+    // prepare the matches for use in regex (join by pipe and escape dots)
+    var matchString = matches.join('|').replace(/\./g, '\.');
+
+    // match image files. The match either ends with
+    // - a dash or dot (if a file extension will follow)
+    // - the end of the expression (if the file extension is part of the regex)
+    var reMatch = new RegExp('('+matchString+')([.-]|$)');
 
     // check if image regexes contain regular expressions themself
     var reCheckRegex = new RegExp(/[^\\]+[+?*]/);
