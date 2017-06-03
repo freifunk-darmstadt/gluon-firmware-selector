@@ -137,7 +137,8 @@ var vendormodels = {
   },
 
   "Ubiquiti": {
-    "AirGateway": {"ubnt-air-gateway": "", "ubiquiti-airgateway": ""},
+    "AirGateway": {"ubnt-air-gateway": "", "ubiquiti-airgateway": "",
+                   "ubiquiti-airgateway-lr": "LR", "ubiquiti-airgateway-pro": "Pro"},
     "AirRouter": {"ubnt-air-router": "", "ubiquiti-airrouter": ""},
     "Bullet": {"ubiquiti-bullet-m2": "M2", "ubiquiti-bullet-m5": "M5", "bullet-m": "--ignore--"},
     "Litestation SR71": "ubiquiti-ls-sr71",
