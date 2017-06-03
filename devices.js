@@ -104,6 +104,7 @@ var vendormodels = {
     "CPE 520": {"tp-link-cpe520": "", "tp-link-cpe510-520": ""},
     "WBS 210": "tp-link-wbs210",
     "WBS 510": "tp-link-wbs510",
+    "RE450": "tp-link-re450",
     "TL-MR13U": "tp-link-tl-mr13u",
     "TL-MR3020": "tp-link-tl-mr3020",
     "TL-MR3040": "tp-link-tl-mr3040",
