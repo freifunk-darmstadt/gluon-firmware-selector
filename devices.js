@@ -142,6 +142,7 @@ var vendormodels = {
     "AirGateway": {"ubnt-air-gateway": "", "ubiquiti-airgateway": "",
                    "ubiquiti-airgateway-lr": "LR", "ubiquiti-airgateway-pro": "Pro"},
     "AirRouter": {"ubnt-air-router": "", "ubiquiti-airrouter": ""},
+    "AirRouter X": "ubnt-erx",
     "Bullet": {"ubiquiti-bullet-m2": "M2", "ubiquiti-bullet-m5": "M5", "bullet-m": "--ignore--"},
     "Litestation SR71": "ubiquiti-ls-sr71",
     "NanoStation Loco": {"ubiquiti-loco-m-xw": "--ignore--",
