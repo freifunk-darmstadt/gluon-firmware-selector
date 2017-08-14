@@ -161,6 +161,7 @@ var vendormodels = {
     "Rocket Titanium": {"ubiquiti-rocket-m-ti": "--ignore--",
                         "ubiquiti-rocket-m2-ti": "M2",
                         "ubiquiti-rocket-m5-ti": "M5"},
+    "UniFi AC Mesh": "ubiquiti-unifi-ac-mesh",
     "UniFi AP": {"ubiquiti-unifi": "--ignore--", "ubiquiti-unifi-ap": ""},
     "UniFi AP LR": "ubiquiti-unifi-ap-lr",
     "UniFi AP Pro": "ubiquiti-unifi-ap-pro",
