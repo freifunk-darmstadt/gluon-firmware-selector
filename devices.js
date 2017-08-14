@@ -91,7 +91,8 @@ var vendormodels = {
 
   "Raspberry Pi Foundation": {
     "PI": "raspberry-pi",
-    "PI 2": "raspberry-pi-2"
+    "PI 2": "raspberry-pi-2",
+    "PI 3": "raspberry-pi-3"
   },
 
   "TP-Link": {
