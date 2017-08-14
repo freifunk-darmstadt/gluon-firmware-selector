@@ -169,6 +169,10 @@ var vendormodels = {
     "UniFi AP Outdoor+": {"ubiquiti-unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor\\\+": "", "ubiquiti-unifiap-outdoor%2B": "", "ubiquiti-unifiap-outdoor%2b": ""}
   },
 
+  "Unbranded": {
+    "A5-V11": "a5-v11"
+  },
+
   "VoCore": {
     "VoCore": "vocore",
     "VoCore 2": "vocore2"
