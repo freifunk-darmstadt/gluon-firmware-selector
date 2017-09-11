@@ -36,7 +36,10 @@ var vendormodels = {
     "AR150": "gl-ar150",
     "AR300M": "gl-ar300m",
     "iNet 6408a": "gl-inet-6408a",
-    "iNet 6416a": "gl-inet-6416a"
+    "iNet 6416a": "gl-inet-6416a",
+    "GL-MT300a": "gl-mt300a",
+    "GL-MT300n": "gl-mt300n",
+    "GL-MT750": "gl-mt750"
   },
 
   "LeMaker": {
