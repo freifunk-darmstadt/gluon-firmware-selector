@@ -188,6 +188,10 @@ var vendormodels = {
     "My Net N750": {"wd-my-net-n750": ""}
   },
 
+  "Xiaomi": {
+    "MiWiFi Mini": "xiaomi-miwifi-mini"
+  },
+
   "x86": {
     "generic 32bit": "x86-generic",
     "generic 64bit": "x86-64",
