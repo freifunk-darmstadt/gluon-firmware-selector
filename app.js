@@ -424,6 +424,8 @@ var firmwarewizard = function() {
     preview = preview.replace('x86-generic', 'x86-generic.img');
     preview = preview.replace('x86-64', 'x86-generic.img');
     preview = preview.replace('x86-kvm', 'x86-kvm.img');
+    preview = preview.replace('x86-generic.img.vdi', 'x86-virtualbox.vdi');
+    preview = preview.replace('x86-generic.img.vmdk', 'x86-vmware.vmdk');
 
     // collect branch versions
     app.currentVersions[branch] = version;
