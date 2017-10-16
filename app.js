@@ -411,6 +411,7 @@ var firmwarewizard = function() {
     preview = preview.replace('openmesh-mr600', 'openmesh-mr600-v1');
     preview = preview.replace('openmesh-mr900', 'openmesh-mr900-v1');
     if (preview.indexOf('tp-link') != -1) preview += '-' + revision;
+    preview = preview.replace('tp-link-archer-c5-v1', 'tp-link-archer-c7-v2'); // Archer C5 v1 and Archer C7 v2 are identical
     preview = preview.replace('tp-link-tl-wa801n-nd-v3', 'tp-link-tl-wa801n-nd-v2'); // no preview picture for v3 yet
     preview = preview.replace('tp-link-tl-wr940n-v3', 'tp-link-tl-wr940n-v2'); // no preview picture for v3 yet
     preview = preview.replace('ubiquiti-unifi-ap', 'ubiquiti-unifi');
