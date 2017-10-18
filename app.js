@@ -411,9 +411,12 @@ var firmwarewizard = function() {
     preview = preview.replace('openmesh-mr600', 'openmesh-mr600-v1');
     preview = preview.replace('openmesh-mr900', 'openmesh-mr900-v1');
     if (preview.indexOf('tp-link') != -1) preview += '-' + revision;
+    preview = preview.replace('tp-link-archer-c5-v1', 'tp-link-archer-c7-v2'); // Archer C5 v1 and Archer C7 v2 are identical
     preview = preview.replace('tp-link-tl-wa801n-nd-v3', 'tp-link-tl-wa801n-nd-v2'); // no preview picture for v3 yet
     preview = preview.replace('tp-link-tl-wr940n-v3', 'tp-link-tl-wr940n-v2'); // no preview picture for v3 yet
     preview = preview.replace('ubiquiti-unifi-ap', 'ubiquiti-unifi');
+    preview = preview.replace('ubiquiti-unifi-lr', 'ubiquiti-unifi');
+    preview = preview.replace('ubiquiti-unifi-pro', 'ubiquiti-unifi');
     preview = preview.replace('x86-virtualbox', 'x86-virtualbox.vdi');
     preview = preview.replace('x86-64-virtualbox', 'x86-virtualbox.vdi');
     preview = preview.replace('x86-vmware', 'x86-vmware.vmdk');
@@ -421,6 +424,8 @@ var firmwarewizard = function() {
     preview = preview.replace('x86-generic', 'x86-generic.img');
     preview = preview.replace('x86-64', 'x86-generic.img');
     preview = preview.replace('x86-kvm', 'x86-kvm.img');
+    preview = preview.replace('x86-generic.img.vdi', 'x86-virtualbox.vdi');
+    preview = preview.replace('x86-generic.img.vmdk', 'x86-vmware.vmdk');
 
     // collect branch versions
     app.currentVersions[branch] = version;
