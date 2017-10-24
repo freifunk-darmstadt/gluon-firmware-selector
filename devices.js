@@ -101,6 +101,7 @@ var vendormodels = {
 
   "TP-Link": {
     "Archer C2600": {"tp-link-archer-c2600": "v1"},
+    "Archer C25": {"tp-link-archer-c25": "v1"},
     "Archer C5": {"tp-link-archer-c5": "v1"},
     "Archer C7": "tp-link-archer-c7",
     "CPE 210": {"tp-link-cpe210": "", "tp-link-cpe210-220": ""},
