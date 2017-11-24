@@ -4,7 +4,9 @@ OpenWrt/LEDE Firmware Wizard
 This Firmware Wizard lets a user select the correct firmware for his device. Directory listings are used to parse the list of available images.
 
 Similar projects:
-- [Freifunk Hennef Firmware Downloader](https://github.com/Freifunk-Hennef/ffhef-fw-dl)
+- [Freifunk Bielefeld Firmware Wizard](https://github.com/freifunk-bielefeld/firmware-wizard/): Based on this wizard, but also supports LEDE and OpenWRT firmware images
+- [Freifunk Hennef Firmware Downloader](https://github.com/Freifunk-Hennef/ffhef-fw-dl): Firmware wizard that also contains server-side code (PHP)
+- [LibreMesh Chef](https://chef.libremesh.org/): Firmware wizard of LibreMesh that supports building custom images on demand
 
 ### Configuration
 
