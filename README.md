@@ -8,6 +8,9 @@ Similar projects:
 - [Freifunk Hennef Firmware Downloader](https://github.com/Freifunk-Hennef/ffhef-fw-dl): Firmware wizard that also contains server-side code (PHP)
 - [LibreMesh Chef](https://chef.libremesh.org/): Firmware wizard of LibreMesh that supports building custom images on demand
 
+### Screenshot
+![screenshot of the firmware wizard](screenshot.png)
+
 ### Configuration
 
 #### Apache Webserver
