@@ -12,6 +12,7 @@ Similar projects:
 ![screenshot of the firmware wizard](screenshot.png)
 
 ### Configuration
+Image paths and available branches can be set in `config_template.js` which has to be renamed to `config.js`. In addition, directory listings have to be enabled in your prefered web server:
 
 #### Apache Webserver
 Create a `.htaccess` file that enables directory listings:
@@ -30,7 +31,7 @@ location /path/to/builds/ {
 #### Python Webserver
 For testing purposes or to share files in a LAN, Python can be used. Run `python -m http.server 8080` from within this directory (the directory where `README.md` can be found) and you are done.
 
-### Model Database
+### List of available router models
 All available router models are specified in `devices.js` via that will match against the filenames.
 If no hardware revision is given or is it is empty, the revision is extracted from the file name.
 
@@ -45,9 +46,6 @@ If no hardware revision is given or is it is empty, the revision is extracted fr
 ```
 
 If two matches overlap, the longest match will be assigned the matching files. On the other hand, the same match can be used by multiple models without problems.
-
-### Configuration
-Image paths and available branches can be set in file `config_template.js` which has to be renamed to `config.js`
 
 ### License
 This program is free software: you can redistribute it and/or modify
