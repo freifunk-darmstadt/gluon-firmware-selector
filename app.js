@@ -12,76 +12,77 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-function $(s) {
-  return document.querySelector(s);
-}
-
-function toggleClass(e, cssClass) {
-  setClass(e, cssClass, !hasClass(e, cssClass));
-}
-
-function hasClass(e, cssClass) {
-  var searchstring = (' ' + e.className + ' ').replace(/[\n\t]/g, " ");
-  return (searchstring.indexOf(' ' + cssClass+ ' ') !== -1);
-}
-
-function setClass(e, cssClass, active) {
-  if (active && !hasClass(e, cssClass)) {
-    e.className = (e.className+' '+cssClass).trim();
-  } else if (!active && hasClass(e, cssClass)) {
-    e.className = e.className.replace(cssClass, '');
-  }
-}
-
-function show_inline(s) {
-  $(s).style.display = 'inline-block';
-}
-
-function show_block(s) {
-  $(s).style.display = 'block';
-}
-
-function hide(s) {
-  $(s).style.display = 'none';
-}
-
-// Object.values() replacement
-function ObjectValues(obj) {
-  return Object.keys(obj).map(function(key) { return obj[key]; });
-}
-
-function isEmptyObject(obj) {
-    for (var name in obj) {
-        return false;
-    }
-    return true;
-}
-
-function scrollDown() {
-  try {
-    window.scrollBy({
-      top: 512,
-      left: 0,
-      behavior: 'smooth'
-    });
-  } catch (e) {
-    var start = document.body.scrollTop;
-    var lastTop = start - 1;
-    var interval = window.setInterval(function() {
-      if (document.body.scrollTop > start + 512 || lastTop - document.body.scrollTop === 0) {
-        window.clearInterval(interval);
-        console.log('stop');
-      }
-      lastTop = document.body.scrollTop;
-      document.body.scrollTop += 4;
-    }, 1);
-  }
-}
-
 var firmwarewizard = function() {
   var app = {};
 
+  // helper functions
+  function $(s) {
+    return document.querySelector(s);
+  }
+
+  function toggleClass(e, cssClass) {
+    setClass(e, cssClass, !hasClass(e, cssClass));
+  }
+
+  function hasClass(e, cssClass) {
+    var searchstring = (' ' + e.className + ' ').replace(/[\n\t]/g, " ");
+    return (searchstring.indexOf(' ' + cssClass+ ' ') !== -1);
+  }
+
+  function setClass(e, cssClass, active) {
+    if (active && !hasClass(e, cssClass)) {
+      e.className = (e.className+' '+cssClass).trim();
+    } else if (!active && hasClass(e, cssClass)) {
+      e.className = e.className.replace(cssClass, '');
+    }
+  }
+
+  function show_inline(s) {
+    $(s).style.display = 'inline-block';
+  }
+
+  function show_block(s) {
+    $(s).style.display = 'block';
+  }
+
+  function hide(s) {
+    $(s).style.display = 'none';
+  }
+
+  // Object.values() replacement
+  function ObjectValues(obj) {
+    return Object.keys(obj).map(function(key) { return obj[key]; });
+  }
+
+  function isEmptyObject(obj) {
+      for (var name in obj) {
+          return false;
+      }
+      return true;
+  }
+
+  function scrollDown() {
+    try {
+      window.scrollBy({
+        top: 512,
+        left: 0,
+        behavior: 'smooth'
+      });
+    } catch (e) {
+      var start = document.body.scrollTop;
+      var lastTop = start - 1;
+      var interval = window.setInterval(function() {
+        if (document.body.scrollTop > start + 512 || lastTop - document.body.scrollTop === 0) {
+          window.clearInterval(interval);
+          console.log('stop');
+        }
+        lastTop = document.body.scrollTop;
+        document.body.scrollTop += 4;
+      }, 1);
+    }
+  }
+
+  // constants
   var IGNORED_ELEMENTS = [
     './', '../', 'experimental.manifest', 'beta.manifest', 'stable.manifest',
     '-tftp', '-fat', '-loader', '-NA', '-x2-', '-hsv2', '-p1020'
