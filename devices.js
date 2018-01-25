@@ -128,7 +128,7 @@ var vendormodels = {
     "TL-WDR3600": "tp-link-tl-wdr3600",
     "TL-WDR4300": "tp-link-tl-wdr4300",
     "TL-WDR4900": "tp-link-tl-wdr4900",
-    "TL-WR1043N/ND": {"tp-link-tl-wr1043n-nd": ""},
+    "TL-WR1043N/ND": {"tp-link-tl-wr1043n-nd": "", "tp-link-tl-wr1043n": ""},
     "TL-WR2543N/ND": {"tp-link-tl-wr2543n-nd": ""},
     "TL-WR703N": "tp-link-tl-wr703n",
     "TL-WR710N": "tp-link-tl-wr710n",
