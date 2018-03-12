@@ -829,9 +829,9 @@ var firmwarewizard = function() {
                       ' (' +prettyPrintVersion(rev.version)+')';
 
         if (rev.branch == 'experimental') {
-          if($('#branchselect .dl-expermental') === null) {
+          if($('#branchselect .dl-experimental') === null) {
             var button = document.createElement('button');
-            button.className = 'btn dl-expermental';
+            button.className = 'btn dl-experimental';
             button.addEventListener('click', toggleExperimentalWarning);
             button.innerText = 'Experimentelle Firmware anzeigen';
             $('#branchselect').appendChild(button);
