@@ -28,6 +28,8 @@ var config = {
     './images/gluon-factory-example.html': 'stable',
     './images/gluon-sysupgrade-example.html': 'stable'
   },
+  // experimental branches (show a warning for these branches)
+  experimental_branches: ['experimental'],
   // path to preview pictures directory
   preview_pictures: 'pictures/',
   // link to changelog

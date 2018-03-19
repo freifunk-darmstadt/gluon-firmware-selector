@@ -84,7 +84,7 @@ var firmwarewizard = function() {
 
   // constants
   var IGNORED_ELEMENTS = [
-    './', '../', 'experimental.manifest', 'beta.manifest', 'stable.manifest',
+    './', '../', '.manifest',
     '-tftp', '-fat', '-loader', '-NA', '-x2-', '-hsv2', '-p1020'
   ];
   var PANE = {'MODEL': 0, 'IMAGETYPE': 1, 'BRANCH': 2};
@@ -113,6 +113,10 @@ var firmwarewizard = function() {
     'rootfs': "Root-Image",
     'kernel': "Kernel-Image"
   };
+
+  var branches = ObjectValues(config.directories).filter(function(e, index, self) {
+    return index === self.indexOf(e);
+  });
 
   var reFileExtension = new RegExp(/.(bin|img.gz|img|tar)/);
   var reRemoveDashes = new RegExp(/-/g);
@@ -800,16 +804,16 @@ var firmwarewizard = function() {
         return;
       }
 
-      var revisions = images[currentVendor][currentModel]
-        .filter(function(e) {
-          return e.revision == currentRevision && e.type == currentImageType;
-        }).sort(function(a, b) {
-          if (a.branch == 'stable') return -1;
-          if (b.branch == 'stable') return 1;
-          if (a.branch == 'beta') return -1;
-          if (b.branch == 'beta') return 1;
-          return 0;
-        });
+      var revisions = images[currentVendor][currentModel].filter(function(e) {
+        return e.revision == currentRevision && e.type == currentImageType;
+      }).sort(function(a, b) {
+        // non-experimental branches should appear first
+        var a_experimental = config.experimental_branches.indexOf(a.branch) != -1;
+        var b_experimental = config.experimental_branches.indexOf(b.branch) != -1;
+        if (a_experimental && !b_experimental) return 1;
+        if (!a_experimental && b_experimental) return -1;
+        return branches.indexOf(a.branch) > branches.indexOf(b.branch);
+      });
 
       $('#branchselect').innerHTML = '';
       $('#branch-experimental-dl').innerHTML = '';
@@ -828,7 +832,7 @@ var firmwarewizard = function() {
                       (rev.size!==''?' ['+rev.size+']':'') +
                       ' (' +prettyPrintVersion(rev.version)+')';
 
-        if (rev.branch == 'experimental') {
+        if (config.experimental_branches.indexOf(rev.branch) != -1) {
           if($('#branchselect .dl-experimental') === null) {
             var button = document.createElement('button');
             button.className = 'btn dl-experimental';
@@ -873,9 +877,6 @@ var firmwarewizard = function() {
     updatePanes(s.vendor, s.model, s.revision, s.imageType);
 
     function updateCurrentVersions() {
-      var branches = ObjectValues(config.directories)
-        .filter(function(value, index, self) { return self.indexOf(value) === index; });
-
       $('#currentVersions').innerText = '';
       if (config.changelog !== undefined) {
         var a = document.createElement('a');
