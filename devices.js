@@ -161,7 +161,7 @@ var vendormodels = {
     "NanoStation": {"ubiquiti-nanostation-m": "--ignore--", "ubiquiti-nano-m": "--ignore--", "ubiquiti-nanostation-m-xw": "--ignore--", "ubiquiti-nano-m-xw": "--ignore--",
                     "ubiquiti-nanostation-m2": "M2 XM", "ubiquiti-nano-m2": "M2 XM", "ubiquiti-nanostation-m2-xw": "M2 XW", "ubiquiti-nano-m2-xw": "M2 XW",
                     "ubiquiti-nanostation-m5": "M5 XM", "ubiquiti-nano-m5": "M5 XM", "ubiquiti-nanostation-m5-xw": "M5 XW", "ubiquiti-nano-m5-xw": "M5 XW"},
-    "NanoBeam": "ubiquiti-nanobeam-m5",
+    "NanoBeam": {"ubiquity-nanobeam-m": "--ignore--", "ubiquiti-nanobeam-m5": "M5"},
     "PicoStation": {"ubiquiti-picostation-m": "M",
                     "ubiquiti-picostation-m2": "M2"},
     "Rocket": {"ubiquiti-rocket-m": "M", "ubiquiti-rocket-m-xw": "M XW",
