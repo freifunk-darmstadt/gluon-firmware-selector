@@ -67,7 +67,7 @@ var vendormodels = {
 
   "Netgear": {
     "WNR2200": "netgear-wnr2200",
-    "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4"},
+    "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4", "netgear-wndr3700v5": "v5"},
     "WNDR3800": "netgear-wndr3800",
     "WNDR4300": "netgear-wndr4300",
     "WNDRMAC": {"netgear-wndrmac": "v1", "netgear-wndrmacv2": "v2"},
@@ -104,6 +104,9 @@ var vendormodels = {
     "Archer C25": {"tp-link-archer-c25": "v1"},
     "Archer C5": {"tp-link-archer-c5": "v1"},
     "Archer C7": "tp-link-archer-c7",
+    "Archer C58": {"tp-link-archer-c58": "v1"},
+    "Archer C59": {"tp-link-archer-c59": "v1"},
+    "Archer C60": {"tp-link-archer-c60": "v1"},
     "CPE 210": {"tp-link-cpe210": "", "tp-link-cpe210-220": "", "tp-link-cpe220": "--ignore--"},
     "CPE 510": {"tp-link-cpe510": "", "tp-link-cpe510-520": "", "tp-link-cpe520": "--ignore--"},
     "WBS 210": "tp-link-wbs210",
@@ -135,6 +138,8 @@ var vendormodels = {
     "TL-WR740N/ND": "tp-link-tl-wr740n-nd",
     "TL-WR741N/ND": "tp-link-tl-wr741n-nd",
     "TL-WR743N/ND": "tp-link-tl-wr743n-nd",
+    "TL-WR802N": {"tp-link-tl-wr802n": "v1"},
+    "TL-WR810N": {"tp-link-tl-wr810n": "v1"},
     "TL-WR841N/ND": {"tp-link-tl-wr841n-nd": "", "tp-link-tl-wr841nd": ""},
     "TL-WR842N/ND": {"tp-link-tl-wr842n-nd": ""},
     "TL-WR843N/ND": {"tp-link-tl-wr843n-nd": ""},
@@ -156,6 +161,7 @@ var vendormodels = {
     "NanoStation": {"ubiquiti-nanostation-m": "--ignore--", "ubiquiti-nano-m": "--ignore--", "ubiquiti-nanostation-m-xw": "--ignore--", "ubiquiti-nano-m-xw": "--ignore--",
                     "ubiquiti-nanostation-m2": "M2 XM", "ubiquiti-nano-m2": "M2 XM", "ubiquiti-nanostation-m2-xw": "M2 XW", "ubiquiti-nano-m2-xw": "M2 XW",
                     "ubiquiti-nanostation-m5": "M5 XM", "ubiquiti-nano-m5": "M5 XM", "ubiquiti-nanostation-m5-xw": "M5 XW", "ubiquiti-nano-m5-xw": "M5 XW"},
+    "NanoBeam": "ubiquiti-nanobeam-m5",
     "PicoStation": {"ubiquiti-picostation-m": "M",
                     "ubiquiti-picostation-m2": "M2"},
     "Rocket": {"ubiquiti-rocket-m": "M", "ubiquiti-rocket-m-xw": "M XW",
@@ -202,5 +208,8 @@ var vendormodels = {
                      "x86-64.vmdk": ""},
     "KVM 32bit": "x86-kvm",
     "XEN 32bit": "x86-xen",
+  }
+  "ZBT": {
+    "WG3526": "zbt-wg3526",
   }
 };
