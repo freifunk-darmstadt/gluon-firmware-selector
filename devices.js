@@ -15,6 +15,10 @@ var vendormodels = {
     "ALL0315N": "allnet-all0315n"
   },
 
+  "AVM": {
+    "FRITZ!Box 4020": "avm-fritz-box-4020",
+  },
+
   "Buffalo": {
     "WZR-600DHP": {"buffalo-wzr-600dhp": "v2"},
     "WZR-HP-AG300H": {"buffalo-wzr-hp-ag300h": "", "buffalo-wzr-hp-ag300h-wzr-600dhp": ""},
