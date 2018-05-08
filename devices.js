@@ -212,8 +212,10 @@ var vendormodels = {
                      "x86-64.vmdk": ""},
     "KVM 32bit": "x86-kvm",
     "XEN 32bit": "x86-xen",
-  }
+  },
+	
   "ZBT": {
     "WG3526": {"zbt-wg3526-16m": "16M", "zbt-wg3526-32m": "32M", "zbt-wg3526": "16M"},
   }
+
 };
