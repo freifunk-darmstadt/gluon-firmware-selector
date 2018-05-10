@@ -18,6 +18,8 @@ var config = {
   listMissingImages: false,
   // see devices.js for different vendor model maps
   vendormodels: vendormodels,
+  // set enabled categories of devices (see devices.js)
+  enabled_device_categories: ["recommended"],
   // community prefix of the firmware images
   community_prefix: 'gluon-ffda-',
   // firmware version regex
