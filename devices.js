@@ -3,14 +3,6 @@ var devices_recommended = {
     "Carambola Board 2": "8devices-carambola2-board"
   },
 
-  "Alfa": {
-    "AP121": {"alfa-ap121": "", "alfa-network-ap121": ""},
-    "AP121U": {"alfa-ap121u": "", "alfa-network-ap121u": ""},
-    "Hornet-UB": {"alfa-hornet-ub": "", "alfa-network-hornet-ub": ""},
-    "Tube2H": {"alfa-tube2h": "", "alfa-network-tube2h": ""},
-    "N2 / N5": {"alfa-n2-n5": "", "alfa-network-n2-n5": ""},
-  },
-
   "Allnet": {
     "ALL0315N": "allnet-all0315n"
   },
@@ -29,9 +21,6 @@ var devices_recommended = {
 
   "D-Link": {
     "DIR-505": "d-link-dir-505-rev",
-    "DIR-615": {"d-link-dir-615-c1": "c1/c2", "d-link-dir-615-rev-c1": "c1/c2",
-                "d-link-dir-615-d": "d1-d4", "d-link-dir-615-e1": "e1/e2",
-                "d-link-dir-615-e4": "e3-e5", "d-link-dir-615-h1": "h1/h2"},
     "DIR-825": "d-link-dir-825-rev",
     "DIR-860L": "d-link-dir-860l"
   },
@@ -53,7 +42,6 @@ var devices_recommended = {
   },
 
   "Linksys": {
-    "WRT160NL": "linksys-wrt160nl",
     "WRT1200AC": "linksys-wrt1200ac"
   },
 
@@ -127,11 +115,8 @@ var devices_recommended = {
   },
 
   "Ubiquiti": {
-    "AirGateway": {"ubnt-air-gateway": "", "ubiquiti-airgateway": "",
-                   "ubiquiti-airgateway-lr": "LR", "ubiquiti-airgateway-pro": "Pro"},
     "EdgeRouter X": "ubnt-erx",
     "EdgeRouter X-SFP": "ubnt-erx-sfp",
-    "Litestation SR71": "ubiquiti-ls-sr71",
     "NanoBeam": {"ubiquity-nanobeam-m": "--ignore--", "ubiquiti-nanobeam-m5": "M5"},
     "Rocket": {"ubiquiti-rocket-m": "M", "ubiquiti-rocket-m-xw": "M XW",
                "ubiquiti-rocket-m2": "M2", "ubiquiti-rocket-m2-xw": "M2 XW",
@@ -149,12 +134,7 @@ var devices_recommended = {
     "UniFi AP Outdoor+": {"ubiquiti-unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor\\\+": "", "ubiquiti-unifiap-outdoor%2B": "", "ubiquiti-unifiap-outdoor%2b": ""}
   },
 
-  "Unbranded": {
-    "A5-V11": "a5-v11"
-  },
-
   "VoCore": {
-    "VoCore": "vocore",
     "VoCore 2": "vocore2"
   },
 
@@ -178,12 +158,20 @@ var devices_recommended = {
     "KVM 32bit": "x86-kvm",
     "XEN 32bit": "x86-xen",
   },
+
   "ZBT": {
     "WG3526": {"zbt-wg3526-16m": "16M", "zbt-wg3526-32m": "32M", "zbt-wg3526": "16M"},
   }
 };
 
 var devices_4_32 = {
+
+  "D-Link": {
+    "DIR-615": {"d-link-dir-615-c1": "c1/c2", "d-link-dir-615-rev-c1": "c1/c2",
+                "d-link-dir-615-d": "d1-d4", "d-link-dir-615-e1": "e1/e2",
+                "d-link-dir-615-e4": "e3-e5", "d-link-dir-615-h1": "h1/h2"},
+  },
+
   "TP-Link": {
     "TL-MR13U": "tp-link-tl-mr13u",
     "TL-MR3020": "tp-link-tl-mr3020",
@@ -212,16 +200,37 @@ var devices_4_32 = {
     "TL-WR940N/ND": {"tp-link-tl-wr940n": "", "tp-link-tl-wr940n-nd": "", "tp-link-tl-wr941nd-v4": "v1", "tp-link-tl-wr941nd-v5": "v2", "tp-link-tl-wr941nd-v6": "v3"},
     "TL-WR941N/ND": {"tp-link-tl-wr941nd": "", "tp-link-tl-wr941n-nd": "", "tp-link-tl-wr941nd-v4": "v4", "tp-link-tl-wr941nd-v5": "v5", "tp-link-tl-wr941nd-v6": "v6"}
   },
+
+  "Unbranded": {
+    "A5-V11": "a5-v11"
+  },
+
 };
 
 var devices_8_32 = {
+  "Alfa": {
+    "AP121": {"alfa-ap121": "", "alfa-network-ap121": ""},
+    "AP121U": {"alfa-ap121u": "", "alfa-network-ap121u": ""},
+    "Hornet-UB": {"alfa-hornet-ub": "", "alfa-network-hornet-ub": ""},
+    "Tube2H": {"alfa-tube2h": "", "alfa-network-tube2h": ""},
+    "N2 / N5": {"alfa-n2-n5": "", "alfa-network-n2-n5": ""}
+    },
+
+  "Linksys": {
+    "WRT160NL": "linksys-wrt160nl",
+  },
+
   "TP-Link": {
     "TL-WR1043N/ND": {"tp-link-tl-wr1043n-nd-v1": "v1"},
     "TL-WR842N/ND": {"tp-link-tl-wr842n-nd-v1": "v1", "tp-link-tl-wr842n-nd-v2": "v2"},
   },
+
   "Ubiquiti": {
+    "AirGateway": {"ubnt-air-gateway": "", "ubiquiti-airgateway": "",
+                   "ubiquiti-airgateway-lr": "LR", "ubiquiti-airgateway-pro": "Pro"},
     "AirRouter": {"ubnt-air-router": "", "ubiquiti-airrouter": ""},
     "Bullet": {"ubiquiti-bullet-m2": "M2", "ubiquiti-bullet-m5": "M5", "bullet-m": "--ignore--"},
+    "Litestation SR71": "ubiquiti-ls-sr71",
     "NanoStation Loco": {"ubiquiti-loco-m-xw": "--ignore--",
                          "ubiquiti-nanostation-loco-m2": "M2 XM", "ubiquiti-nanostation-loco-m2-xw": "M2 XW",
                          "ubiquiti-nanostation-loco-m5": "M5 XM", "ubiquiti-nanostation-loco-m5-xw": "M5 XW"},
@@ -231,10 +240,21 @@ var devices_8_32 = {
     "PicoStation": {"ubiquiti-picostation-m": "M",
                     "ubiquiti-picostation-m2": "M2"},
   },
+
+  "VoCore": {
+    "VoCore": {"vocore-8M": "8M"},
+  },
 };
+
+var devices_16_32 = {
+  "VoCore": {
+    "VoCore": {"vocore-16M": "16M"},
+  },
+}
 
 var vendormodels = {
   "recommended": devices_recommended,
   "4_32": devices_4_32,
   "8_32": devices_8_32,
+  "16_32": devices_16_32,
 }
