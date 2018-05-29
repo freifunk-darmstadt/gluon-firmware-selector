@@ -1072,19 +1072,12 @@ var firmwarewizard = function() {
     });
 
     // prepare the matches for use in regex (join by pipe and escape dots)
-    var matchString = matches.join('|').replace(/\./g, '\.');
+    var matchString = matches.map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
 
     // match image files. The match either ends with
     // - a dash or dot (if a file extension will follow)
     // - the end of the expression (if the file extension is part of the regex)
     var reMatch = new RegExp('('+matchString+')([.-]|$)');
-
-    // check if image regexes contain regular expressions themself
-    var reCheckRegex = new RegExp(/[^\\]+[+?*]/);
-
-    if (reCheckRegex.exec(matches.join('|')) !== null) {
-      console.log("Warning! Some regular expressions for firmware images, contain unescaped characters.");
-    }
 
     var sitesLoadedSuccessfully = 0;
     for (var indexPath in config.directories) {
