@@ -140,53 +140,24 @@ var firmwarewizard = function() {
     PREVIEW_PICTURES_DIR = config.preview_pictures;
   }
 
-  function merge_device_list(obj1, obj2) {
-    // Merge obj2 in obj1
-    for (var vendor_name in obj2) {
-      if (!(vendor_name in obj1)) {
-        obj1[vendor_name] = obj2[vendor_name];
-        continue;
-      }
-
-      for (var device_name in obj2[vendor_name]) {
-        if (!(device_name in obj1[vendor_name])) {
-          obj1[vendor_name][device_name] = obj2[vendor_name][device_name];
-          continue;
-        }
-
-        for (var revision in obj2[vendor_name][device_name]) {
-          obj1[vendor_name][device_name][revision] = obj2[vendor_name][device_name][revision];
-        }
-      }
-    }
-  }
-
-  function buildModelList() {
-    var device_list = {}
-    if (!("enabled_device_categories" in config)) {
-      return config.vendormodels.recommended;
-    }
-
-    for (var i=0; i<config.enabled_device_categories.length; i++) {
-      merge_device_list(device_list, config.vendormodels[config.enabled_device_categories[i]]);
-    }
-
-    return device_list;
+  var enabled_device_categories = ['recommended'];
+  if ("enabled_device_categories" in config) {
+    enabled_device_categories = config.enabled_device_categories;
   }
 
   function buildVendorModelsReverse() {
     var vendormodels_reverse = {};
 
-    // create a map of {match : [{vendor, model, default-revision}, ... ], ...}
-    var vendormodels = buildModelList()
-    for (var vendor in vendormodels) {
-      var models = vendormodels[vendor];
-      for (var model in models) {
-        var match = models[model];
-        if (typeof match == 'string') {
-          addArray(vendormodels_reverse, match, {'vendor': vendor, 'model': model, 'revision': ''});
-        } else for (var m in match) {
-          addArray(vendormodels_reverse, m, {'vendor': vendor, 'model': model, 'revision': match[m]});
+    for (var device_category in config.vendormodels) {
+      for (var vendor in config.vendormodels[device_category]) {
+        var models = config.vendormodels[device_category][vendor];
+        for (var model in models) {
+          var match = models[model];
+          if (typeof match == 'string') {
+            addArray(vendormodels_reverse, match, {'vendor': vendor, 'model': model, 'revision': '', category: device_category});
+          } else for (var m in match) {
+            addArray(vendormodels_reverse, m, {'vendor': vendor, 'model': model, 'revision': match[m], category: device_category});
+          }
         }
       }
     }
@@ -391,6 +362,11 @@ var firmwarewizard = function() {
     var device = devices[0];
 
     if (device.model == '--ignore--' || device.revision == '--ignore--') {
+      return;
+    }
+
+    if (enabled_device_categories.indexOf(device.category) == -1) {
+      // the category is not in the list of enabled categories
       return;
     }
 
