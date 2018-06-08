@@ -1047,7 +1047,8 @@ var firmwarewizard = function() {
       return 0;
     });
 
-    // prepare the matches for use in regex (join by pipe and escape dots)
+    // prepare the matches for use in regex (join by pipe and escape regex special characters)
+    // according to https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
     var matchString = matches.map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
 
     // match image files. The match either ends with
