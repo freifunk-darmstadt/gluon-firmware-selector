@@ -32,6 +32,7 @@ var devices_recommended = {
   "GL Innovations": {
     "AR150": "gl-ar150",
     "AR300M": "gl-ar300m",
+    "AR750": "gl-ar750",
     "iNet 6408a": "gl-inet-6408a",
     "iNet 6416a": "gl-inet-6416a",
     "GL-MT300a": "gl-mt300a",
