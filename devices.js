@@ -168,7 +168,9 @@ var devices_4_32 = {
 
   "D-Link": {
     "DIR-615": {"d-link-dir-615-c1": "c1/c2", "d-link-dir-615-rev-c1": "c1/c2",
-                "d-link-dir-615-d": "d1-d4", "d-link-dir-615-e1": "e1/e2",
+                "d-link-dir-615-d": "--ignore--", "d-link-dir-615-d1": "d1",
+                "d-link-dir-615-d2": "d2", "d-link-dir-615-d3": "d3",
+                "d-link-dir-615-d4": "d4", "d-link-dir-615-e1": "e1/e2",
                 "d-link-dir-615-e4": "e3-e5", "d-link-dir-615-h1": "h1/h2"},
   },
 
