@@ -1,8 +1,4 @@
 var devices_recommended = {
-  "Alfa": {
-    "AP121F": {"alfa-ap121f": "", "alfa-network-ap121f": ""},
-  },
-
   "8devices": {
     "Carambola Board 2": "8devices-carambola2-board"
   },
@@ -217,6 +213,7 @@ var devices_4_32 = {
 var devices_8_32 = {
   "Alfa": {
     "AP121": {"alfa-ap121": "", "alfa-network-ap121": ""},
+    "AP121F": {"alfa-ap121f": "", "alfa-network-ap121f": ""},
     "AP121U": {"alfa-ap121u": "", "alfa-network-ap121u": ""},
     "Hornet-UB": {"alfa-hornet-ub": "", "alfa-network-hornet-ub": ""},
     "Tube2H": {"alfa-tube2h": "", "alfa-network-tube2h": ""},
