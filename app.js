@@ -111,7 +111,8 @@ var firmwarewizard = function() {
     'factory': 'Erstinstallation',
     'sysupgrade': 'Upgrade',
     'rootfs': "Root-Image",
-    'kernel': "Kernel-Image"
+    'kernel': "Kernel-Image",
+    'bootloader': 'Bootloader-Image'
   };
 
   var branches = ObjectValues(config.directories).filter(function(e, index, self) {
@@ -308,7 +309,7 @@ var firmwarewizard = function() {
   }
 
   function findType(name) {
-    var m = /-(sysupgrade|factory|rootfs|kernel)[-.]/.exec(name);
+    var m = /-(sysupgrade|factory|rootfs|kernel|bootloader)[-.]/.exec(name);
     return m ? m[1] : 'factory';
   }
 
