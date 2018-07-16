@@ -234,6 +234,31 @@ var firmwarewizard = function() {
       firmwarewizard.hideFirmwareTable();
     });
 
+    $('#recommendedselect').addEventListener('change', function(e) {
+      if(this.checked) {
+        enabled_device_categories = ['recommended'];
+      } else {
+        enabled_device_categories = ['recommended', '4_32', '8_32', '16_32'];
+      };
+      loadDirectories(function() {
+        // initialize pictures for router models
+        var previews = $('.imagePreview');
+        previews.innerHTML = '';
+        var fullModelList = createSearchableModellist();
+        for (var m in fullModelList) {
+          var searchstring = fullModelList[m][MODEL_SEARCHSTRING];
+          var vendor = fullModelList[m][MODEL_VENDOR];
+          var model = fullModelList[m][MODEL_MODEL];
+          previews.appendChild(createPicturePreview(vendor, model, searchstring));
+        }
+  
+        updateHTML(wizard);
+        show_block('.manualSelection');
+        updateFirmwareTable();
+      });
+      updateHTML();
+    });      
+
     vendormodels_reverse = buildVendorModelsReverse();
 
     loadDirectories(function() {
