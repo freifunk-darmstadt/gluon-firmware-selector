@@ -9,6 +9,7 @@ var devices_recommended = {
 
   "AVM": {
     "FRITZ!Box 4020": "avm-fritz-box-4020",
+    "FRITZ!Box 4040": "avm-fritz-box-4040"
   },
 
   "Buffalo": {
@@ -31,6 +32,7 @@ var devices_recommended = {
     "AR750": "gl-ar750",
     "iNet 6408a": "gl-inet-6408a",
     "iNet 6416a": "gl-inet-6416a",
+    "GL-B1300": "gl.inet-gl-b1300",
     "GL-MT300a": "gl-mt300a",
     "GL-MT300n": "gl-mt300n",
     "GL-MT750": "gl-mt750"
@@ -59,6 +61,8 @@ var devices_recommended = {
   },
 
   "Netgear": {
+    "EX6100": {"netgear-ex6100v2": "v2"},
+    "EX6150": {"netgear-ex6150v2": "v2"},
     "WNR2200": "netgear-wnr2200",
     "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4", "netgear-wndr3700v5": "v5"},
     "WNDR3800": "netgear-wndr3800",
@@ -158,6 +162,10 @@ var devices_recommended = {
                      "x86-64.vmdk": ""},
     "KVM 32bit": "x86-kvm",
     "XEN 32bit": "x86-xen",
+  },
+
+  "ZyXEL": {
+    "WRE6606": "zyxel-wre6606"
   },
 
   "ZBT": {
