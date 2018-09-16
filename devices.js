@@ -9,7 +9,8 @@ var devices_recommended = {
 
   "AVM": {
     "FRITZ!Box 4020": "avm-fritz-box-4020",
-    "FRITZ!Box 4040": "avm-fritz-box-4040"
+    "FRITZ!Box 4040": "avm-fritz-box-4040",
+    "FRITZ!WLAN Repeater 450E": "avm-fritz-wlan-repeater-450e"
   },
 
   "Buffalo": {
@@ -101,6 +102,7 @@ var devices_recommended = {
     "Archer C25": {"tp-link-archer-c25": "v1"},
     "Archer C5": {"tp-link-archer-c5": "v1"},
     "Archer C7": "tp-link-archer-c7",
+    "Archer C50": {"tp-link-archer-c50-v3": "v3"},
     "Archer C58": {"tp-link-archer-c58": "v1"},
     "Archer C59": {"tp-link-archer-c59": "v1"},
     "Archer C60": {"tp-link-archer-c60": "v1"},
@@ -116,6 +118,7 @@ var devices_recommended = {
     "TL-WR1043N/ND": {"tp-link-tl-wr1043n-nd-v2": "v2", "tp-link-tl-wr1043n-nd-v3": "v3",
                       "tp-link-tl-wr1043n-nd-v4": "v4", "tp-link-tl-wr1043n-v5": "v5"},
     "TL-WR2543N/ND": {"tp-link-tl-wr2543n-nd": ""},
+    "TL-WR841N/ND": {"tp-link-tl-wr-841n-v13": "v13"},
     "TL-WR842N/ND": {"tp-link-tl-wr842n-nd-v3": "v3"},
   },
 
@@ -206,7 +209,15 @@ var devices_4_32 = {
     "TL-WR743N/ND": "tp-link-tl-wr743n-nd",
     "TL-WR802N": {"tp-link-tl-wr802n": "v1"},
     "TL-WR810N": {"tp-link-tl-wr810n": "v1"},
-    "TL-WR841N/ND": {"tp-link-tl-wr841n-nd": "", "tp-link-tl-wr841nd": ""},
+    "TL-WR841N/ND": {"tp-link-tl-wr841n-nd-v3": "v3",
+                     "tp-link-tl-wr841n-nd-v5": "v5",
+                     "tp-link-tl-wr841n-nd-v7": "v7",
+                     "tp-link-tl-wr841n-nd-v8": "v8",
+                     "tp-link-tl-wr841n-nd-v9": "v9",
+                     "tp-link-tl-wr841n-nd-v10": "v10",
+                     "tp-link-tl-wr841n-nd-v11": "v11",
+                     "tp-link-tl-wr841n-nd-v12": "v12"
+    },
     "TL-WR843N/ND": {"tp-link-tl-wr843n-nd": ""},
     "TL-WR940N/ND": {"tp-link-tl-wr940n": "", "tp-link-tl-wr940n-nd": "", "tp-link-tl-wr941nd-v4": "v1", "tp-link-tl-wr941nd-v5": "v2", "tp-link-tl-wr941nd-v6": "v3"},
     "TL-WR941N/ND": {"tp-link-tl-wr941nd": "", "tp-link-tl-wr941n-nd": "", "tp-link-tl-wr941nd-v4": "v4", "tp-link-tl-wr941nd-v5": "v5", "tp-link-tl-wr941nd-v6": "v6"}
