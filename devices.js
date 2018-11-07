@@ -71,20 +71,28 @@ var devices_recommended = {
     "WNDRMAC": {"netgear-wndrmac": "v1", "netgear-wndrmacv2": "v2"},
   },
 
+  "OCEDO": {
+    "Koala": "ocedo-koala",
+  },
+
   "Onion": {
     "Omega": "onion-omega"
   },
 
   "Open-Mesh": {
+    "A40": "openmesh-a40",
+    "A42": "openmesh-a42",
+    "A60": "openmesh-a60",
+    "A62": "openmesh-a62",
     "MR1750": {"openmesh-mr1750": "v1", "openmesh-mr1750v2": "v2"},
     "MR600": {"openmesh-mr600": "v1", "openmesh-mr600v2": "v2"},
     "MR900": {"openmesh-mr900": "v1", "openmesh-mr900v2": "v2"},
-    "OM2P HS": {"openmesh-om2p-hs": "v1", "openmesh-om2p-hsv3": "v3"},
+    "OM2P HS": {"openmesh-om2p-hs": "v1", "openmesh-om2p-hsv3": "v3", "openmesh-om2p-hsv4": "v4"},
     "OM2P LC": "openmesh-om2p-lc",
-    "OM2P": {"openmesh-om2p": "v1", "openmesh-om2pv2": "v2"},
+    "OM2P": {"openmesh-om2p": "v1", "openmesh-om2pv2": "v2", "openmesh-om2pv4": "v4"},
     "OM5P-AC": {"openmesh-om5p-ac": "v1", "openmesh-om5p-acv2": "v2"},
     "OM5P-AN": "openmesh-om5p-an",
-    "OM5P": "openmesh-om5p"
+    "OM5P": "openmesh-om5p",
   },
 
   "PC Engines": {
@@ -110,11 +118,13 @@ var devices_recommended = {
     "CPE 510": {"tp-link-cpe510": "", "tp-link-cpe510-520": "", "tp-link-cpe520": "--ignore--"},
     "WBS 210": "tp-link-wbs210",
     "WBS 510": "tp-link-wbs510",
+    "RE355": "tp-link-re355",
     "RE450": "tp-link-re450",
     "TL-WDR3500": "tp-link-tl-wdr3500",
     "TL-WDR3600": "tp-link-tl-wdr3600",
     "TL-WDR4300": "tp-link-tl-wdr4300",
     "TL-WDR4900": "tp-link-tl-wdr4900",
+    "TL-WR902AC": {"tp-link-tl-wr902ac-v1": "v1"},
     "TL-WR1043N/ND": {"tp-link-tl-wr1043n-nd-v2": "v2", "tp-link-tl-wr1043n-nd-v3": "v3",
                       "tp-link-tl-wr1043n-nd-v4": "v4", "tp-link-tl-wr1043n-v5": "v5"},
     "TL-WR2543N/ND": {"tp-link-tl-wr2543n-nd": ""},
@@ -168,7 +178,9 @@ var devices_recommended = {
   },
 
   "ZyXEL": {
-    "WRE6606": "zyxel-wre6606"
+    "NBG6617": "zyxel-nbg6617",
+    "NBG6716": "zyxel-nbg6716",
+    "WRE6606": "zyxel-wre6606",
   },
 
   "ZBT": {
