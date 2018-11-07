@@ -832,6 +832,7 @@ var firmwarewizard = function() {
         return branches.indexOf(a.branch) > branches.indexOf(b.branch);
       });
 
+      $('#branchdescs').innerHTML = '';
       $('#branchselect').innerHTML = '';
       $('#branch-experimental-dl').innerHTML = '';
 
@@ -848,6 +849,29 @@ var firmwarewizard = function() {
         a.innerText = rev.branch +
                       (rev.size!==''?' ['+rev.size+']':'') +
                       ' (' +prettyPrintVersion(rev.version)+')';
+
+        if (rev.branch in config.branch_descriptions) {
+          var li = document.createElement('li');
+          var name = document.createElement('span');
+          name.innerText = rev.branch;
+          name.id = 'branchName';
+          var desc = document.createElement('span');
+          desc.id = 'branchDesc'
+          desc.innerText = ' ' + config.branch_descriptions[rev.branch];
+
+          li.appendChild(name);
+
+          if (rev.branch == config.recommended_branch) {
+            var recommended = document.createElement('sup');
+            recommended.innerText = ' Empfehlung';
+            name.appendChild(recommended);
+          }
+
+          br = document.createElement('br');
+          li.appendChild(br);
+          li.appendChild(desc);
+          $('#branchdescs').appendChild(li);
+        }
 
         if (config.experimental_branches.indexOf(rev.branch) != -1) {
           if($('#branchselect .dl-experimental') === null) {
