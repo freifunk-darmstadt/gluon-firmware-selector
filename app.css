@@ -90,6 +90,11 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 255, 255, 0.8);
 }
 
+#branchName {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
 #currentVersions {
   float:right;
   padding: .5em;
