@@ -133,6 +133,7 @@ var devices_recommended = {
                         "ubiquiti-rocket-m2-ti": "M2",
                         "ubiquiti-rocket-m5-ti": "M5"},
     "UniFi AC Mesh": "ubiquiti-unifi-ac-mesh",
+    "UniFi AC Mesh Pro": "ubiquiti-unifi-ac-mesh-pro",
     "UniFi AP": {"ubiquiti-unifi": "--ignore--", "ubiquiti-unifi-ap": ""},
     "UniFi AP LR": "ubiquiti-unifi-ap-lr",
     "UniFi AP Pro": "ubiquiti-unifi-ap-pro",
