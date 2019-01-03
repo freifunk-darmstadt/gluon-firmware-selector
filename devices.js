@@ -179,6 +179,7 @@ var devices_recommended = {
   },
 
   "ZyXEL": {
+    "NBG6616": "zyxel-nbg6616",
     "NBG6617": "zyxel-nbg6617",
     "NBG6716": "zyxel-nbg6716",
     "WRE6606": "zyxel-wre6606",
