@@ -353,7 +353,7 @@ var firmwarewizard = function() {
   }
 
   function parseFilePath(match, basePath, filename, branch) {
-    var location = basePath + filename;
+    var location = basePath + encodeURIComponent(filename);
 
     var devices = vendormodels_reverse[match];
     if (!(devices instanceof Array) || devices.length != 1) {
@@ -1024,7 +1024,7 @@ var firmwarewizard = function() {
       do {
         hrefMatch = reLink.exec(data);
         if (hrefMatch) {
-          var href = hrefMatch[1];
+          var href = decodeURIComponent(hrefMatch[1]);
           if (ignoreFileName(href)) {
             continue;
           }
