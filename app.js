@@ -196,6 +196,10 @@ var firmwarewizard = function() {
   };
 
   window.onload = function() {
+    if (config.title !== undefined) {
+      document.title = config.title;
+    }
+
     function parseURLasJSON() {
       var search = location.search.substring(1);
       return search ? JSON.parse(
