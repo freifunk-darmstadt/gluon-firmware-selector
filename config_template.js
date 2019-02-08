@@ -30,6 +30,8 @@ var config = {
     './images/gluon-factory-example.html': 'stable',
     './images/gluon-sysupgrade-example.html': 'stable'
   },
+  // page title
+  title: 'Firmware',
   // branch descriptions shown during selection
   branch_descriptions: {
     stable: 'Gut getestet, zuverlässig und stabil.',
