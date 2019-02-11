@@ -28,6 +28,7 @@ var config = {
   directories: {
     // some demo sources
     './images/gluon-factory-example.html': 'stable',
+    './images/gluon-other-example.html': 'stable',
     './images/gluon-sysupgrade-example.html': 'stable'
   },
   // page title
