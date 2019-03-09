@@ -29,9 +29,9 @@ var devices_recommended = {
   },
 
   "GL.iNet": {
-    "GL-AR150": "gl-ar150",
-    "GL-AR300M": "gl-ar300m",
-    "GL-AR750": "gl-ar750",
+    "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
+    "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": ""},
+    "GL-AR750": {"gl-ar750": "", "gl.inet-gl-ar750": ""},
     "6408a": "gl-inet-6408a",
     "6416a": "gl-inet-6416a",
     "GL-B1300": "gl.inet-gl-b1300",
