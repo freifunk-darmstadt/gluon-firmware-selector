@@ -7,6 +7,10 @@ var devices_recommended = {
     "ALL0315N": "allnet-all0315n"
   },
 
+  "Asus": {
+     "RT-AC51U": "asus-rt-ac51u",
+  },
+
   "AVM": {
     "FRITZ!Box 4020": "avm-fritz-box-4020",
     "FRITZ!Box 4040": "avm-fritz-box-4040",
@@ -29,14 +33,14 @@ var devices_recommended = {
   },
 
   "GL.iNet": {
-    "GL-AR150": "gl-ar150",
-    "GL-AR300M": "gl-ar300m",
-    "GL-AR750": "gl-ar750",
+    "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
+    "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": ""},
+    "GL-AR750": {"gl-ar750": "", "gl.inet-gl-ar750": ""},
     "6408a": "gl-inet-6408a",
     "6416a": "gl-inet-6416a",
     "GL-B1300": "gl.inet-gl-b1300",
     "GL-MT300a": "gl-mt300a",
-    "GL-MT300n": "gl-mt300n",
+    "GL-MT300n": {"gl-mt300n": "v1", "gl-mt300n-v2": "v2"},
     "GL-MT750": "gl-mt750"
   },
 
@@ -59,17 +63,26 @@ var devices_recommended = {
 
   "Mikrotik": {
     "vmlinux": {"mikrotik-vmlinux-lzma" : "", "mikrotik-vmlinux.lzma" : ""},
-    "nand": {"mikrotik-nand-64m" : "64m", "mikrotik-nand-large" : "large"}
+    "nand": {"mikrotik-nand-64m" : "64m", "mikrotik-nand-large" : "large", "mikrotik-nand-large-ac": "large AC"},
+    "nor": {"mikrotik-rb-nor-flash-16M-sysupgrade": "16m", "mikrotik-rb-nor-flash-16M-ac": "16m AC"}
   },
 
   "Netgear": {
     "EX6100": {"netgear-ex6100v2": "v2"},
     "EX6150": {"netgear-ex6150v2": "v2"},
+    "R6120": "netgear-r6120",
     "WNR2200": "netgear-wnr2200",
     "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4", "netgear-wndr3700v5": "v5"},
     "WNDR3800": "netgear-wndr3800",
     "WNDR4300": "netgear-wndr4300",
     "WNDRMAC": {"netgear-wndrmac": "v1", "netgear-wndrmacv2": "v2"},
+  },
+
+  "Nexx": {
+    "WT3020": {"nexx-wt3020-8m": "8M"},
+    "WT3020AD": "nexx-wt3020ad",
+    "WT3020F": "nexx-wt3020f",
+    "WT3020H": "nexx-wt3020h",
   },
 
   "OCEDO": {
