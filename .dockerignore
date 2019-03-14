@@ -1,0 +1,9 @@
+.git
+*template*
+README.md
+LICENSE
+*.png
+!pictures/*.png
+.docker
+!.docker/*
+
