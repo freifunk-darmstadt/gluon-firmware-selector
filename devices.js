@@ -79,7 +79,7 @@ var devices_recommended = {
   },
 
   "Nexx": {
-    "WT3020": {"nexx-wt3020-8m": "8M"},
+    "WT3020": {"nexx-wt3020-8m": "--ignore--"},
     "WT3020AD": "nexx-wt3020ad",
     "WT3020F": "nexx-wt3020f",
     "WT3020H": "nexx-wt3020h",
