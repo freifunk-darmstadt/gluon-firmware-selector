@@ -142,7 +142,7 @@ var devices_recommended = {
     "TL-WR1043N/ND": {"tp-link-tl-wr1043n-nd-v2": "v2", "tp-link-tl-wr1043n-nd-v3": "v3",
                       "tp-link-tl-wr1043n-nd-v4": "v4", "tp-link-tl-wr1043n-v5": "v5"},
     "TL-WR2543N/ND": {"tp-link-tl-wr2543n-nd": ""},
-    "TL-WR841N/ND": {"tp-link-tl-wr-841n-v13": "v13"},
+    "TL-WR841N/ND": {"tp-link-tl-wr841n-v13": "v13"},
     "TL-WR842N/ND": {"tp-link-tl-wr842n-nd-v3": "v3"},
   },
 
