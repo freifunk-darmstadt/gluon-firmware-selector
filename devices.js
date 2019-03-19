@@ -27,6 +27,7 @@ var devices_recommended = {
   },
 
   "D-Link": {
+    "DAP‑1330": "d-link-dap-1330-rev",
     "DIR-505": "d-link-dir-505-rev",
     "DIR-825": "d-link-dir-825-rev",
     "DIR-860L": "d-link-dir-860l"
