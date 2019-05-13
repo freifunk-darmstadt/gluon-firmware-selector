@@ -240,6 +240,7 @@ var devices_4_32 = {
     "TL-WR743N/ND": "tp-link-tl-wr743n-nd",
     "TL-WR802N": {"tp-link-tl-wr802n": "v1"},
     "TL-WR810N": {"tp-link-tl-wr810n": "v1"},
+    "TL-WR840N": {"tp-link-tl-wr840n": "v2"},
     "TL-WR841N/ND": {"tp-link-tl-wr841n-nd-v3": "v3",
                      "tp-link-tl-wr841n-nd-v5": "v5",
                      "tp-link-tl-wr841n-nd-v7": "v7",
