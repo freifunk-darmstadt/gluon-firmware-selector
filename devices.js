@@ -1,6 +1,6 @@
 var devices_recommended = {
   "8devices": {
-    "Carambola Board 2": "8devices-carambola2-board"
+    "Carambola Board 2": "8devices-carambola2-board",
     "Jalapeno Board": "8devices-jalapeno"
   },
 
