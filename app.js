@@ -119,7 +119,7 @@ var firmwarewizard = function() {
     return index === self.indexOf(e);
   });
 
-  var reFileExtension = new RegExp(/.(bin|img.gz|img|tar)/);
+  var reFileExtension = new RegExp(/.(bin|img.gz|img|tar|ubi)/);
   var reRemoveDashes = new RegExp(/-/g);
   var reSearchable = new RegExp('[-/ '+NON_BREAKING_SPACE+']', 'g');
   var reRemoveSpaces = new RegExp(/ /g);
