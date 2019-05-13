@@ -73,6 +73,7 @@ var devices_recommended = {
     "EX6100": {"netgear-ex6100v2": "v2"},
     "EX6150": {"netgear-ex6150v2": "v2"},
     "R6120": "netgear-r6120",
+    "R7800": "netgear-nighthawk-x4s-r7800",
     "WNR2200": "netgear-wnr2200",
     "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4", "netgear-wndr3700v5": "v5"},
     "WNDR3800": "netgear-wndr3800",
