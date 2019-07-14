@@ -20,6 +20,8 @@ var config = {
   vendormodels: vendormodels,
   // set enabled categories of devices (see devices.js)
   enabled_device_categories: ["recommended"],
+  // Display a checkbox that only displays the recommended devices. Only make sense if enabled_device_categories also contains not recommended devices.
+  displayRecommendedOnlyCheckBox: false,
   // community prefix of the firmware images
   community_prefix: 'gluon-ffda-',
   // firmware version regex

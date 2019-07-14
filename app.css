@@ -111,6 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .firmwareTableLink {
+  clear: right;
   float:right;
   color: #337ab7;
   cursor: pointer;
@@ -118,6 +119,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .firmwareTableLink:hover {
   text-decoration: underline;
+}
+
+.recommendedCheckBox {
+  clear: right;
+  float:right;
+  color: #337ab7;
+  display: none;
+}
+
+#wizard #model-pane .recommendedCheckBox > input{
+  width:auto;
+  display: inline;
 }
 
 #wizard .pane-wrapper {
