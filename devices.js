@@ -10,6 +10,7 @@ var devices_recommended = {
 
   "Asus": {
      "RT-AC51U": "asus-rt-ac51u",
+     "RT-AC57U": "asus-rt-ac57u",
   },
 
   "AVM": {
