@@ -260,13 +260,38 @@ var firmwarewizard = function() {
     $('#recommendedselect').addEventListener('change', function(e) {
       if (this.checked) {
         enabled_device_categories = ['recommended'];
+        setFilteredImages();
+        updateHTML(wizard);
+        updateFirmwareTable();
       } else if ("enabled_device_categories" in config) {
-        enabled_device_categories = config.enabled_device_categories;
+        confirmUncheckRecommendedDevices();
       }
-      setFilteredImages();
-      updateHTML(wizard);
-      updateFirmwareTable();
-    }); 
+    });
+
+    function confirmUncheckRecommendedDevices() {
+      var modal = new tingle.modal({
+          footer: true,
+          stickyFooter: true,
+          closeMethods: []
+      });
+      var content = document.querySelector('#confirm-uncheck-recommended-devices').innerHTML;
+      if (config.recommendedDevicesInfoLink) {
+        content += '<p><a href="' + config.recommendedDevicesInfoLink + '" target="_new">Mehr Informationen</a>';
+      }
+      modal.setContent(content);
+      modal.addFooterBtn('Okay, nur empfohlene Geräte anzeigen', 'tingle-btn tingle-btn--primary', function() {
+          $('#recommendedselect').checked = true;
+          modal.close();
+      });
+      modal.addFooterBtn('Ich weiß was ich tue, alle Geräte anzeigen', 'tingle-btn tingle-btn--danger', function() {
+          enabled_device_categories = config.enabled_device_categories;
+          setFilteredImages();
+          updateHTML(wizard);
+          updateFirmwareTable();
+          modal.close();
+      });
+      modal.open();
+    }
 
     vendormodels_reverse = buildVendorModelsReverse();
 

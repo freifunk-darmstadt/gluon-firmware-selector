@@ -320,3 +320,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   margin: auto 0.5em;
 }
+
+#confirm-uncheck-recommended-devices {
+  display: none;
+}
