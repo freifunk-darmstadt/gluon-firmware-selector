@@ -110,14 +110,28 @@ h1, h2, h3, h4, h5, h6 {
   color: #dc0067;
 }
 
-.firmwareTableLink {
+.firmwareTableLink, .notRecommendedLink, .InfoLink {
+  clear: right;
   float:right;
   color: #337ab7;
   cursor: pointer;
 }
 
-.firmwareTableLink:hover {
+.notRecommendedLink {
+  display: none;
+}
+
+.firmwareTableLink:hover, .notRecommendedLink:hover {
   text-decoration: underline;
+}
+
+.notRecommendedLabel {
+  color: #337ab7;
+}
+
+#wizard #model-pane .notRecommendedCheckbox {
+  width:auto;
+  display: inline;
 }
 
 #wizard .pane-wrapper {
@@ -180,7 +194,8 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 0.5em #005ea0 inset;
 }
 
-#wizard #branch-pane .warning-experimental {
+#wizard #branch-pane .warning-experimental,
+#wizard #model-pane .warning-notrecommended {
   display: none;
   margin: 1em 0;
   padding: 1em;
@@ -188,7 +203,8 @@ h1, h2, h3, h4, h5, h6 {
   border: .5em solid #009ee0;
 }
 
-#wizard #branch-pane.show-experimental-warning .warning-experimental {
+#wizard #branch-pane.show-experimental-warning .warning-experimental,
+#wizard #model-pane.show-notrecommended-warning .warning-notrecommended {
   display: block;
 }
 
