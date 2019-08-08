@@ -146,7 +146,7 @@ var firmwarewizard = function() {
   if ("enabled_device_categories" in config) {
     enabled_device_categories = config.enabled_device_categories;
   }
-  if (config.recommended_toggle) {
+  if ("recommended_toggle" in config && config.recommended_toggle) {
     enabled_device_categories = ['recommended'];
     show_inline('.notRecommendedLink');
 
