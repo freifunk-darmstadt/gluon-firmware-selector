@@ -4,6 +4,11 @@ var devices_recommended = {
     "Jalapeno Board": "8devices-jalapeno"
   },
 
+  "Aerohive": {
+    "HiveAP 121": "aerohive-hiveap-121",
+    "HiveAP 330": "aerohive-hiveap-330",
+  },
+
   "Allnet": {
     "ALL0315N": "allnet-all0315n"
   },
