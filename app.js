@@ -527,7 +527,9 @@ var firmwarewizard = function() {
     if (modelList.length == 1) {
       var vendor = modelList[0][MODEL_VENDOR];
       var model = modelList[0][MODEL_MODEL];
+      var revision = modelList[0][MODEL_MATCHED_REVISION];
       return images[vendor][model]
+        .filter(function(value, index, self) { return value['revision'] == revision; })
         .map(function(e) { return e.type; })
         .filter(function(value, index, self) { return self.indexOf(value) === index; })
         .sort();
