@@ -203,7 +203,6 @@ var firmwarewizard = function() {
       images[vendor] = {};
       for (var model in availableImages[vendor]) {
         for (var device in availableImages[vendor][model]) {
-          console.log(availableImages[vendor][model][device].category)
           if (enabled_device_categories.indexOf(availableImages[vendor][model][device].category) > -1) {
             addArray(images[vendor], model, availableImages[vendor][model][device]);
           }
