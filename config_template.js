@@ -29,7 +29,7 @@ var config = {
   // community prefix of the firmware images
   community_prefix: 'gluon-ffda-',
   // firmware version regex
-  version_regex: '-([0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)[.-]',
+  version_regex: /-([\d]+\.[\d]+\.[\d]+([+-~][\d]+)?)[.-]/,
   // relative image paths and branch
   directories: {
     // some demo sources
