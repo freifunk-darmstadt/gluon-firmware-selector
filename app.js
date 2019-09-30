@@ -1071,6 +1071,9 @@ var firmwarewizard = function() {
     xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         callback(xmlhttp.responseText, url);
+      } else if (xmlhttp.readyState == 4) {
+        console.log("Could not load " + url);
+        callback(null, url);
       }
     };
     xmlhttp.open('GET', url, true);
@@ -1102,8 +1105,8 @@ var firmwarewizard = function() {
       } while (hrefMatch);
 
       // check if we loaded all directories
-      sitesLoadedSuccessfully++;
-      if (sitesLoadedSuccessfully == Object.keys(config.directories).length) {
+      directoryLoadCount++;
+      if (directoryLoadCount == Object.keys(config.directories).length) {
         callback();
       }
     };
@@ -1127,7 +1130,7 @@ var firmwarewizard = function() {
     // - the end of the expression (if the file extension is part of the regex)
     var reMatch = new RegExp('('+matchString+')([.-]|$)');
 
-    var sitesLoadedSuccessfully = 0;
+    var directoryLoadCount = 0;
     for (var indexPath in config.directories) {
       // retrieve the contents of the directory
       loadSite(indexPath, parseSite);
