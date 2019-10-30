@@ -49,7 +49,8 @@ var devices_recommended = {
     "GL-B1300": "gl.inet-gl-b1300",
     "GL-MT300a": "gl-mt300a",
     "GL-MT300n": {"gl-mt300n": "v1", "gl-mt300n-v2": "v2"},
-    "GL-MT750": "gl-mt750"
+    "GL-MT750": "gl-mt750",
+    "VIXMINI": "gl.inet-vixmini"
   },
 
   "LeMaker": {
