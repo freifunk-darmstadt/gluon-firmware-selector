@@ -21,6 +21,7 @@ var devices_recommended = {
   "AVM": {
     "FRITZ!Box 4020": "avm-fritz-box-4020",
     "FRITZ!Box 4040": "avm-fritz-box-4040",
+    "FRITZ!Box 7312": "avm-fritz-box-7312",
     "FRITZ!WLAN Repeater 300E": "avm-fritz-wlan-repeater-300e",
     "FRITZ!WLAN Repeater 450E": "avm-fritz-wlan-repeater-450e"
   },
