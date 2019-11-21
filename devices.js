@@ -102,6 +102,7 @@ var devices_recommended = {
   "OCEDO": {
     "Koala": "ocedo-koala",
     "Panda": "ocedo-panda",
+    "Raccoon": "ocedo-raccoon",
   },
 
   "Onion": {
