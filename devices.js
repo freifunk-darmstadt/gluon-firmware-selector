@@ -43,6 +43,11 @@ var devices_recommended = {
     "DIR-860L": "d-link-dir-860l"
   },
 
+  "devolo": {
+    "WiFi Pro 1200i": "devolo-wifi-pro-1200i",
+    "WiFi Pro 1750i": "devolo-wifi-pro-1750i",
+  },
+
   "GL.iNet": {
     "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
     "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": ""},
