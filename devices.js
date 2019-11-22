@@ -45,6 +45,7 @@ var devices_recommended = {
 
   "devolo": {
     "WiFi Pro 1200i": "devolo-wifi-pro-1200i",
+    "WiFi Pro 1750c": "devolo-wifi-pro-1750c",
     "WiFi Pro 1750i": "devolo-wifi-pro-1750i",
   },
 
