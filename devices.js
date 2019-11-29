@@ -47,6 +47,7 @@ var devices_recommended = {
     "WiFi Pro 1200i": "devolo-wifi-pro-1200i",
     "WiFi Pro 1750c": "devolo-wifi-pro-1750c",
     "WiFi Pro 1750i": "devolo-wifi-pro-1750i",
+    "WiFi Pro 1750x": "devolo-wifi-pro-1750x",
   },
 
   "GL.iNet": {
