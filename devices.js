@@ -22,6 +22,8 @@ var devices_recommended = {
     "FRITZ!Box 4020": "avm-fritz-box-4020",
     "FRITZ!Box 4040": "avm-fritz-box-4040",
     "FRITZ!Box 7312": "avm-fritz-box-7312",
+    "FRITZ!Box 7320": "avm-fritz-box-7320",
+    "FRITZ!Box 7330": "avm-fritz-box-7330",
     "FRITZ!Box 7360 SL": "avm-fritz-box-7360-sl",
     "FRITZ!Box 7360": {"avm-fritz-box-7360-v1": "v1", "avm-fritz-box-7360-v2": "v2"},
     "FRITZ!Box 7362 SL": "avm-fritz-box-7362-sl",
