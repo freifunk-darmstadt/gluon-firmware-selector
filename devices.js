@@ -57,6 +57,10 @@ var devices_recommended = {
     "WiFi Pro 1750x": "devolo-wifi-pro-1750x",
   },
 
+  "Enterasys": {
+    "WS-AP3710i": "enterasys-ws-ap3710i",
+  },
+
   "GL.iNet": {
     "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
     "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": ""},
