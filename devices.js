@@ -13,6 +13,11 @@ var devices_recommended = {
     "ALL0315N": "allnet-all0315n"
   },
 
+  "Aruba": {
+    "AP-303": "aruba-ap-303",
+    "Instant On AP11": "aruba-instant-on-ap11"
+  },
+
   "Asus": {
      "RT-AC51U": "asus-rt-ac51u",
      "RT-AC57U": "asus-rt-ac57u",
