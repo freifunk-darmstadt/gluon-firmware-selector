@@ -29,6 +29,7 @@ var devices_recommended = {
     "FRITZ!Box 7312": "avm-fritz-box-7312",
     "FRITZ!Box 7320": "avm-fritz-box-7320",
     "FRITZ!Box 7330": "avm-fritz-box-7330",
+    "FRITZ!Box 7330 SL": "avm-fritz-box-7330-sl",
     "FRITZ!Box 7360 SL": "avm-fritz-box-7360-sl",
     "FRITZ!Box 7360": {"avm-fritz-box-7360-v1": "v1", "avm-fritz-box-7360-v2": "v2"},
     "FRITZ!Box 7362 SL": "avm-fritz-box-7362-sl",
@@ -160,10 +161,12 @@ var devices_recommended = {
 
   "TP-Link": {
     "Archer C2600": {"tp-link-archer-c2600": "v1"},
+    "Archer C2": {"tp-link-archer-c2": "v1"},
     "Archer C5": {"tp-link-archer-c5": "v1"},
     "Archer C6": {"tp-link-archer-c6": "v2"},
     "Archer C7": "tp-link-archer-c7",
-    "Archer C50": {"tp-link-archer-c50-v3": "v3", "tp-link-archer-c50-v4": "v4"},
+    "Archer C20i": "tp-link-archer-c20i",
+    "Archer C50": {"tp-link-archer-c50": "v1", "tp-link-archer-c50-v3": "v3", "tp-link-archer-c50-v4": "v4"},
     "Archer C59": {"tp-link-archer-c59": "v1"},
     "CPE210": {"tp-link-cpe210": "", "tp-link-cpe210-220": "", "tp-link-cpe220": "--ignore--"},
     "CPE510": {"tp-link-cpe510": "", "tp-link-cpe510-520": "", "tp-link-cpe520": "--ignore--"},
@@ -179,6 +182,7 @@ var devices_recommended = {
     "TL-WR2543N/ND": {"tp-link-tl-wr2543n-nd": ""},
     "TL-WR841N/ND": {"tp-link-tl-wr841n-v13": "v13"},
     "TL-WR842N/ND": {"tp-link-tl-wr842n-nd-v3": "v3"},
+    "TL-WR902AC": {"tp-link-tl-wr902ac-v3": "v3"},
   },
 
   "Ubiquiti": {
