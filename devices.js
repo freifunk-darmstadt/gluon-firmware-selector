@@ -173,6 +173,7 @@ var devices_recommended = {
     "CPE510": {"tp-link-cpe510": "", "tp-link-cpe510-520": "", "tp-link-cpe520": "--ignore--"},
     "WBS210": "tp-link-wbs210",
     "WBS510": "tp-link-wbs510",
+    "TL-MR3020": {"tp-link-tl-mr3020-v3": "v3"},
     "TL-MR3420": {"tp-link-tl-mr3420-v5": "v5"},
     "TL-WA801N/ND": {"tp-link-tl-wa801nd-v5": "v5"},
     "TL-WDR3500": "tp-link-tl-wdr3500",
