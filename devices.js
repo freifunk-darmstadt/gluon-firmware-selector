@@ -63,6 +63,10 @@ var devices_recommended = {
     "WiFi Pro 1750x": "devolo-wifi-pro-1750x",
   },
 
+  "EnGenius": {
+    "ENS620EXT": "engenius-ens620ext",
+  },
+
   "Enterasys": {
     "WS-AP3710i": "enterasys-ws-ap3710i",
   },
