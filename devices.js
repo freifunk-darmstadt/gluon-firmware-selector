@@ -64,7 +64,7 @@ var devices_recommended = {
   },
 
   "EnGenius": {
-    "ENS620EXT": "engenius-ens620ext",
+    "ENS620EXT": {"engenius-ens620ext": "", "engenius-ens620ext-factory_fw30": "fw3.0", "engenius-ens620ext-factory_fw35": "fw3.5"},
   },
 
   "Enterasys": {
