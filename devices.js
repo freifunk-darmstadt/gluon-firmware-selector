@@ -380,3 +380,18 @@ var vendormodels = {
   "8_32": devices_8_32,
   "16_32": devices_16_32,
 }
+
+var devices_info = {
+  "AVM": {
+    "FRITZ!Box 4020": "https://fritzfla.sh",
+    "FRITZ!Box 4040": "https://fritzfla.sh",
+    "FRITZ!Box 7312": "https://fritzfla.sh",
+    "FRITZ!Box 7320": "https://fritzfla.sh",
+    "FRITZ!Box 7330": "https://fritzfla.sh",
+    "FRITZ!Box 7330 SL": "https://fritzfla.sh",
+    "FRITZ!Box 7360": "https://fritzfla.sh",
+    "FRITZ!Box 7360 SL": "https://fritzfla.sh",
+    "FRITZ!WLAN Repeater 300E": "https://fritzfla.sh",
+    "FRITZ!WLAN Repeater 450E": "https://fritzfla.sh"
+  }
+}

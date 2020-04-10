@@ -819,6 +819,39 @@ var firmwarewizard = function() {
         scrollDown();
       }
 
+      var deviceinfo = $('#deviceinfo');
+      var url = '';
+      deviceinfo.innerHTML = '';
+
+      if (
+        devices_info[currentVendor] !== undefined &&
+        devices_info[currentVendor][currentModel] !== undefined
+      ) {
+        url = devices_info[currentVendor][currentModel];
+      }
+
+      if (
+        config.devices_info !== undefined &&
+        config.devices_info[currentVendor] !== undefined &&
+        config.devices_info[currentVendor][currentModel]
+      ) {
+        url = config.devices_info[currentVendor][currentModel];
+      }
+
+      if (url !== '') {
+        setClass($('#type-pane'), 'show-deviceinfo-warning', true);
+
+        var a = document.createElement('a');
+        a.href = url;
+        a.className = 'btn';
+        a.target = '_blank';
+        a.innerText = 'Anleitung';
+
+        deviceinfo.appendChild(a);
+      } else {
+        setClass($('#type-pane'), 'show-deviceinfo-warning', false);
+      }
+
       var typeselect = $('#typeselect');
       typeselect.innerHTML = '';
 
