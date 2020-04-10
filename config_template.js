@@ -52,5 +52,12 @@ var config = {
   // path to preview pictures directory
   preview_pictures: 'pictures/',
   // link to changelog
-  changelog: 'CHANGELOG.html'
+  changelog: 'CHANGELOG.html',
+  // links for instructions like flashing of certain devices (optional)
+  // overwrites values from devices_info in devices.js
+  devices_info: {
+    'AVM': {
+      "FRITZ!Box 4040": "https://fritz-tools.readthedocs.io"
+    }
+  }
 };

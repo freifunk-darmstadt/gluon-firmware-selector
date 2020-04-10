@@ -186,7 +186,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #009ee0;
 }
 
-#wizard #branch-pane .btn {
+#wizard #branch-pane .btn,
+#wizard #type-pane .btn {
   background-color: #009ee0;
 }
 
@@ -194,8 +195,13 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 0.5em #005ea0 inset;
 }
 
+#wizard #type-pane.show-deviceinfo-warning button.deviceinfo {
+  box-shadow: 0 0 0.5em #005ea0 inset;
+}
+
 #wizard #branch-pane .warning-experimental,
-#wizard #model-pane .warning-notrecommended {
+#wizard #model-pane .warning-notrecommended,
+#wizard #type-pane .warning-deviceinfo {
   display: none;
   margin: 1em 0;
   padding: 1em;
@@ -204,7 +210,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #wizard #branch-pane.show-experimental-warning .warning-experimental,
-#wizard #model-pane.show-notrecommended-warning .warning-notrecommended {
+#wizard #model-pane.show-notrecommended-warning .warning-notrecommended,
+#wizard #type-pane.show-deviceinfo-warning .warning-deviceinfo {
   display: block;
 }
 
