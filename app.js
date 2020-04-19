@@ -49,6 +49,10 @@ var firmwarewizard = function() {
     $(s).style.display = 'none';
   }
 
+  function sortCaseInsensitive(a, b) {
+	return a.localeCompare(b, 'en', {'sensitivity': 'base'});
+  }
+
   // Object.values() replacement
   function ObjectValues(obj) {
     return Object.keys(obj).map(function(key) { return obj[key]; });
@@ -741,7 +745,7 @@ var firmwarewizard = function() {
         createOption('', '-- Bitte Hersteller wählen --')
       );
 
-      var vendors = Object.keys(images).sort();
+      var vendors = Object.keys(images).sort(sortCaseInsensitive);
       for (var i in vendors) {
         select.appendChild(
           createOption(atomic(vendors[i]), vendors[i], atomic(currentVendor))
@@ -767,7 +771,7 @@ var firmwarewizard = function() {
       }
 
       var prefix = atomic(currentVendor) + ' ';
-      var models = Object.keys(images[currentVendor]).sort();
+      var models = Object.keys(images[currentVendor]).sort(sortCaseInsensitive);
       for (var i in models) {
         select.appendChild(createOption(
           prefix + atomic(models[i]),
@@ -1062,10 +1066,10 @@ var firmwarewizard = function() {
       return td;
     }
 
-    var vendors = Object.keys(images).sort();
+    var vendors = Object.keys(images).sort(sortCaseInsensitive);
     for (var v in vendors) {
       var vendor = vendors[v];
-      var models = Object.keys(images[vendor]).sort();
+      var models = Object.keys(images[vendor]).sort(sortCaseInsensitive);
       for (var m in models) {
         var model = models[m];
         var revisions = sortByRevision(images[vendor][model]);
