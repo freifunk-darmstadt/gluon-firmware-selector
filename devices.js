@@ -382,6 +382,14 @@ var vendormodels = {
 }
 
 var devices_info = {
+  "devolo": {
+    "WiFi Pro 1200e": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=1724d4e9ed7716a5444eca42adf045c2f3afc554",
+    "WiFi Pro 1200i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=c8115167f946be85f812f3c94d6294b67ac8944c",
+    "WiFi Pro 1750c": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=e67da3443168fa6b6727cd81a35d559be77d6b4c",
+    "WiFi Pro 1750e": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=1c2f7b511514d43d8a826b26e09817b2750a2bf4",
+    "WiFi Pro 1750i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=8d68be8057d6c689025cc236d20b96b77a6ccf30",
+    "WiFi Pro 1750x": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=cb3cd526948af3f69da1af18e035177a0a8f58e3"
+  },
   "AVM": {
     "FRITZ!Box 4020": "https://fritzfla.sh",
     "FRITZ!Box 4040": "https://fritzfla.sh",
@@ -391,6 +399,7 @@ var devices_info = {
     "FRITZ!Box 7330 SL": "https://fritzfla.sh",
     "FRITZ!Box 7360": "https://fritzfla.sh",
     "FRITZ!Box 7360 SL": "https://fritzfla.sh",
+    "FRITZ!WLAN Repeater 1200": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=7f187229a8e9b7966248b1e024217e07a9fc3e50",
     "FRITZ!WLAN Repeater 300E": "https://fritzfla.sh",
     "FRITZ!WLAN Repeater 450E": "https://fritzfla.sh"
   }
