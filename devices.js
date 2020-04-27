@@ -382,6 +382,10 @@ var vendormodels = {
 }
 
 var devices_info = {
+  "Aruba": {
+    "AP-303": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=102c8c55f217606cdbdc9a449667e034676b3e75",
+    "Instant On AP11": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=102c8c55f217606cdbdc9a449667e034676b3e75"
+  },
   "devolo": {
     "WiFi Pro 1200e": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=1724d4e9ed7716a5444eca42adf045c2f3afc554",
     "WiFi Pro 1200i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=c8115167f946be85f812f3c94d6294b67ac8944c",
