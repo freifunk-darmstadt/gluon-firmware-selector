@@ -839,23 +839,36 @@ var firmwarewizard = function() {
         scrollDown();
       }
 
-      var deviceinfo = $('#deviceinfo');
-      var url = '';
-      deviceinfo.innerHTML = '';
+      // find device info link
+      function findDeviceInfo(vendor, model, revision, links) {
+        if (links[vendor] !== undefined && links[vendor][model] !== undefined) {
+          revisions = links[vendor][model];
+        } else {
+          return '';
+        }
 
-      if (
-        devices_info[currentVendor] !== undefined &&
-        devices_info[currentVendor][currentModel] !== undefined
-      ) {
-        url = devices_info[currentVendor][currentModel];
+        if (typeof revisions == 'object' && revisions[revision] !== undefined) {
+          return revisions[revision];
+        } else if (typeof revisions == 'string') {
+          return revisions;
+        } else {
+          return '';
+        }
       }
 
-      if (
-        config.devices_info !== undefined &&
-        config.devices_info[currentVendor] !== undefined &&
-        config.devices_info[currentVendor][currentModel]
-      ) {
-        url = config.devices_info[currentVendor][currentModel];
+      var url = '';
+      var custom_url = '';
+      var deviceinfo = $('#deviceinfo');
+      deviceinfo.innerHTML = '';
+
+      url = findDeviceInfo(currentVendor, currentModel, currentRevision, devices_info);
+
+      if ("devices_info" in config){
+        custom_url = findDeviceInfo(currentVendor, currentModel, currentRevision, config.devices_info);
+      }
+
+      if (custom_url !== '') {
+        url = custom_url;
       }
 
       if (url !== '') {

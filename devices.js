@@ -428,5 +428,10 @@ var devices_info = {
     "UniFi AC Mesh Pro": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
     "UniFi AC Mesh": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
     "UniFi AC Pro": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
+  },
+  "TP-Link": {
+    "TL-WR841N/ND" : {
+      "v13": "https://openwrt.org/toh/tp-link/tl-wr841nd#tftp_recovery_via_bootloader_for_v8_v9_v10_v11_v12_v13"
+    }
   }
 }

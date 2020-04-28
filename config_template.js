@@ -54,10 +54,14 @@ var config = {
   // link to changelog
   changelog: 'CHANGELOG.html',
   // links for instructions like flashing of certain devices (optional)
-  // overwrites values from devices_info in devices.js
-  devices_info: {
-    'AVM': {
-      "FRITZ!Box 4040": "https://fritz-tools.readthedocs.io"
-    }
-  }
+  // can be set for a whole model or individual revisions
+  // overwrites default values from devices_info in devices.js
+  // devices_info: {
+  //   'AVM': {
+  //     "FRITZ!Box 4040": "https://fritz-tools.readthedocs.io"
+  //   },
+  //   "TP-Link": {
+  //     "TL-WR841N/ND": {"v13": "https://wiki.freifunk.net/TP-Link_WR841ND/Flash-Anleitung_v13"}
+  //   }
+  // }
 };
