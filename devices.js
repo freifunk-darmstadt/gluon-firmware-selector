@@ -47,6 +47,10 @@ var devices_recommended = {
     "WZR-HP-G450H": {"buffalo-wzr-hp-g450h": ""},
   },
 
+  "Cudy": {
+    "WR1000": {"cudy-wr1000": "v2"}
+  },
+
   "D-Link": {
     "DAP‑1330": "d-link-dap-1330-rev",
     "DIR-505": "d-link-dir-505-rev",
@@ -76,6 +80,7 @@ var devices_recommended = {
     "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": ""},
     "GL-AR300M Lite": "gl.inet-gl-ar300m-lite",
     "GL-AR750": {"gl-ar750": "", "gl.inet-gl-ar750": ""},
+    "GL-AR750S": {"gl.inet-gl-ar750s-nor": ""},
     "6408a": "gl-inet-6408a",
     "6416a": "gl-inet-6416a",
     "GL-B1300": "gl.inet-gl-b1300",
@@ -175,7 +180,8 @@ var devices_recommended = {
     "Archer C20i": "tp-link-archer-c20i",
     "Archer C50": {"tp-link-archer-c50": "v1", "tp-link-archer-c50-v3": "v3", "tp-link-archer-c50-v4": "v4"},
     "Archer C59": {"tp-link-archer-c59": "v1"},
-    "CPE210": {"tp-link-cpe210": "", "tp-link-cpe210-220": "", "tp-link-cpe220": "--ignore--"},
+    "CPE210": {"tp-link-cpe210": "", "tp-link-cpe210-220": ""},
+    "CPE220": {"tp-link-cpe220": "", "tp-link-cpe220-v1.1": "--ignore--"},
     "CPE510": {"tp-link-cpe510": "", "tp-link-cpe510-520": "", "tp-link-cpe520": "--ignore--"},
     "WBS210": "tp-link-wbs210",
     "WBS510": "tp-link-wbs510",
