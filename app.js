@@ -1018,6 +1018,9 @@ var firmwarewizard = function() {
     $('#firmwareTableBody').innerHTML = '';
 
     var initializeRevHTML = function(rev) {
+      if (bootloaderRevBranchDict[rev.branch] === undefined) {
+        bootloaderRevBranchDict[rev.branch] = document.createElement('span');
+      }
       if (upgradeRevBranchDict[rev.branch] === undefined) {
         upgradeRevBranchDict[rev.branch] = document.createElement('span');
       }
@@ -1044,6 +1047,11 @@ var firmwarewizard = function() {
         factoryRevBranchDict[rev.branch].appendChild(textNodeStart);
         factoryRevBranchDict[rev.branch].appendChild(a);
         factoryRevBranchDict[rev.branch].appendChild(textNodeEnd);
+        show = true;
+      } else if (rev.type == 'bootloader') {
+        bootloaderRevBranchDict[rev.branch].appendChild(textNodeStart);
+        bootloaderRevBranchDict[rev.branch].appendChild(a);
+        bootloaderRevBranchDict[rev.branch].appendChild(textNodeEnd);
         show = true;
       }
     };
@@ -1075,6 +1083,7 @@ var firmwarewizard = function() {
         var revisions = sortByRevision(images[vendor][model]);
         var upgradeRevBranchDict = {};
         var factoryRevBranchDict = {};
+        var bootloaderRevBranchDict = {};
         var show = false;
 
         revisions.forEach(initializeRevHTML);
@@ -1094,6 +1103,7 @@ var firmwarewizard = function() {
         tdModel.innerText = model;
         tr.appendChild(tdModel);
 
+        tr.appendChild(createRevTd(bootloaderRevBranchDict));
         tr.appendChild(createRevTd(factoryRevBranchDict));
         tr.appendChild(createRevTd(upgradeRevBranchDict));
 
