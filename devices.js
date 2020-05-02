@@ -413,4 +413,11 @@ var devices_info = {
     "WiFi Pro 1750i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=8d68be8057d6c689025cc236d20b96b77a6ccf30",
     "WiFi Pro 1750x": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=cb3cd526948af3f69da1af18e035177a0a8f58e3"
   },
+  "Ubiquiti": {
+    "UniFi AC Lite": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
+    "UniFi AC LR": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
+    "UniFi AC Mesh Pro": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
+    "UniFi AC Mesh": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
+    "UniFi AC Pro": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
+  }
 }
