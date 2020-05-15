@@ -725,6 +725,20 @@ var firmwarewizard = function() {
     }
   }
 
+  function getVendors() {
+    var vendorlist = [];
+    for (var device_category_idx in enabled_device_categories) {
+      var device_category = enabled_device_categories[device_category_idx];
+      var category_vendors = Object.keys(config.vendormodels[device_category]);
+      category_vendors.forEach(function (val, idx) {
+        if (!vendorlist.includes(val)) {
+          vendorlist.push(val);
+        }
+      });
+    }
+    return vendorlist;
+  }
+
   // update all elements of the page according to the wizard object.
   function updateHTML(wizard) {
     // parse searchstring to retrieve current vendor and model
@@ -747,7 +761,7 @@ var firmwarewizard = function() {
         createOption('', '-- Bitte Hersteller wählen --')
       );
 
-      var vendors = Object.keys(images).sort(sortCaseInsensitive);
+      var vendors = getVendors().sort(sortCaseInsensitive);
       for (var i in vendors) {
         select.appendChild(
           createOption(atomic(vendors[i]), vendors[i], atomic(currentVendor))
