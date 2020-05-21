@@ -725,13 +725,23 @@ var firmwarewizard = function() {
     }
   }
 
+  function hasVendorDevicesForEnabledDeviceCategories(vendor) {
+    var image_vendors = Object.keys(images);
+    for (let [key, value] of Object.entries(images[vendor])) {
+      if (enabled_device_categories.includes(value[0].category)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   function getVendors() {
     var vendorlist = [];
     for (var device_category_idx in enabled_device_categories) {
       var device_category = enabled_device_categories[device_category_idx];
       var category_vendors = Object.keys(config.vendormodels[device_category]);
       category_vendors.forEach(function (val, idx) {
-        if (!vendorlist.includes(val)) {
+        if (!vendorlist.includes(val) && hasVendorDevicesForEnabledDeviceCategories(val)) {
           vendorlist.push(val);
         }
       });
