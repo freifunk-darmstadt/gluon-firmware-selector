@@ -727,9 +727,11 @@ var firmwarewizard = function() {
 
   function hasVendorDevicesForEnabledDeviceCategories(vendor) {
     var image_vendors = Object.keys(images);
-    for (let [key, value] of Object.entries(images[vendor])) {
-      if (enabled_device_categories.includes(value[0].category)) {
-        return true;
+    if (images[vendor]) {
+      for (let [key, value] of Object.entries(images[vendor])) {
+        if (enabled_device_categories.includes(value[0].category)) {
+          return true;
+        }
       }
     }
     return false;
