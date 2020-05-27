@@ -276,6 +276,12 @@ var devices_ath10k_lowmem = {
 	},
 };
 
+var devices_legacy_target = {
+  "x86": {
+    "legacy 32bit": "x86-legacy",
+  },
+};
+
 var devices_small_kernel_part = {
   "Linksys": {
     "EA6350": {"linksys-ea6350v3": "v3"}
@@ -389,6 +395,7 @@ var vendormodels = {
   "recommended": devices_recommended,
   "ath10k_lowmem": devices_ath10k_lowmem,
   "small_kernel_part": devices_small_kernel_part,
+  "legacy_target": devices_legacy_target,
   "4_32": devices_4_32,
   "8_32": devices_8_32,
   "16_32": devices_16_32,
