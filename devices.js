@@ -165,7 +165,7 @@ var devices_recommended = {
   },
 
   "Raspberry Pi Foundation": {
-    "PI": { "raspberry-pi": "", "raspberrypi-model-b": "" },
+    "PI1": { "raspberry-pi": "", "raspberrypi-model-b": "" },
     "PI2": { "raspberry-pi-2": "", "raspberrypi-2-model-b": "" },
     "PI3": { "raspberry-pi-3": "", "raspberrypi-3-model-b": "" }
   },
