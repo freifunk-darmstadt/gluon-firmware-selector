@@ -440,5 +440,8 @@ var devices_info = {
     "TL-WR841N/ND" : {
       "v13": "https://openwrt.org/toh/tp-link/tl-wr841nd#tftp_recovery_via_bootloader_for_v8_v9_v10_v11_v12_v13"
     }
+  },
+  "Netgear": {
+    "R6120" : "https://freifunk-gg.de/dokuwiki/doku.php/wiki:faq:netgear_r6120"
   }
 }
