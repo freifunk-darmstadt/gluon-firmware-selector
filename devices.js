@@ -34,6 +34,7 @@ var devices_recommended = {
     "FRITZ!Box 7360": {"avm-fritz-box-7360-v1": "v1", "avm-fritz-box-7360-v2": "v2"},
     "FRITZ!Box 7362 SL": "avm-fritz-box-7362-sl",
     "FRITZ!Box 7412": "avm-fritz-box-7412",
+    "FRITZ!Box 7530": "avm-fritz-box-7530",
     "FRITZ!Repeater 1200": "avm-fritz-repeater-1200",
     "FRITZ!WLAN Repeater 300E": "avm-fritz-wlan-repeater-300e",
     "FRITZ!WLAN Repeater 450E": "avm-fritz-wlan-repeater-450e"
