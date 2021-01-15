@@ -311,7 +311,7 @@ var devices_4_32 = {
 
   "TP-Link": {
     "TL-MR13U": "tp-link-tl-mr13u",
-    "TL-MR3020": "tp-link-tl-mr3020",
+    "TL-MR3020": {"tp-link-tl-mr3020-v1": "v1"},
     "TL-MR3040": "tp-link-tl-mr3040",
     "TL-MR3220": "tp-link-tl-mr3220",
     "TL-MR3420": {"tp-link-tl-mr3420-v1": "v1", "tp-link-tl-mr3420-v2": "v2"},
