@@ -117,6 +117,8 @@ var firmwarewizard = function() {
     'sysupgrade': 'Upgrade',
     'rootfs': "Root-Image",
     'kernel': "Kernel-Image",
+    'eva-filesystem': 'Bootloader-Root-Image',
+    'eva-kernel': 'Bootloader-Kernel-Image',
     'bootloader': 'Bootloader-Image'
   };
 
@@ -357,7 +359,7 @@ var firmwarewizard = function() {
   }
 
   function findType(name) {
-    var m = /-(sysupgrade|factory|rootfs|kernel|bootloader)[-.]/.exec(name);
+    var m = /-(sysupgrade|factory|rootfs|kernel|eva-filesystem|eva-kernel|bootloader)[-.]/.exec(name);
     return m ? m[1] : 'factory';
   }
 
