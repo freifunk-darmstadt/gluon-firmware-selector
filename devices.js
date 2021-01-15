@@ -24,6 +24,7 @@ var devices_recommended = {
   },
 
   "AVM": {
+    "FRITZ!Box 3370": {"avm-fritz-box-3370-rev-2-hynix-nand": "v2 Hynix", "avm-fritz-box-3370-rev-2-micron-nand": "v2 Micron"},
     "FRITZ!Box 4020": "avm-fritz-box-4020",
     "FRITZ!Box 4040": "avm-fritz-box-4040",
     "FRITZ!Box 7312": "avm-fritz-box-7312",
@@ -418,6 +419,7 @@ var devices_info = {
     "Instant On AP11": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=102c8c55f217606cdbdc9a449667e034676b3e75"
   },
   "AVM": {
+    "FRITZ!Box 3370": "https://openwrt.org/toh/avm/fritz.box.wlan.3370#installation",
     "FRITZ!Box 4020": "https://fritz-tools.readthedocs.io/",
     "FRITZ!Box 4040": "https://fritz-tools.readthedocs.io/",
     "FRITZ!Box 7312": "https://fritz-tools.readthedocs.io/",
