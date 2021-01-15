@@ -165,6 +165,13 @@ var devices_recommended = {
     "ALIX": "x86-geode"
   },
 
+  "Plasma Cloud": {
+    "PA300": "plasma-cloud-pa300",
+    "PA300E": "plasma-cloud-pa300e",
+    "PA1200": "plasma-cloud-pa1200",
+    "PA2200": "plasma-cloud-pa2200",
+  },
+
   "Raspberry Pi Foundation": {
     "PI1": { "raspberry-pi": "", "raspberrypi-model-b": "" },
     "PI2": { "raspberry-pi-2": "", "raspberrypi-2-model-b": "" },
