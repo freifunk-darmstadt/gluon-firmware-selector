@@ -278,6 +278,7 @@ var devices_ath10k_lowmem = {
 		"Archer C25": {"tp-link-archer-c25": "v1"},
 		"Archer C58": {"tp-link-archer-c58": "v1"},
 		"Archer C60": {"tp-link-archer-c60-v1": "v1", "tp-link-archer-c60-v2": "v2"},
+		"Archer D50": "tp-link-archer-d50",
 		"RE355": "tp-link-re355",
 		"RE450": "tp-link-re450",
 		"TL-WR902AC": {"tp-link-tl-wr902ac-v1": "v1"},
