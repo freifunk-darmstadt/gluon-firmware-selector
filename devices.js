@@ -247,6 +247,7 @@ var devices_recommended = {
   },
 
   "Xiaomi": {
+    "Mi Router 4A (100M Edition)": "xiaomi-mi-router-4a-100m-edition",
     "MiWiFi Mini": "xiaomi-miwifi-mini"
   },
 
@@ -454,5 +455,8 @@ var devices_info = {
     "TL-WR841N/ND" : {
       "v13": "https://openwrt.org/toh/tp-link/tl-wr841nd#tftp_recovery_via_bootloader_for_v8_v9_v10_v11_v12_v13"
     }
+  },
+  "Xiaomi": {
+    "Mi Router 4A (100M Edition)": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=5ff5c9bce6b6e51060c272521528b5afd789e9ab"
   }
 }
