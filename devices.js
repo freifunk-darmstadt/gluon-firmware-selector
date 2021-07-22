@@ -306,7 +306,7 @@ var devices_ath10k_lowmem = {
 
 var devices_legacy_target = {
   "x86": {
-    "legacy 32bit": "x86-legacy",
+    "legacy 32bit": {"x86-legacy": "", "x86-legacy.vdi": "--ignore--", "x86-legacy.vmdk": "--ignore--"},
   },
 };
 
