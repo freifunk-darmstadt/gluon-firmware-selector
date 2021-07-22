@@ -130,7 +130,7 @@ var devices_recommended = {
     "R6220": "netgear-r6220",
     "R7800": "netgear-nighthawk-x4s-r7800",
     "WNR2200": "netgear-wnr2200",
-    "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4", "netgear-wndr3700v5": "v5"},
+    "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4", "netgear-wndr3700v5": "v5", "netgear-wndr3700-v5": "v5"},
     "WNDR3800": {"netgear-wndr3800": "", "netgear-wndr3800chmychart": "--ignore--"},
     "WNDR4300": "netgear-wndr4300",
     "WNDRMAC": {"netgear-wndrmac": "v1", "netgear-wndrmacv2": "v2"},
@@ -228,8 +228,8 @@ var devices_recommended = {
   },
 
   "Ubiquiti": {
-    "EdgeRouter X": "ubnt-erx",
-    "EdgeRouter X-SFP": "ubnt-erx-sfp",
+    "EdgeRouter X": {"ubnt-erx": "", "ubiquiti-edgerouter-x": ""},
+    "EdgeRouter X-SFP": {"ubnt-erx-sfp": "", "ubiquiti-edgerouter-x-sfp": ""},
     "NanoBeam": {"ubiquity-nanobeam-m": "--ignore--", "ubiquiti-nanobeam-m5": "M5"},
     "Rocket": {"ubiquiti-rocket-m": "M", "ubiquiti-rocket-m-xw": "M XW",
                "ubiquiti-rocket-m2": "M2", "ubiquiti-rocket-m2-xw": "M2 XW",
@@ -284,7 +284,7 @@ var devices_recommended = {
   },
 
   "ZBT": {
-    "WG3526": {"zbt-wg3526-16m": "16M", "zbt-wg3526-32m": "32M", "zbt-wg3526": "16M"},
+    "WG3526": {"zbt-wg3526-16m": "16M", "zbt-wg3526-32m": "32M", "zbt-wg3526": "16M", "zbtlink-zbt-wg3526-16m": "16M", "zbtlink-zbt-wg3526-32m": "32M",},
   }
 };
 
