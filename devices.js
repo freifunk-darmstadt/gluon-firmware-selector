@@ -77,6 +77,10 @@ var devices_recommended = {
     "WS-AP3710i": "enterasys-ws-ap3710i",
   },
 
+  "FriendlyElec": {
+    "NanoPi R2S": "friendlyelec-nanopi-r2s",
+  },
+
   "GL.iNet": {
     "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
     "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": ""},
@@ -182,6 +186,14 @@ var devices_recommended = {
     "PI3": { "raspberry-pi-3": "", "raspberrypi-3-model-b": "" }
   },
 
+  "RAVPower": {
+    "RP-WD009": "ravpower-rp-wd009",
+  },
+
+  "Siemens": {
+    "WS-AP3610": "siemens-ws-ap3610",
+  },
+
   "TP-Link": {
     "Archer C2600": {"tp-link-archer-c2600": "v1"},
     "Archer C2": "tp-link-archer-c2",
@@ -248,6 +260,8 @@ var devices_recommended = {
 
   "Xiaomi": {
     "Mi Router 4A (100M Edition)": "xiaomi-mi-router-4a-100m-edition",
+    "Mi Router 4A (Gigabit Edition)": "xiaomi-mi-router-4a-gigabit-edition",
+    "Mi Router 4C": "xiaomi-mi-router-4c",
     "MiWiFi Mini": "xiaomi-miwifi-mini"
   },
 
@@ -442,6 +456,12 @@ var devices_info = {
     "WiFi Pro 1750i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=8d68be8057d6c689025cc236d20b96b77a6ccf30",
     "WiFi Pro 1750x": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=cb3cd526948af3f69da1af18e035177a0a8f58e3"
   },
+  "RAVPower": {
+    "RP-WD009": "https://openwrt.org/toh/ravpower/rp-wd009#oem_installation_using_the_tftp_method"
+  },
+  "Siemens": {
+    "WS-AP3610": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=d2b8ccb1c04def81224da6f42f644c7d239b9986",
+  },
   "Ubiquiti": {
     "EdgeRouter X": "https://github.com/oszilloskop/UBNT_ERX_Gluon_Factory-Image/blob/master/README.md#gluon-auf-ubnt-edgerouter-x-und-x-sfp",
     "EdgeRouter X-SFP": "https://github.com/oszilloskop/UBNT_ERX_Gluon_Factory-Image/blob/master/README.md#gluon-auf-ubnt-edgerouter-x-und-x-sfp",
@@ -457,6 +477,8 @@ var devices_info = {
     }
   },
   "Xiaomi": {
-    "Mi Router 4A (100M Edition)": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=5ff5c9bce6b6e51060c272521528b5afd789e9ab"
+    "Mi Router 4A (100M Edition)": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=5ff5c9bce6b6e51060c272521528b5afd789e9ab",
+    "Mi Router 4A (Gigabit Edition)": "https://github.com/acecilia/OpenWRTInvasion/blob/master/README.md",
+    "Mi Router 4C": "https://github.com/acecilia/OpenWRTInvasion/blob/master/README.md",
   }
 }
