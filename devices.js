@@ -93,6 +93,10 @@ var devices_recommended = {
     "VIXMINI": "gl.inet-vixmini"
   },
 
+  "Joy-IT": {
+    "JT-OR750i": "joy-it-jt-or750i"
+  },
+
   "LeMaker": {
     "Banana Pi": "lemaker-banana-pi",
     "Banana Pro": "lemaker-banana-pro",
