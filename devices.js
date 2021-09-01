@@ -211,6 +211,7 @@ var devices_recommended = {
     "CPE210": {"tp-link-cpe210": "", "tp-link-cpe210-220": ""},
     "CPE220": {"tp-link-cpe220": "", "tp-link-cpe220-v1.1": "--ignore--"},
     "CPE510": {"tp-link-cpe510": "", "tp-link-cpe510-520": "", "tp-link-cpe520": "--ignore--"},
+    "EAP225-Outdoor": "tp-link-eap225-outdoor",
     "WBS210": "tp-link-wbs210",
     "WBS510": "tp-link-wbs510",
     "TD-W8970": "tp-link-td-w8970",
@@ -476,6 +477,9 @@ var devices_info = {
     "UniFi AC Pro": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
   },
   "TP-Link": {
+    "EAP225-Outdoor": {
+      "v1": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=4f86edf477edbc0f20b5a49a69f658fa82158284"
+    },
     "TL-WR841N/ND" : {
       "v13": "https://openwrt.org/toh/tp-link/tl-wr841nd#tftp_recovery_via_bootloader_for_v8_v9_v10_v11_v12_v13"
     }
