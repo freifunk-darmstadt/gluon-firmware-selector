@@ -15,7 +15,9 @@ var devices_recommended = {
 
   "Aruba": {
     "AP-303": "aruba-ap-303",
-    "Instant On AP11": "aruba-instant-on-ap11"
+    "Instant On AP11": "aruba-instant-on-ap11",
+    "AP-365": "aruba-ap-365",
+    "Instant On AP17": "aruba-instant-on-ap17",
   },
 
   "Asus": {
@@ -436,7 +438,9 @@ var vendormodels = {
 var devices_info = {
   "Aruba": {
     "AP-303": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=102c8c55f217606cdbdc9a449667e034676b3e75",
-    "Instant On AP11": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=102c8c55f217606cdbdc9a449667e034676b3e75"
+    "Instant On AP11": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=102c8c55f217606cdbdc9a449667e034676b3e75",
+    "AP-365": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=300b7fe85a743ab0e039457a5a551819b49450da",
+    "Instant On AP17": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=300b7fe85a743ab0e039457a5a551819b49450da",
   },
   "AVM": {
     "FRITZ!Box 3370": "https://openwrt.org/toh/avm/fritz.box.wlan.3370#installation",
