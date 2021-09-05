@@ -15,8 +15,10 @@ var devices_recommended = {
 
   "Aruba": {
     "AP-303": "aruba-ap-303",
+    "AP-303H": "aruba-ap-303h",
     "AP-365": "aruba-ap-365",
     "Instant On AP11": "aruba-instant-on-ap11",
+    "Instant On AP11D": "aruba-instant-on-ap11d",
     "Instant On AP17": "aruba-instant-on-ap17",
   },
 
@@ -441,8 +443,10 @@ var vendormodels = {
 var devices_info = {
   "Aruba": {
     "AP-303": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=102c8c55f217606cdbdc9a449667e034676b3e75",
+    "AP-303H": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=c6e972c8772a628a1a2f2e5590d7c6f4acef9ab0",
     "AP-365": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=300b7fe85a743ab0e039457a5a551819b49450da",
     "Instant On AP11": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=102c8c55f217606cdbdc9a449667e034676b3e75",
+    "Instant On AP11D": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=c6e972c8772a628a1a2f2e5590d7c6f4acef9ab0",
     "Instant On AP17": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=300b7fe85a743ab0e039457a5a551819b49450da",
   },
   "AVM": {
