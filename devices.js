@@ -96,7 +96,8 @@ var devices_recommended = {
     "GL-MT300n": {"gl-mt300n": "v1", "gl-mt300n-v2": "v2"},
     "GL-MT750": "gl-mt750",
     "GL-USB150": "gl.inet-gl-usb150",
-    "VIXMINI": "gl.inet-vixmini"
+    "microuter-N300": "gl.inet-microuter-n300",
+    "VIXMINI": "gl.inet-vixmini",
   },
 
   "Joy-IT": {
