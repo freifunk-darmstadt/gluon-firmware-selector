@@ -495,7 +495,7 @@ var devices_info = {
     }
   },
   "Xiaomi": {
-    "Mi Router 4A (100M Edition)": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=5ff5c9bce6b6e51060c272521528b5afd789e9ab",
+    "Mi Router 4A (100M Edition)": "https://openwrt.org/toh/xiaomi/mi_router_4a_mir4a_100m#installation",
     "Mi Router 4A (Gigabit Edition)": "https://github.com/acecilia/OpenWRTInvasion/blob/master/README.md",
     "Mi Router 4C": "https://github.com/acecilia/OpenWRTInvasion/blob/master/README.md",
   }
