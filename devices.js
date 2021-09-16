@@ -248,6 +248,8 @@ var devices_recommended = {
     "Rocket Titanium": {"ubiquiti-rocket-m-ti": "--ignore--",
                         "ubiquiti-rocket-m2-ti": "M2",
                         "ubiquiti-rocket-m5-ti": "M5"},
+    "UniFi 6 Lite": "ubiquiti-unifi-6-lite",
+    "UniFi 6 LR": "ubiquiti-unifi-6-lr",
     "UniFi AC Lite": "ubiquiti-unifi-ac-lite",
     "UniFi AC LR": "ubiquiti-unifi-ac-lite-mesh",
     "UniFi AC Mesh": "ubiquiti-unifi-ac-mesh",
@@ -480,6 +482,8 @@ var devices_info = {
   "Ubiquiti": {
     "EdgeRouter X": "https://github.com/oszilloskop/UBNT_ERX_Gluon_Factory-Image/blob/master/README.md#gluon-auf-ubnt-edgerouter-x-und-x-sfp",
     "EdgeRouter X-SFP": "https://github.com/oszilloskop/UBNT_ERX_Gluon_Factory-Image/blob/master/README.md#gluon-auf-ubnt-edgerouter-x-und-x-sfp",
+    "UniFi 6 Lite": "https://openwrt.org/toh/ubiquiti/unifi6lite#installation",
+    "UniFi 6 LR": "https://openwrt.org/toh/ubiquiti/unifi6lite#installation",
     "UniFi AC Lite": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
     "UniFi AC LR": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
     "UniFi AC Mesh Pro": "https://forum.darmstadt.freifunk.net/t/unifi-ap-erstinstallation/790",
