@@ -461,6 +461,9 @@ var devices_info = {
     "FRITZ!Box 7330 SL": "https://fritz-tools.readthedocs.io/",
     "FRITZ!Box 7360": "https://fritz-tools.readthedocs.io/",
     "FRITZ!Box 7360 SL": "https://fritz-tools.readthedocs.io/",
+    "FRITZ!Box 7362 SL": "https://openwrt.org/toh/avm/avm_7362_sl#installation",
+    "FRITZ!Box 7412": "https://openwrt.org/toh/avm/avm_fritz_box_7412#installation",
+    "FRITZ!Box 7530": "https://openwrt.org/toh/avm/avm_fritz_box_7530#installation",
     "FRITZ!Repeater 1200": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=7f187229a8e9b7966248b1e024217e07a9fc3e50",
     "FRITZ!WLAN Repeater 300E": "https://fritz-tools.readthedocs.io/",
     "FRITZ!WLAN Repeater 450E": "https://fritz-tools.readthedocs.io/"
