@@ -205,6 +205,7 @@ var devices_recommended = {
   },
 
   "TP-Link": {
+    "Archer A7": {"tp-link-archer-a7": "v5"},
     "Archer C2": "tp-link-archer-c2",
     "Archer C20": "tp-link-archer-c20",
     "Archer C20i": "tp-link-archer-c20i",
