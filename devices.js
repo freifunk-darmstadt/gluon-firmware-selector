@@ -78,6 +78,7 @@ var devices_recommended = {
   },
 
   "Enterasys": {
+    "WS-AP3705i": "enterasys-ws-ap3705",
     "WS-AP3710i": "enterasys-ws-ap3710i",
   },
 
@@ -467,6 +468,10 @@ var devices_info = {
     "FRITZ!Repeater 1200": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=7f187229a8e9b7966248b1e024217e07a9fc3e50",
     "FRITZ!WLAN Repeater 300E": "https://fritz-tools.readthedocs.io/",
     "FRITZ!WLAN Repeater 450E": "https://fritz-tools.readthedocs.io/"
+  },
+  "Enterasys": {
+    "WS-AP3705i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=ebddc5f984a240980303aed68524eb615484eef8",
+    "WS-AP3710i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=16b01fb1b9c99513c318109bef96a1a3545c57a0",
   },
   "devolo": {
     "WiFi Pro 1200e": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=1724d4e9ed7716a5444eca42adf045c2f3afc554",
