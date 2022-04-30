@@ -82,6 +82,10 @@ var devices_recommended = {
     "WS-AP3710i": "enterasys-ws-ap3710i",
   },
 
+  "Extreme Networks": {
+    "WS-AP3825i": "extreme-networks-ws-ap3825i",
+  },
+
   "FriendlyElec": {
     "NanoPi R2S": "friendlyelec-nanopi-r2s",
   },
@@ -473,6 +477,9 @@ var devices_info = {
   "Enterasys": {
     "WS-AP3705i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=ebddc5f984a240980303aed68524eb615484eef8",
     "WS-AP3710i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=16b01fb1b9c99513c318109bef96a1a3545c57a0",
+  },
+  "Extreme Networks": {
+    "WS-AP3825i": "https://forum.darmstadt.freifunk.net/t/flashing-of-the-extreme-networks-ws-ap3825i/923",
   },
   "devolo": {
     "WiFi Pro 1200e": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=1724d4e9ed7716a5444eca42adf045c2f3afc554",
