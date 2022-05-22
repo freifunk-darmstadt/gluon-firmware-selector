@@ -224,6 +224,7 @@ var devices_recommended = {
     "CPE510": {"tp-link-cpe510": "", "tp-link-cpe510-520": "", "tp-link-cpe520": "--ignore--"},
     "EAP225-Outdoor": "tp-link-eap225-outdoor",
     "RE200": "tp-link-re200",
+    "RE650": "tp-link-re650",
     "TD-W8970": "tp-link-td-w8970",
     "TD-W8980": "tp-link-td-w8980",
     "TD-W9980": "tp-link-td-w9980",
