@@ -1,10 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-FACTORY="https://firmware.darmstadt.freifunk.net/images/stable/factory/"
-SYSUPGRADE="https://firmware.darmstadt.freifunk.net/images/stable/sysupgrade/"
+set -e
 
-mkdir images
+BASE_URL="https://firmware.darmstadt.freifunk.net/images/"
 
-curl -o images/gluon-factory-example.html "$FACTORY"
-curl -o images/gluon-sysupgrade-example.html "$SYSUPGRADE"
+for BRANCH in "stable" "beta" "testing";
+do
+	echo "updating ${BRANCH}"
 
+	mkdir -p images/${BRANCH}
+
+	curl -sSfo images/${BRANCH}/gluon-factory-example.html "${BASE_URL}${BRANCH}/factory/"
+	curl -sSfo images/${BRANCH}/gluon-other-example.html "${BASE_URL}${BRANCH}/other/"
+	curl -sSfo images/${BRANCH}/gluon-sysupgrade-example.html "${BASE_URL}${BRANCH}/sysupgrade/"
+
+done

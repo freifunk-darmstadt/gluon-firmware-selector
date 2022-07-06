@@ -29,13 +29,19 @@ var config = {
   // community prefix of the firmware images
   community_prefix: 'gluon-ffda-',
   // firmware version regex
-  version_regex: /-([\d]+\.[\d]+\.[\d]+([+-~][\d]+)?)[.-]/,
+  version_regex: '-([0-9]+.[0-9]+.[0-9]+([+-~][0-9]+)?)[.-]',
   // relative image paths and branch
   directories: {
     // some demo sources
-    './images/gluon-factory-example.html': 'stable',
-    './images/gluon-other-example.html': 'stable',
-    './images/gluon-sysupgrade-example.html': 'stable'
+    './images/stable/gluon-factory-example.html': 'stable',
+    './images/stable/gluon-other-example.html': 'stable',
+    './images/stable/gluon-sysupgrade-example.html': 'stable',
+    './images/beta/gluon-factory-example.html': 'beta',
+    './images/beta/gluon-other-example.html': 'beta',
+    './images/beta/gluon-sysupgrade-example.html': 'beta',
+    './images/testing/gluon-factory-example.html': 'testing',
+    './images/testing/gluon-other-example.html': 'testing',
+    './images/testing/gluon-sysupgrade-example.html': 'testing',
   },
   // page title
   title: 'Firmware',
@@ -43,7 +49,7 @@ var config = {
   branch_descriptions: {
     stable: 'Gut getestet, zuverlässig und stabil.',
     beta: 'Vorabtests neuer Stable-Kandidaten.',
-    experimental: 'Ungetestet, automatisch generiert.'
+    testing: 'Ungetestet, automatisch generiert.'
   },
   // recommended branch will be marked during selection
   recommended_branch: 'stable',
