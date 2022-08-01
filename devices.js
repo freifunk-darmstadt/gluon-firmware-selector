@@ -49,19 +49,26 @@ var devices_recommended = {
     "WZR-600DHP": {"buffalo-wzr-600dhp": "v2"},
     "WZR-HP-AG300H": {"buffalo-wzr-hp-ag300h": "", "buffalo-wzr-hp-ag300h-wzr-600dhp": ""},
     "WZR-HP-G300H": {"buffalo-wzr-hp-g300h": ""},
-    "WZR-HP-G300NH": {"buffalo-wzr-hp-g300nh": "v1", "buffalo-wzr-hp-g300nh2": "v2"},
+    "WZR-HP-G300NH": {
+      "buffalo-wzr-hp-g300nh-rtl8366s": "v1 - rtl8366s",
+      "buffalo-wzr-hp-g300nh": "v1",
+      "buffalo-wzr-hp-g300nh2": "v2"
+    },
     "WZR-HP-G450H": {"buffalo-wzr-hp-g450h": ""},
   },
 
   "Cudy": {
-    "WR1000": {"cudy-wr1000": "v2"}
+    "WR1000": {"cudy-wr1000": "v2"},
+    "WR2100": "cudy-wr2100",
   },
 
   "D-Link": {
-    "DAP‑1330": "d-link-dap-1330-rev",
-    "DIR-505": "d-link-dir-505-rev",
-    "DIR-825": "d-link-dir-825-rev",
-    "DIR-860L": "d-link-dir-860l"
+    "DAP‑1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
+    "DAP-1365": "d-link-dap-1365",
+    "DAP-2660": "d-link-dap-2660",
+    "DIR-505": {"d-link-dir-505-rev": "", "d-link-dir-505": ""},
+    "DIR-825": {"d-link-dir-825-rev": "", "d-link-dir825b1": "b1"},
+    "DIR-860L": "d-link-dir-860l",
   },
 
   "devolo": {
@@ -92,12 +99,12 @@ var devices_recommended = {
 
   "GL.iNet": {
     "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
-    "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": ""},
+    "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": "", "gl.inet-gl-ar300m-nor": ""},
     "GL-AR300M Lite": "gl.inet-gl-ar300m-lite",
     "GL-AR750": {"gl-ar750": "", "gl.inet-gl-ar750": ""},
     "GL-AR750S": {"gl.inet-gl-ar750s-nor": ""},
     "6408a": "gl-inet-6408a",
-    "6416a": "gl-inet-6416a",
+    "6416": { "gl-inet-6416a": "", "gl.inet-6416": ""},
     "GL-B1300": "gl.inet-gl-b1300",
     "GL-MT300a": "gl-mt300a",
     "GL-MT300n": {"gl-mt300n": "v1", "gl-mt300n-v2": "v2"},
@@ -118,7 +125,8 @@ var devices_recommended = {
   },
 
   "Linksys": {
-    "WRT1200AC": "linksys-wrt1200ac"
+    "WRT1200AC": "linksys-wrt1200ac",
+    "E8450": {"linksys-e8450": "", "linksys-e8450-ubi-sysupgrade.itb": ""},
   },
 
   "Meraki": {
@@ -129,9 +137,12 @@ var devices_recommended = {
   },
 
   "Mikrotik": {
-    "vmlinux": {"mikrotik-vmlinux-lzma" : "", "mikrotik-vmlinux.lzma" : ""},
+    "RB951Ui-2nD (hAP)": "mikrotik-routerboard-951ui-2nd-hap",
+    "RBDiscG-5acD (DISC Lite5 ac)": "mikrotik-discg-5acd",
+    "RBSXTsqG-5acD (SXTsq 5 ac)": "mikrotik-sxtsq-5-ac-rbsxtsqg-5acd",
     "nand": {"mikrotik-nand-64m" : "64m", "mikrotik-nand-large" : "large", "mikrotik-nand-large-ac": "large AC"},
-    "nor": {"mikrotik-rb-nor-flash-16M-sysupgrade": "16m", "mikrotik-rb-nor-flash-16M-ac": "16m AC"}
+    "nor": {"mikrotik-rb-nor-flash-16M-sysupgrade": "16m", "mikrotik-rb-nor-flash-16M-ac": "16m AC"},
+    "vmlinux": {"mikrotik-vmlinux-lzma" : "", "mikrotik-vmlinux.lzma" : ""},
   },
 
   "Netgear": {
@@ -142,9 +153,21 @@ var devices_recommended = {
     "EX6150": {"netgear-ex6150": "v1", "netgear-ex6150v2": "v2"},
     "R6120": "netgear-r6120",
     "R6220": "netgear-r6220",
+    "R6260": "netgear-r6260",
     "R7800": "netgear-nighthawk-x4s-r7800",
-    "WNR2200": "netgear-wnr2200",
-    "WNDR3700": {"netgear-wndr3700": "v1", "netgear-wndr3700v2": "v2", "netgear-wndr3700v3": "v3", "netgear-wndr3700v4": "v4", "netgear-wndr3700v5": "v5", "netgear-wndr3700-v5": "v5"},
+    "WAC104": "netgear-wac104",
+    "WNR2200": {
+      "netgear-wnr2200-16m": "16M",
+      "netgear-wnr2200-8m": "8M",
+      "netgear-wnr2200": "8M"
+    },
+    "WNDR3700": {
+      "netgear-wndr3700": "v1",
+      "netgear-wndr3700v2": "v2", "netgear-wndr3700-v2": "v2",
+      "netgear-wndr3700v3": "v3",
+      "netgear-wndr3700v4": "v4", "netgear-wndr3700-v4": "v4",
+      "netgear-wndr3700v5": "v5", "netgear-wndr3700-v5": "v5"
+    },
     "WNDR3800": {"netgear-wndr3800": "", "netgear-wndr3800chmychart": "--ignore--"},
     "WNDR4300": "netgear-wndr4300",
     "WNDRMAC": {"netgear-wndrmac": "v1", "netgear-wndrmacv2": "v2"},
@@ -172,13 +195,34 @@ var devices_recommended = {
     "A42": "openmesh-a42",
     "A60": "openmesh-a60",
     "A62": "openmesh-a62",
-    "MR1750": {"openmesh-mr1750": "v1", "openmesh-mr1750v2": "v2"},
-    "MR600": {"openmesh-mr600": "v1", "openmesh-mr600v2": "v2"},
-    "MR900": {"openmesh-mr900": "v1", "openmesh-mr900v2": "v2"},
-    "OM2P HS": {"openmesh-om2p-hs": "v1", "openmesh-om2p-hsv3": "v3", "openmesh-om2p-hsv4": "v4"},
+    "MR1750": {
+      "openmesh-mr1750": "v1",
+      "openmesh-mr1750v2": "v2", "openmesh-mr1750-v2": "v2",
+    },
+    "MR600": {
+      "openmesh-mr600": "v1",
+      "openmesh-mr600v2": "v2", "openmesh-mr600-v2": "v2",
+    },
+    "MR900": {
+      "openmesh-mr900": "v1",
+      "openmesh-mr900v2": "v2", "openmesh-mr900-v2": "v2",
+    },
+    "OM2P HS": {
+      "openmesh-om2p-hs": "v1",
+      "openmesh-om2p-hs-v2": "v2",
+      "openmesh-om2p-hsv3": "v3", "openmesh-om2p-hs-v3": "v3",
+      "openmesh-om2p-hsv4": "v4", "openmesh-om2p-hs-v4": "v4",
+    },
     "OM2P LC": "openmesh-om2p-lc",
-    "OM2P": {"openmesh-om2p": "v1", "openmesh-om2pv2": "v2", "openmesh-om2pv4": "v4"},
-    "OM5P-AC": {"openmesh-om5p-ac": "v1", "openmesh-om5p-acv2": "v2"},
+    "OM2P": {
+      "openmesh-om2p": "v1",
+      "openmesh-om2pv2": "v2", "openmesh-om2p-v2": "v2",
+      "openmesh-om2pv4": "v4", "openmesh-om2p-v4": "v4",
+    },
+    "OM5P-AC": {
+      "openmesh-om5p-ac": "v1",
+      "openmesh-om5p-acv2": "v2", "openmesh-om5p-ac-v2": "v2",
+    },
     "OM5P-AN": "openmesh-om5p-an",
     "OM5P": "openmesh-om5p",
   },
@@ -208,6 +252,10 @@ var devices_recommended = {
     "WS-AP3610": "siemens-ws-ap3610",
   },
 
+  "Sophos": {
+    "RED 15w": { "sophos-red-15w-rev.1": "Rev.1"},
+  },
+
   "TP-Link": {
     "Archer A7": {"tp-link-archer-a7": "v5"},
     "Archer C2": "tp-link-archer-c2",
@@ -217,11 +265,12 @@ var devices_recommended = {
     "Archer C5": "tp-link-archer-c5",
     "Archer C50": {"tp-link-archer-c50": "v1", "tp-link-archer-c50-v3": "v3", "tp-link-archer-c50-v4": "v4"},
     "Archer C59": "tp-link-archer-c59",
-    "Archer C6": "tp-link-archer-c6",
+    "Archer C6": {"tp-link-archer-c6-v2-eu-ru-jp": "v2 (EU/RU/JP)", "tp-link-archer-c6-v2": "v2 (EU/RU/JP)"},
     "Archer C7": "tp-link-archer-c7",
     "CPE210": {"tp-link-cpe210": "", "tp-link-cpe210-220": ""},
     "CPE220": {"tp-link-cpe220": "", "tp-link-cpe220-v1.1": "--ignore--"},
     "CPE510": {"tp-link-cpe510": "", "tp-link-cpe510-520": "", "tp-link-cpe520": "--ignore--"},
+    "CPE710": "tp-link-cpe710",
     "EAP225-Outdoor": "tp-link-eap225-outdoor",
     "RE200": "tp-link-re200",
     "RE650": "tp-link-re650",
@@ -235,11 +284,15 @@ var devices_recommended = {
     "TL-WDR3600": "tp-link-tl-wdr3600",
     "TL-WDR4300": "tp-link-tl-wdr4300",
     "TL-WDR4900": "tp-link-tl-wdr4900",
-    "TL-WR1043N/ND": {"tp-link-tl-wr1043n-nd-v2": "v2", "tp-link-tl-wr1043n-nd-v3": "v3",
-                      "tp-link-tl-wr1043n-nd-v4": "v4", "tp-link-tl-wr1043n-v5": "v5"},
+    "TL-WR1043N/ND": {
+      "tp-link-tl-wr1043n-nd-v2": "v2", "tp-link-tl-wr1043nd-v2": "v2",
+      "tp-link-tl-wr1043n-nd-v3": "v3", "tp-link-tl-wr1043nd-v3": "v3",
+      "tp-link-tl-wr1043n-nd-v4": "v4", "tp-link-tl-wr1043nd-v4": "v4",
+      "tp-link-tl-wr1043n-v5": "v5",
+    },
     "TL-WR2543N/ND": {"tp-link-tl-wr2543n-nd": ""},
     "TL-WR841N/ND": {"tp-link-tl-wr841n-v13": "v13"},
-    "TL-WR842N/ND": {"tp-link-tl-wr842n-nd-v3": "v3"},
+    "TL-WR842N/ND": {"tp-link-tl-wr842n-nd-v3": "v3", "tp-link-tl-wr842n-v3": "v3"},
     "TL-WR902AC": {"tp-link-tl-wr902ac-v3": "v3"},
     "WBS210": "tp-link-wbs210",
     "WBS510": "tp-link-wbs510",
@@ -248,10 +301,12 @@ var devices_recommended = {
   "Ubiquiti": {
     "EdgeRouter X": {"ubnt-erx": "", "ubiquiti-edgerouter-x": ""},
     "EdgeRouter X-SFP": {"ubnt-erx-sfp": "", "ubiquiti-edgerouter-x-sfp": ""},
+    "NanoBeam M5 (XW)": "ubiquiti-nanobeam-m5-xw",
     "NanoBeam": {"ubiquity-nanobeam-m": "--ignore--", "ubiquiti-nanobeam-m5": "M5"},
     "NanoStation Loco": {"ubiquiti-loco-m-xw": "--ignore--",
                          "ubiquiti-nanostation-loco-m2-xw": "M2 XW",
                          "ubiquiti-nanostation-loco-m5-xw": "M5 XW"},
+    "NanoStation Loco M2 (XW)": "ubiquiti-nanostation-loco-m-xw",
     "NanoStation": {"ubiquiti-nanostation-m-xw": "--ignore--", "ubiquiti-nano-m-xw": "--ignore--",
                     "ubiquiti-nanostation-m2-xw": "M2 XW", "ubiquiti-nano-m2-xw": "M2 XW",
                     "ubiquiti-nanostation-m5-xw": "M5 XW", "ubiquiti-nano-m5-xw": "M5 XW"},
@@ -272,7 +327,7 @@ var devices_recommended = {
     "UniFi AP LR": "ubiquiti-unifi-ap-lr",
     "UniFi AP Pro": "ubiquiti-unifi-ap-pro",
     "UniFi AP Outdoor": {"ubiquiti-unifi-outdoor": "", "ubiquiti-unifiap-outdoor": ""},
-    "UniFi AP Outdoor+": {"ubiquiti-unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor+": "", "ubiquiti-unifiap-outdoor%2B": "", "ubiquiti-unifiap-outdoor%2b": ""}
+    "UniFi AP Outdoor+": {"ubiquiti-unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor+": "", "ubiquiti-unifiap-outdoor%2B": "", "ubiquiti-unifiap-outdoor%2b": "", "ubiquiti-unifi-ap-outdoor+": ""}
   },
 
   "VoCore": {
@@ -285,6 +340,8 @@ var devices_recommended = {
   },
 
   "Xiaomi": {
+    "AX3200 (RB03)": "xiaomi-redmi-router-ax6s",
+    "Mi Router 3G": "xiaomi-mi-router-3g",
     "Mi Router 4A (100M Edition)": "xiaomi-mi-router-4a-100m-edition",
     "Mi Router 4A (Gigabit Edition)": "xiaomi-mi-router-4a-gigabit-edition",
     "Mi Router 4C": "xiaomi-mi-router-4c",
