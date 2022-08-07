@@ -343,6 +343,7 @@ var devices_recommended = {
     "AX3200 (RB03)": "xiaomi-redmi-router-ax6s",
     "Mi Router 3G": "xiaomi-mi-router-3g",
     "Mi Router 4A (100M Edition)": "xiaomi-mi-router-4a-100m-edition",
+    "Mi Router 4A (100M International Edition)": "xiaomi-mi-router-4a-100m-international-edition",
     "Mi Router 4A (Gigabit Edition)": "xiaomi-mi-router-4a-gigabit-edition",
     "Mi Router 4C": "xiaomi-mi-router-4c",
     "MiWiFi Mini": "xiaomi-miwifi-mini"
@@ -582,6 +583,7 @@ var devices_info = {
   },
   "Xiaomi": {
     "Mi Router 4A (100M Edition)": "https://openwrt.org/toh/xiaomi/mi_router_4a_mir4a_100m#installation",
+    "Mi Router 4A (100M International Edition)": "https://forum.ffrn.de/t/howto-installation-xiaomi-mi-router-4a-r4ac-100m-international-edition/3536",
     "Mi Router 4A (Gigabit Edition)": "https://github.com/acecilia/OpenWRTInvasion/blob/master/README.md",
     "Mi Router 4C": "https://github.com/acecilia/OpenWRTInvasion/blob/master/README.md",
   }
