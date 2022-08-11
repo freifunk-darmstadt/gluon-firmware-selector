@@ -156,6 +156,7 @@ var devices_recommended = {
     "R6260": "netgear-r6260",
     "R7800": "netgear-nighthawk-x4s-r7800",
     "WAC104": "netgear-wac104",
+    "WAX202": "netgear-wax202",
     "WNR2200": {
       "netgear-wnr2200-16m": "16M",
       "netgear-wnr2200-8m": "8M",
