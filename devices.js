@@ -170,7 +170,11 @@ var devices_recommended = {
       "netgear-wndr3700v4": "v4", "netgear-wndr3700-v4": "v4",
       "netgear-wndr3700v5": "v5", "netgear-wndr3700-v5": "v5"
     },
-    "WNDR3800": {"netgear-wndr3800": "", "netgear-wndr3800chmychart": "--ignore--"},
+    "WNDR3800": {
+      "netgear-wndr3800ch": "ch",
+      "netgear-wndr3800": "",
+      "netgear-wndr3800chmychart": "--ignore--"
+    },
     "WNDR4300": "netgear-wndr4300",
     "WNDRMAC": {"netgear-wndrmac": "v1", "netgear-wndrmacv2": "v2"},
   },
