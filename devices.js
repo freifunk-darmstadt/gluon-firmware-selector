@@ -95,6 +95,7 @@ var devices_recommended = {
 
   "FriendlyElec": {
     "NanoPi R2S": "friendlyelec-nanopi-r2s",
+    "NanoPi R4S": "friendlyelec-nanopi-r4s",
   },
 
   "GL.iNet": {
