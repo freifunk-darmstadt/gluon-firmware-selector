@@ -100,6 +100,7 @@ var devices_recommended = {
   "GL.iNet": {
     "6408a": "gl-inet-6408a",
     "6416": { "gl-inet-6416a": "", "gl.inet-6416": ""},
+    "GL-AP1300": "gl.inet-gl-ap1300",
     "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
     "GL-AR300M Lite": "gl.inet-gl-ar300m-lite",
     "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": "", "gl.inet-gl-ar300m-nor": ""},
