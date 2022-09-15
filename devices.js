@@ -98,13 +98,13 @@ var devices_recommended = {
   },
 
   "GL.iNet": {
-    "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
-    "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": "", "gl.inet-gl-ar300m-nor": ""},
-    "GL-AR300M Lite": "gl.inet-gl-ar300m-lite",
-    "GL-AR750": {"gl-ar750": "", "gl.inet-gl-ar750": ""},
-    "GL-AR750S": {"gl.inet-gl-ar750s-nor": ""},
     "6408a": "gl-inet-6408a",
     "6416": { "gl-inet-6416a": "", "gl.inet-6416": ""},
+    "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
+    "GL-AR300M Lite": "gl.inet-gl-ar300m-lite",
+    "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": "", "gl.inet-gl-ar300m-nor": ""},
+    "GL-AR750S": {"gl.inet-gl-ar750s-nor": ""},
+    "GL-AR750": {"gl-ar750": "", "gl.inet-gl-ar750": ""},
     "GL-B1300": "gl.inet-gl-b1300",
     "GL-MT300a": "gl-mt300a",
     "GL-MT300n": {"gl-mt300n": "v1", "gl-mt300n-v2": "v2"},
