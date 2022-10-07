@@ -90,6 +90,7 @@ var devices_recommended = {
   },
 
   "Extreme Networks": {
+    "WS-AP3805i": "extreme-networks-ap3805i",
     "WS-AP3825i": "extreme-networks-ws-ap3825i",
   },
 
@@ -553,6 +554,7 @@ var devices_info = {
     "WS-AP3710i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=16b01fb1b9c99513c318109bef96a1a3545c57a0",
   },
   "Extreme Networks": {
+    "WS-AP3805i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=f8c87aa2d27ab405f284dd4357377ab5c893a345",
     "WS-AP3825i": "https://forum.darmstadt.freifunk.net/t/flashing-of-the-extreme-networks-ws-ap3825i/923",
   },
   "devolo": {
