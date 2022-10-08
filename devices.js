@@ -90,7 +90,7 @@ var devices_recommended = {
   },
 
   "Extreme Networks": {
-    "WS-AP3805i": "extreme-networks-ap3805i",
+    "WS-AP3805i": "extreme-networks-ws-ap3805i",
     "WS-AP3825i": "extreme-networks-ws-ap3825i",
   },
 
