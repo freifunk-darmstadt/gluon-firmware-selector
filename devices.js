@@ -376,6 +376,7 @@ var devices_recommended = {
     "NBG6616": "zyxel-nbg6616",
     "NBG6617": "zyxel-nbg6617",
     "NBG6716": "zyxel-nbg6716",
+    "NWA50AX": "zyxel-nwa50ax",
   },
 
   "ZBT": {
