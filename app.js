@@ -234,7 +234,7 @@ var firmwarewizard = function() {
     function parseURLasJSON() {
       var search = location.search.substring(1);
       return search ? JSON.parse(
-        '{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
+        '{"' + search.replace(/&/g, '","').replace(/=/g,'":"').replace(/\+/g,'%20') + '"}',
         function(key, value) {
           return (key=== '') ? value:decodeURIComponent(value);
         }):{};
