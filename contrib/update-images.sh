@@ -2,11 +2,12 @@
 
 set -e
 
-BASE_URL="https://firmware.darmstadt.freifunk.net/images/"
+BASE_URL=${BASE_URL:-"https://firmware.darmstadt.freifunk.net/images/"}
+BRANCHES=${BRANCHES:-"stable beta testing"}
 
-for BRANCH in "stable" "beta" "testing";
+for BRANCH in $BRANCHES;
 do
-	echo "updating ${BRANCH}"
+	echo "updating ${BRANCH} from ${BASE_URL}"
 
 	mkdir -p images/${BRANCH}
 
