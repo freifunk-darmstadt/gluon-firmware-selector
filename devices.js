@@ -64,7 +64,7 @@ var devices_recommended = {
   },
 
   "D-Link": {
-    "DAP‑1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
+    "DAP-1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
     "DAP-1365": "d-link-dap-1365",
     "DAP-2660": "d-link-dap-2660",
     "DGS-1210-10P": "d-link_dgs-1210-10p",
