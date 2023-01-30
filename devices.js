@@ -143,6 +143,7 @@ var devices_recommended = {
 
   "Mikrotik": {
     "RB951Ui-2nD (hAP)": "mikrotik-routerboard-951ui-2nd-hap",
+    "RBD52G-5HacD2HnD-TC (hAP ac²)": "mikrotik-hap-ac2",
     "RBDiscG-5acD (DISC Lite5 ac)": "mikrotik-discg-5acd",
     "RBSXTsqG-5acD (SXTsq 5 ac)": "mikrotik-sxtsq-5-ac-rbsxtsqg-5acd",
     "nand": {"mikrotik-nand-64m" : "64m", "mikrotik-nand-large" : "large", "mikrotik-nand-large-ac": "large AC"},
