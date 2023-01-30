@@ -346,6 +346,10 @@ var devices_recommended = {
     "VoCore 2": "vocore2"
   },
 
+  "Wavlink": {
+    "WS-WN572HP3 (4G)": "wavlink-ws-wn572hp3-4g",
+  },
+
   "Western Digital": {
     "My Net N600": {"wd-my-net-n600": ""},
     "My Net N750": {"wd-my-net-n750": ""}
@@ -595,6 +599,9 @@ var devices_info = {
     "TL-WR902AC": {
       "v3": "https://openwrt.org/toh/tp-link/tl-wr902ac_v3#installation"
     }
+  },
+  "Wavlink": {
+    "WS-WN572HP3 (4G)": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=6cd1035d8dc001561331ca9e613d7dfc7d0fd7a6",
   },
   "Xiaomi": {
     "Mi Router 4A (100M Edition)": "https://openwrt.org/toh/xiaomi/mi_router_4a_mir4a_100m#installation",
