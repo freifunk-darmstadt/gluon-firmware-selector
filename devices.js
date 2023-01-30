@@ -267,6 +267,10 @@ var devices_recommended = {
     "RED 15w": { "sophos-red-15w-rev.1": "Rev.1"},
   },
 
+  "Teltonika": {
+    "RUT230": "teltonika-rut230",
+  },
+
   "TP-Link": {
     "Archer A7": {"tp-link-archer-a7": "v5"},
     "Archer C2": "tp-link-archer-c2",
