@@ -13,6 +13,13 @@ var devices_recommended = {
     "ALL0315N": "allnet-all0315n"
   },
 
+  "Arcadyan": {
+    "VGV7510KW22 (o2 Box 6431)": {
+      "arcadyan-vgv7510kw22": "",
+      "o2-box-6431": "--ignore--",
+    },
+  },
+
   "Aruba": {
     "AP-303": "aruba-ap-303",
     "AP-303H": "aruba-ap-303h",
