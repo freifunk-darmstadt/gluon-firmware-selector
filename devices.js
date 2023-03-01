@@ -136,6 +136,10 @@ var devices_recommended = {
     "Banana Pi R1 (Lamobo)": {"lamobo-r1": "", "lemaker-lamobo-r1": ""}
   },
 
+  "Librerouter": {
+    "LibreRouter": "librerouter"
+  },
+
   "Linksys": {
     "WRT1200AC": "linksys-wrt1200ac",
     "E8450": {"linksys-e8450": "", "linksys-e8450-ubi-sysupgrade.itb": ""},
