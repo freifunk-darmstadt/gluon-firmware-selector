@@ -74,6 +74,7 @@ var devices_recommended = {
     "DAP-1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
     "DAP-1365": "d-link-dap-1365",
     "DAP-2660": "d-link-dap-2660",
+    "DAP-X1860": "d-link-dap-x1860",
     "DGS-1210-10P": "d-link_dgs-1210-10p",
     "DIR-505": {"d-link-dir-505-rev": "", "d-link-dir-505": ""},
     "DIR-825": {"d-link-dir-825-rev": "", "d-link-dir825b1": "b1"},
