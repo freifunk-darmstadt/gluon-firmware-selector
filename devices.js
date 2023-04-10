@@ -154,6 +154,10 @@ var devices_recommended = {
     "MR66": "meraki-mr66"
   },
 
+  "Mercusys": {
+    "MR70X": "mercusys-mr70x",
+  },
+
   "Mikrotik": {
     "RB951Ui-2nD (hAP)": "mikrotik-routerboard-951ui-2nd-hap",
     "RBD52G-5HacD2HnD-TC (hAP ac²)": "mikrotik-hap-ac2",
