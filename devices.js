@@ -94,7 +94,7 @@ var devices_recommended = {
   },
 
   "Enterasys": {
-    "WS-AP3705i": "enterasys-ws-ap3705",
+    "WS-AP3705i": {"enterasys-ws-ap3705": "", "enterasys-ws-ap3705i": ""},
     "WS-AP3710i": "enterasys-ws-ap3710i",
   },
 
