@@ -304,7 +304,6 @@ var devices_recommended = {
     "RE500": "tp-link-re500",
     "RE650": "tp-link-re650",
     "TD-W8970": "tp-link-td-w8970",
-    "TD-W9980": "tp-link-td-w9980",
     "TL-MR3020": {"tp-link-tl-mr3020-v3": "v3"},
     "TL-MR3420": "tp-link-tl-mr3420",
     "TL-MR6400": "tp-link-tl-mr6400",
@@ -565,6 +564,7 @@ var devices_broken = {
   "TP-Link": {
     "Archer C2600": {"tp-link-archer-c2600": "v1"}, // no 802.11s support
     "TD-W8980": "tp-link-td-w8980", // 5GHz unsupported
+    "TD-W9980": "tp-link-td-w9980", // 5GHz unsupported
     "TL-MR6400": {"tp-link-tl-mr6400-v5": "v5"},
   },
 
