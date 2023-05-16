@@ -357,7 +357,7 @@ var devices_recommended = {
     "UniFi 6 Lite": "ubiquiti-unifi-6-lite",
     "UniFi 6 LR": "ubiquiti-unifi-6-lr",
     "UniFi AC Lite": "ubiquiti-unifi-ac-lite",
-    "UniFi AC LR": "ubiquiti-unifi-ac-lite-mesh",
+    "UniFi AC LR": { "ubiquiti-unifi-ac-lite-mesh": "", "ubiquiti-unifi-ac-lr": "" },
     "UniFi AC Mesh": "ubiquiti-unifi-ac-mesh",
     "UniFi AC Mesh Pro": "ubiquiti-unifi-ac-mesh-pro",
     "UniFi AC Pro": "ubiquiti-unifi-ac-pro",
