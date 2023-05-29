@@ -599,6 +599,9 @@ var devices_info = {
     "WS-AP3805i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=f8c87aa2d27ab405f284dd4357377ab5c893a345",
     "WS-AP3825i": "https://forum.darmstadt.freifunk.net/t/flashing-of-the-extreme-networks-ws-ap3825i/923",
   },
+  "D-Link": {
+    "DAP-X1860": "https://openwrt.org/inbox/toh/d-link/dap-x1860#how_to_flash_openwrt_to_this_device",
+  },
   "devolo": {
     "WiFi Pro 1200e": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=1724d4e9ed7716a5444eca42adf045c2f3afc554",
     "WiFi Pro 1200i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=c8115167f946be85f812f3c94d6294b67ac8944c",
