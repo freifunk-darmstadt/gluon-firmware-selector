@@ -318,6 +318,7 @@ var devices_recommended = {
     "TD-W9980": "tp-link-td-w9980",
     "TL-MR3020": {"tp-link-tl-mr3020-v3": "v3"},
     "TL-MR3420": "tp-link-tl-mr3420",
+    "TL-MR6400": "tp-link-tl-mr6400",
     "TL-WA801N/ND": "tp-link-tl-wa801nd",
     "TL-WDR3500": "tp-link-tl-wdr3500",
     "TL-WDR3600": "tp-link-tl-wdr3600",
