@@ -153,8 +153,9 @@ var devices_recommended = {
   "Meraki": {
     "MR12": "meraki-mr12",
     "MR16": "meraki-mr16",
+    "MR33": "meraki-mr33-access-point",
     "MR62": "meraki-mr62",
-    "MR66": "meraki-mr66"
+    "MR66": "meraki-mr66",
   },
 
   "Mercusys": {
