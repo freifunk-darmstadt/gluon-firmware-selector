@@ -342,6 +342,7 @@ var devices_recommended = {
   "Ubiquiti": {
     "EdgeRouter X": {"ubnt-erx": "", "ubiquiti-edgerouter-x": ""},
     "EdgeRouter X-SFP": {"ubnt-erx-sfp": "", "ubiquiti-edgerouter-x-sfp": ""},
+    "NanoBeam AC Gen1 (XC)": "ubiquiti-nanobeam-ac-gen1-xc",
     "NanoBeam M5 (XW)": "ubiquiti-nanobeam-m5-xw",
     "NanoBeam": {"ubiquity-nanobeam-m": "--ignore--", "ubiquiti-nanobeam-m5": "M5"},
     "NanoStation Loco": {"ubiquiti-loco-m-xw": "--ignore--",
