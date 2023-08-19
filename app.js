@@ -148,6 +148,11 @@ var firmwarewizard = function() {
     PREVIEW_PICTURES_DIR = config.preview_pictures;
   }
 
+  var PREVIEW_PICTURES_EXT = '.jpg';
+  if(config.preview_pictures_ext !== undefined) {
+    PREVIEW_PICTURES_EXT = config.preview_pictures_ext;
+  }
+
   var enabled_device_categories = ['recommended'];
   if ("enabled_device_categories" in config) {
     enabled_device_categories = config.enabled_device_categories;
@@ -502,7 +507,7 @@ var firmwarewizard = function() {
       'version': version,
       'location': location,
       'size': size,
-      'preview': preview+".jpg",
+      'preview': preview,
       'category': device.category
     });
   }
@@ -670,7 +675,7 @@ var firmwarewizard = function() {
 
     var image = document.createElement('img');
 
-    image.src = PREVIEW_PICTURES_DIR+images[vendor][model][latestRevisionIndex].preview;
+    image.src = PREVIEW_PICTURES_DIR+images[vendor][model][latestRevisionIndex].preview+PREVIEW_PICTURES_EXT;
     image.alt = name;
     image.addEventListener('error', firmwarewizard.setDefaultImg);
 
@@ -698,7 +703,7 @@ var firmwarewizard = function() {
   }
 
   function setDefaultImg(e) {
-    fallbackImg = PREVIEW_PICTURES_DIR+'no_picture_available.jpg';
+    fallbackImg = 'pictures/no_picture_available.jpg';
     if (e.target.src.indexOf(fallbackImg) == -1) {
       e.target.src = fallbackImg;
     }
