@@ -417,6 +417,7 @@ var devices_recommended = {
     "NWA50AX": "zyxel-nwa50ax",
     "NWA50AX Pro": "zyxel-nwa50ax-pro",
     "NWA55AXE": "zyxel-nwa55axe",
+    "WSM20": "zyxel-wsm20",
   },
 
   "ZBT": {
