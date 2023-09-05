@@ -414,6 +414,7 @@ var devices_recommended = {
     "NBG6617": "zyxel-nbg6617",
     "NBG6716": "zyxel-nbg6716",
     "NWA50AX": "zyxel-nwa50ax",
+    "NWA50AX Pro": "zyxel-nwa50ax-pro",
     "NWA55AXE": "zyxel-nwa55axe",
   },
 
@@ -668,6 +669,7 @@ var devices_info = {
   },
   "ZyXEL": {
     "NWA50AX": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=a0b7fef0ffe4cd9cca39a652a37e4f3ce8f0a681",
+    "NWA50AX Pro": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=f0445746f6fd96fc7c5394b238153bd2ff22bc5b",
     "NWA55AXE": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=a0b7fef0ffe4cd9cca39a652a37e4f3ce8f0a681",
   },
 }
