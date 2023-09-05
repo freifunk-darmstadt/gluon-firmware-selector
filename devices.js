@@ -70,7 +70,8 @@ var devices_recommended = {
     "WR1000": {"cudy-wr1000": "v2"},
     "WR1300": "cudy-wr1300",
     "WR2100": "cudy-wr2100",
-    "X6": "cudy-x6"
+    "WR3000": "cudy-wr3000",
+    "X6": "cudy-x6",
   },
 
   "D-Link": {
