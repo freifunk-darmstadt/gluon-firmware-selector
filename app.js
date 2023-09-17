@@ -114,6 +114,7 @@ var firmwarewizard = function() {
 
   var typeNames = {
     'factory': 'Erstinstallation',
+    'recovery': 'Recovery-Install-Image',
     'sysupgrade': 'Upgrade',
     'rootfs': "Root-Image",
     'kernel': "Kernel-Image",
@@ -359,7 +360,7 @@ var firmwarewizard = function() {
   }
 
   function findType(name) {
-    var m = /-(sysupgrade|factory|rootfs|kernel|eva-filesystem|eva-kernel|bootloader)[-.]/.exec(name);
+    var m = /-(sysupgrade|factory|rootfs|kernel|recovery|eva-filesystem|eva-kernel|bootloader)[-.]/.exec(name);
     return m ? m[1] : 'factory';
   }
 
