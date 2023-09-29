@@ -101,6 +101,7 @@ var devices_recommended = {
   "Enterasys": {
     "WS-AP3705i": {"enterasys-ws-ap3705": "", "enterasys-ws-ap3705i": ""},
     "WS-AP3710i": "enterasys-ws-ap3710i",
+    "WS-AP3715i": "enterasys-ws-ap3715i",
   },
 
   "Extreme Networks": {
@@ -603,6 +604,7 @@ var devices_info = {
   "Enterasys": {
     "WS-AP3705i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=ebddc5f984a240980303aed68524eb615484eef8",
     "WS-AP3710i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=16b01fb1b9c99513c318109bef96a1a3545c57a0",
+    "WS-AP3715i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=765f66810a3324cc35fa6471ee8eeee335ba8c2b",
   },
   "Extreme Networks": {
     "WS-AP3805i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=f8c87aa2d27ab405f284dd4357377ab5c893a345",
