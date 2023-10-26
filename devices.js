@@ -427,6 +427,7 @@ var devices_recommended = {
 
   "ZTE": {
     "MF281": "zte-mf281",
+    "MF289F": "zte-mf289f",
   },
 };
 
@@ -670,6 +671,7 @@ var devices_info = {
   },
   "ZTE": {
     "MF281": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=1e1695f959e678868bb7911d059b847f38fc9cf4",
+    "MF289F": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=0de6a3339f1aadc1de2c9371435e3de239a00645",
   },
   "ZyXEL": {
     "NWA50AX": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=a0b7fef0ffe4cd9cca39a652a37e4f3ce8f0a681",
