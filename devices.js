@@ -589,7 +589,7 @@ var devices_info = {
     "vgv7510kw22/O2 Box 6431": "https://forum.openwrt.org/t/installing-lede-u-boot-via-brnboot-web-interface-without-rs232/9857/6"
   },
   "Asus": {
-    "TUF-AX4200": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=e7c399bee677e9bac66e1bea697aefb8d828edfe",
+    "TUF-AX4200": "https://github.com/blocktrron/openwrt-asus-filogic-factory/releases/tag/filogic-v1",
   },
   "AVM": {
     "FRITZ!Box 3370": "https://openwrt.org/toh/avm/fritz.box.wlan.3370#installation",
