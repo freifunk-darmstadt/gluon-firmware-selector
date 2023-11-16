@@ -52,7 +52,8 @@ var devices_recommended = {
     "FRITZ!Box 7530": "avm-fritz-box-7530",
     "FRITZ!Repeater 1200": "avm-fritz-repeater-1200",
     "FRITZ!WLAN Repeater 300E": "avm-fritz-wlan-repeater-300e",
-    "FRITZ!WLAN Repeater 450E": "avm-fritz-wlan-repeater-450e"
+    "FRITZ!WLAN Repeater 450E": "avm-fritz-wlan-repeater-450e",
+    "FRITZ!WLAN Repeater 1750E": "avm-fritz-wlan-repeater-1750e",
   },
 
   "Buffalo": {
