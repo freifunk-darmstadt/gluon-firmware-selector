@@ -172,6 +172,7 @@ var devices_recommended = {
     "RBD52G-5HacD2HnD-TC (hAP ac²)": "mikrotik-hap-ac2",
     "RBDiscG-5acD (DISC Lite5 ac)": "mikrotik-discg-5acd",
     "RBSXTsqG-5acD (SXTsq 5 ac)": "mikrotik-sxtsq-5-ac-rbsxtsqg-5acd",
+    "RBwAPR-2nD (wAP R)": "mikrotik-routerboard-wapr-2nd",
     "nand": {"mikrotik-nand-64m" : "64m", "mikrotik-nand-large" : "large", "mikrotik-nand-large-ac": "large AC"},
     "nor": {"mikrotik-rb-nor-flash-16M-sysupgrade": "16m", "mikrotik-rb-nor-flash-16M-ac": "16m AC"},
     "vmlinux": {"mikrotik-vmlinux-lzma" : "", "mikrotik-vmlinux.lzma" : ""},
