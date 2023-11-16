@@ -130,6 +130,7 @@ var devices_recommended = {
     "GL-MT300n": {"gl-mt300n": "v1", "gl-mt300n-v2": "v2"},
     "GL-MT750": "gl-mt750",
     "GL-MT1300": "gl.inet-gl-mt1300",
+    "GL-MT3000": "gl.inet-gl-mt3000",
     "GL-USB150": "gl.inet-gl-usb150",
     "GL-XE300": "gl.inet-gl-xe300",
     "microuter-N300": "gl.inet-microuter-n300",
