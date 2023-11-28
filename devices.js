@@ -318,8 +318,6 @@ var devices_recommended = {
     "CPE710": "tp-link-cpe710",
     "EAP225-Outdoor": "tp-link-eap225-outdoor",
     "EAP615-Wall": "tp-link-eap615-wall",
-    "RE200": "tp-link-re200",
-    "RE305": "tp-link-re305",
     "RE500": "tp-link-re500",
     "RE650": "tp-link-re650",
     "TD-W8970": "tp-link-td-w8970",
@@ -565,6 +563,15 @@ var devices_16_32 = {
   },
 }
 
+var devices_6_usable = {
+  "TP-Link": {
+    "RE200": "tp-link-re200",
+    "RE305": "tp-link-re305",
+    "RE355": "tp-link-re355",
+    "RE450": "tp-link-re450",
+  },
+}
+
 var vendormodels = {
   "recommended": devices_recommended,
   "ath10k_lowmem": devices_ath10k_lowmem,
@@ -573,6 +580,7 @@ var vendormodels = {
   "4_32": devices_4_32,
   "8_32": devices_8_32,
   "16_32": devices_16_32,
+  "6_usable": devices_6_usable,
 }
 
 var devices_info = {
