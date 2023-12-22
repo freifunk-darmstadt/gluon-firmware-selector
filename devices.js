@@ -20,6 +20,11 @@ var devices_recommended = {
     },
   },
 
+  "Arm SystemReady": {
+    "32-bit (EFI)": "armsr-armv7",
+    "64-bit (EFI)": "armsr-armv8",
+  },
+
   "Aruba": {
     "AP-303": "aruba-ap-303",
     "AP-303H": "aruba-ap-303h",
