@@ -295,6 +295,7 @@ var devices_recommended = {
   },
 
   "Sophos": {
+    "AP100c": "sophos-ap100c",
     "RED 15w": { "sophos-red-15w-rev.1": "Rev.1"},
   },
 
