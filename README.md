@@ -5,8 +5,7 @@ This Firmware Wizard lets a user select the correct firmware for his device. Dir
 
 Similar projects:
 - [Freifunk Bielefeld Firmware Wizard](https://github.com/freifunk-bielefeld/firmware-wizard/): Based on this wizard, but also supports LEDE and OpenWRT firmware images
-- [Freifunk Hennef Firmware Downloader](https://github.com/Freifunk-Hennef/ffhef-fw-dl): Firmware wizard that also contains server-side code (PHP)
-- [LibreMesh Chef](https://chef.libremesh.org/): Firmware wizard of LibreMesh that supports building custom images on demand
+- [LibreMesh Chef](https://github.com/libremesh/chef): Firmware wizard of LibreMesh that supports building custom images on demand
 
 ### Screenshot
 ![screenshot of the firmware wizard](screenshot.png)
