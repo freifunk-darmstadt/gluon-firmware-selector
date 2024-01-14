@@ -119,7 +119,8 @@ var firmwarewizard = function() {
     'kernel': "Kernel-Image",
     'eva-filesystem': 'Bootloader-Root-Image',
     'eva-kernel': 'Bootloader-Kernel-Image',
-    'bootloader': 'Bootloader-Image'
+    'bootloader': 'Bootloader-Image',
+    'recovery': 'Recovery-Image'
   };
 
   var branches = ObjectValues(config.directories).filter(function(e, index, self) {
@@ -359,7 +360,7 @@ var firmwarewizard = function() {
   }
 
   function findType(name) {
-    var m = /-(sysupgrade|factory|rootfs|kernel|eva-filesystem|eva-kernel|bootloader)[-.]/.exec(name);
+    var m = /-(sysupgrade|factory|rootfs|kernel|eva-filesystem|eva-kernel|bootloader|recovery)[-.]/.exec(name);
     return m ? m[1] : 'factory';
   }
 
