@@ -82,6 +82,7 @@ var devices_recommended = {
   },
 
   "D-Link": {
+    "COVR-X1860": "d-link-covr-x1860",
     "DAP-1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
     "DAP-1365": "d-link-dap-1365",
     "DAP-2660": "d-link-dap-2660",
@@ -406,6 +407,7 @@ var devices_recommended = {
 
   "Xiaomi": {
     "AX3200 (RB03)": "xiaomi-redmi-router-ax6s",
+    "Mi RA75": "xiaomi-mi-ra75",
     "Mi Router 3G": "xiaomi-mi-router-3g",
     "Mi Router 4A (100M Edition)": "xiaomi-mi-router-4a-100m-edition",
     "Mi Router 4A (100M International Edition)": "xiaomi-mi-router-4a-100m-international-edition",
