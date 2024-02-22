@@ -86,6 +86,7 @@ var devices_recommended = {
     "DAP-1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
     "DAP-1365": "d-link-dap-1365",
     "DAP-2660": "d-link-dap-2660",
+    "DAP-2680": "d-link-dap-2680",
     "DAP-X1860": "d-link-dap-x1860",
     "DGS-1210-10P": "d-link_dgs-1210-10p",
     "DIR-505": {"d-link-dir-505-rev": "", "d-link-dir-505": ""},
@@ -625,6 +626,7 @@ var devices_info = {
     "FRITZ!WLAN Repeater 450E": "https://fritz-tools.readthedocs.io/"
   },
   "D-Link": {
+    "DAP-2680": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=5b58710fad2137eedad874f0fe8fe22082d1edc6",
     "DAP-X1860": "https://forum.darmstadt.freifunk.net/t/installation-d-link-dap-x1860/987",
   },
   "devolo": {
