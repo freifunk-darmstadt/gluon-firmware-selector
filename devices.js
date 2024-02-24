@@ -87,6 +87,7 @@ var devices_recommended = {
     "DAP-1365": "d-link-dap-1365",
     "DAP-2660": "d-link-dap-2660",
     "DAP-2680": "d-link-dap-2680",
+    "DAP-2695": "d-link-dap-2695",
     "DAP-X1860": "d-link-dap-x1860",
     "DGS-1210-10P": "d-link_dgs-1210-10p",
     "DIR-505": {"d-link-dir-505-rev": "", "d-link-dir-505": ""},
