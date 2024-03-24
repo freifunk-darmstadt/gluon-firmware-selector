@@ -39,6 +39,7 @@ var devices_recommended = {
      "RT-AC57U": "asus-rt-ac57u",
      "RT-AX53U": "asus-rt-ax53u",
      "TUF-AX4200": "asus-tuf-ax4200",
+     "TUF-AX6000": "asus-tuf-ax6000",
   },
 
   "AVM": {
@@ -610,6 +611,7 @@ var devices_info = {
   },
   "Asus": {
     "TUF-AX4200": "https://github.com/freifunk-darmstadt/projects/wiki/ASUS-TUF-AX4200-Factory",
+    "TUF-AX6000": "https://github.com/herbetom/openwrt-asus-filogic-factory/releases/latest",
   },
   "AVM": {
     "FRITZ!Box 3370": "https://openwrt.org/toh/avm/fritz.box.wlan.3370#installation",
