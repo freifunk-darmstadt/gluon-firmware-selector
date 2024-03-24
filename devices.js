@@ -219,7 +219,10 @@ var devices_recommended = {
       "netgear-wndr3800chmychart": "--ignore--"
     },
     "WNDR4300": "netgear-wndr4300",
-    "WNDRMAC": {"netgear-wndrmac": "v1", "netgear-wndrmacv2": "v2"},
+    "WNDRMAC": {
+      "netgear-wndrmac": "v1",
+      "netgear-wndrmacv2": "v2", "netgear-wndrmac-v2": "v2"
+    },
   },
 
   "Nexx": {
