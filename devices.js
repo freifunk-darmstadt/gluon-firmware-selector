@@ -94,6 +94,7 @@ var devices_recommended = {
     "DIR-505": {"d-link-dir-505-rev": "", "d-link-dir-505": ""},
     "DIR-825": {"d-link-dir-825-rev": "", "d-link-dir825b1": "b1"},
     "DIR-860L": "d-link-dir-860l",
+    "DIR-882": "d-link-dir-882",
   },
 
   "devolo": {
@@ -634,6 +635,7 @@ var devices_info = {
   "D-Link": {
     "DAP-2680": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=5b58710fad2137eedad874f0fe8fe22082d1edc6",
     "DAP-X1860": "https://forum.darmstadt.freifunk.net/t/installation-d-link-dap-x1860/987",
+    "DIR-882": "https://openwrt.org/toh/d-link/dir-882_a1#installation",
   },
   "devolo": {
     "WiFi Pro 1200e": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=1724d4e9ed7716a5444eca42adf045c2f3afc554",
