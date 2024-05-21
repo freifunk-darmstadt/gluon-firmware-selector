@@ -57,6 +57,7 @@ var config = {
   experimental_branches: ['experimental'],
   // path to preview pictures directory
   preview_pictures: 'pictures/',
+  preview_pictures_ext: '.jpg',
   // link to changelog
   changelog: 'CHANGELOG.html',
   // links for instructions like flashing of certain devices (optional)
