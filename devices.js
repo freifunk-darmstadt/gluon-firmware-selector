@@ -148,6 +148,10 @@ var devices_recommended = {
     "VIXMINI": "gl.inet-vixmini",
   },
 
+  "Hewlett-Packard": {
+    "MSM460": "hewlett-packard-msm460",
+  },
+
   "Joy-IT": {
     "JT-OR750i": "joy-it-jt-or750i"
   },
@@ -655,6 +659,9 @@ var devices_info = {
   "Extreme Networks": {
     "WS-AP3805i": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=f8c87aa2d27ab405f284dd4357377ab5c893a345",
     "WS-AP3825i": "https://forum.darmstadt.freifunk.net/t/flashing-of-the-extreme-networks-ws-ap3825i/923",
+  },
+  "Hewlett-Packard": {
+    "MSM460": "https://github.com/blocktrron/msm460-flashing?tab=readme-ov-file",
   },
   "Joy-IT": {
     "JT-OR750i": "https://wiki.freifunk-stuttgart.net/technik:hardware:joy-it_jt-or750i",
