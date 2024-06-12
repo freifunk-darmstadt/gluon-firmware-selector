@@ -86,6 +86,7 @@ var devices_recommended = {
     "COVR-X1860": "d-link-covr-x1860",
     "DAP-1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
     "DAP-1365": "d-link-dap-1365",
+    "DAP-1620": "d-link-dap-1620",
     "DAP-2660": "d-link-dap-2660",
     "DAP-2680": "d-link-dap-2680",
     "DAP-2695": "d-link-dap-2695",
@@ -638,6 +639,7 @@ var devices_info = {
     "FRITZ!WLAN Repeater 450E": "https://fritz-tools.readthedocs.io/"
   },
   "D-Link": {
+    "DAP-1620": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=e4c7703d2a62b8914e4723adae3f67c68a57532c",
     "DAP-2680": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=5b58710fad2137eedad874f0fe8fe22082d1edc6",
     "DAP-X1860": "https://forum.darmstadt.freifunk.net/t/installation-d-link-dap-x1860/987",
     "DIR-878": "https://openwrt.org/toh/d-link/dir-878_a1#installation",
