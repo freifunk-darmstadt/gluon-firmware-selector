@@ -426,7 +426,7 @@ var devices_recommended = {
     "Mi Router 3G": "xiaomi-mi-router-3g",
     "Mi Router 4A (100M Edition)": "xiaomi-mi-router-4a-100m-edition",
     "Mi Router 4A (100M International Edition)": "xiaomi-mi-router-4a-100m-international-edition",
-    "Mi Router 4A (Gigabit Edition)": "xiaomi-mi-router-4a-gigabit-edition",
+    "Mi Router 4A (Gigabit Edition)": { "xiaomi-mi-router-4a-gigabit-edition": "v1", "xiaomi-mi-router-4a-gigabit-edition-v2": "v2" },
     "Mi Router 4C": "xiaomi-mi-router-4c",
     "MiWiFi Mini": "xiaomi-miwifi-mini"
   },
