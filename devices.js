@@ -200,6 +200,7 @@ var devices_recommended = {
     "EX3700": "netgear-ex3700",
     "EX3800": "netgear-ex3800",
     "EX6100": {"netgear-ex6100v2": "v2"},
+    "EX6130": "netgear-ex6130",
     "EX6150": {"netgear-ex6150": "v1", "netgear-ex6150v2": "v2"},
     "R6020": "netgear-r6020",
     "R6120": "netgear-r6120",
