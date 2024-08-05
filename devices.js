@@ -681,7 +681,7 @@ var devices_info = {
     "RP-WD009": "https://openwrt.org/toh/ravpower/rp-wd009#oem_installation_using_the_tftp_method"
   },
   "Siemens": {
-    "WS-AP3610": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=d2b8ccb1c04def81224da6f42f644c7d239b9986",
+    "WS-AP3610": "https://github.com/freifunk-darmstadt/projects/wiki/90-%E2%80%90-Hardware-%E2%80%90-Siemens-AP3610",
   },
   "Sophos": {
     "AP100": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=6f1efb28983758116a8ecaf9c93e1d875bb70af7",
