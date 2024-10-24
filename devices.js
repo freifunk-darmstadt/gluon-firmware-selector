@@ -100,6 +100,7 @@ var devices_recommended = {
   },
 
   "devolo": {
+    "DLAN pro 1200+ WiFi ac": "devolo-dlan-pro-1200+-wifi-ac",
     "WiFi Pro 1200e": "devolo-wifi-pro-1200e",
     "WiFi Pro 1200i": "devolo-wifi-pro-1200i",
     "WiFi Pro 1750c": "devolo-wifi-pro-1750c",
@@ -169,6 +170,7 @@ var devices_recommended = {
 
   "Linksys": {
     "WRT1200AC": "linksys-wrt1200ac",
+    "E4200": {"linksys-e4200-v2-viper": "v2"},
     "E8450": {"linksys-e8450": "", "linksys-e8450-ubi-sysupgrade.itb": ""},
   },
 
