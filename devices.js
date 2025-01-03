@@ -43,7 +43,6 @@ var devices_recommended = {
   },
 
   "AVM": {
-    "FRITZ!Box 3370": {"avm-fritz-box-3370-rev-2-hynix-nand": "v2 Hynix", "avm-fritz-box-3370-rev-2-micron-nand": "v2 Micron"},
     "FRITZ!Box 4020": "avm-fritz-box-4020",
     "FRITZ!Box 4040": "avm-fritz-box-4040",
     "FRITZ!Box 7312": "avm-fritz-box-7312",
@@ -160,8 +159,6 @@ var devices_recommended = {
 
   "LeMaker": {
     "Banana Pi": "lemaker-banana-pi",
-    "Banana Pro": "lemaker-banana-pro",
-    "Banana Pi R1 (Lamobo)": {"lamobo-r1": "", "lemaker-lamobo-r1": ""}
   },
 
   "Librerouter": {
@@ -169,7 +166,6 @@ var devices_recommended = {
   },
 
   "Linksys": {
-    "WRT1200AC": "linksys-wrt1200ac",
     "E4200": {"linksys-e4200-v2-viper": "v2"},
     "E8450": {"linksys-e8450": "", "linksys-e8450-ubi-sysupgrade.itb": ""},
   },
@@ -301,13 +297,6 @@ var devices_recommended = {
     "PA2200": "plasma-cloud-pa2200",
   },
 
-  "Raspberry Pi Foundation": {
-    "PI1": { "raspberry-pi": "", "raspberrypi-model-b": "" },
-    "PI2": { "raspberry-pi-2": "", "raspberrypi-2-model-b": "" },
-    "PI3": { "raspberry-pi-3": "", "raspberrypi-3-model-b": "" },
-    "PI4": "raspberrypi-4-model-b",
-  },
-
   "RAVPower": {
     "RP-WD009": "ravpower-rp-wd009",
   },
@@ -334,7 +323,6 @@ var devices_recommended = {
     "Archer C2": "tp-link-archer-c2",
     "Archer C20": "tp-link-archer-c20",
     "Archer C20i": "tp-link-archer-c20i",
-    "Archer C2600": {"tp-link-archer-c2600": "v1"},
     "Archer C5": "tp-link-archer-c5",
     "Archer C50": {"tp-link-archer-c50": "v1", "tp-link-archer-c50-v3": "v3", "tp-link-archer-c50-v4": "v4"},
     "Archer C59": "tp-link-archer-c59",
@@ -351,8 +339,6 @@ var devices_recommended = {
     "RE500": "tp-link-re500",
     "RE650": "tp-link-re650",
     "TD-W8970": "tp-link-td-w8970",
-    "TD-W8980": "tp-link-td-w8980",
-    "TD-W9980": "tp-link-td-w9980",
     "TL-MR3020": {"tp-link-tl-mr3020-v3": "v3"},
     "TL-MR3420": "tp-link-tl-mr3420",
     "TL-MR6400": "tp-link-tl-mr6400",
@@ -468,13 +454,13 @@ var devices_recommended = {
 
 var devices_ath10k_lowmem = {
 	"TP-Link": {
-		"Archer C25": {"tp-link-archer-c25": "v1"},
-		"Archer C58": {"tp-link-archer-c58": "v1"},
-		"Archer C60": {"tp-link-archer-c60-v1": "v1", "tp-link-archer-c60-v2": "v2"},
+		"Archer C25": {"tp-link-archer-c25": "v1"}, // OOM with 5GHz enabled in most environments
+		"Archer C58": {"tp-link-archer-c58": "v1"}, // OOM with 5GHz enabled in most environments
+		"Archer C60": {"tp-link-archer-c60-v1": "v1", "tp-link-archer-c60-v2": "v2"}, // OOM with 5GHz enabled in most environments
 		"Archer D50": "tp-link-archer-d50",
-		"RE355": "tp-link-re355",
+		"RE355": "tp-link-re355", // OOM with 5GHz enabled in most environments
 		"RE450": "tp-link-re450",
-		"TL-WR902AC": {"tp-link-tl-wr902ac-v1": "v1"},
+		"TL-WR902AC": {"tp-link-tl-wr902ac-v1": "v1"}, // OOM with 5GHz enabled in most environments
 	},
 
 	"ZyXEL": {
@@ -596,6 +582,38 @@ var devices_16_32 = {
   },
 }
 
+var devices_broken = {
+  "AVM": {
+    // no button for setup mode
+    "FRITZ!Box 3370": {"avm-fritz-box-3370-rev-2-hynix-nand": "v2 Hynix", "avm-fritz-box-3370-rev-2-micron-nand": "v2 Micron"},
+    "FRITZ!Box 7430": "avm-fritz-box-7430",
+  },
+
+  "Raspberry Pi Foundation": {
+    // no working mesh without capable usb wlan card
+    "PI1": { "raspberry-pi": "", "raspberrypi-model-b": "" },
+    "PI2": { "raspberry-pi-2": "", "raspberrypi-2-model-b": "" },
+    "PI3": { "raspberry-pi-3": "", "raspberrypi-3-model-b": "" },
+    "PI4": "raspberrypi-4-model-b",
+  },
+
+  "LeMaker": {
+    // 802.11s not working
+    "Banana Pro": "lemaker-banana-pro",
+    "Banana Pi R1 (Lamobo)": {"lamobo-r1": "", "lemaker-lamobo-r1": ""}
+  },
+
+  "Linksys": {
+    "WRT1200AC": "linksys-wrt1200ac", // no 802.11s support
+  },
+
+  "TP-Link": {
+    "Archer C2600": {"tp-link-archer-c2600": "v1"}, // no 802.11s support
+    "TD-W8980": "tp-link-td-w8980", // 5GHz unsupported
+    "TD-W9980": "tp-link-td-w9980", // 5GHz unsupported
+  },
+}
+
 var vendormodels = {
   "recommended": devices_recommended,
   "ath10k_lowmem": devices_ath10k_lowmem,
@@ -604,6 +622,7 @@ var vendormodels = {
   "4_32": devices_4_32,
   "8_32": devices_8_32,
   "16_32": devices_16_32,
+  "broken": devices_broken,
 }
 
 var devices_info = {
