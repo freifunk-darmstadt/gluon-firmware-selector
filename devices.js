@@ -75,6 +75,7 @@ var devices_recommended = {
   },
 
   "Cudy": {
+    "AP3000 Outdoor": "cudy-ap3000-outdoor",
     "WR1000": {"cudy-wr1000": "v2"},
     "WR1300": "cudy-wr1300",
     "WR2100": "cudy-wr2100",
@@ -83,6 +84,7 @@ var devices_recommended = {
   },
 
   "D-Link": {
+    "Aquila Pro AI M30": "d-link-aquila-pro-ai-m30",
     "COVR-X1860": "d-link-covr-x1860",
     "DAP-1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
     "DAP-1365": "d-link-dap-1365",
@@ -122,10 +124,12 @@ var devices_recommended = {
   "Extreme Networks": {
     "WS-AP3805i": "extreme-networks-ws-ap3805i",
     "WS-AP3825i": "extreme-networks-ws-ap3825i",
+    "WS-AP3915i": "extreme-networks-ws-ap3915i",
   },
 
   "FriendlyElec": {
     "NanoPi R2S": "friendlyelec-nanopi-r2s",
+    "NanoPi R3S": "friendlyelec-nanopi-r3s",
     "NanoPi R4S": "friendlyelec-nanopi-r4s",
   },
 
@@ -320,6 +324,7 @@ var devices_recommended = {
     "AP100": "sophos-ap100",
     "AP100c": "sophos-ap100c",
     "AP15": "sophos-ap15",
+    "AP15C": "sophos-ap15c",
     "AP55": "sophos-ap55",
     "AP55c": "sophos-ap55c",
     "RED 15w": { "sophos-red-15w-rev.1": "Rev.1"},
@@ -400,6 +405,7 @@ var devices_recommended = {
     "UniFi 6+": "ubiquiti-unifi-6-plus",
     "UniFi AC Lite": "ubiquiti-unifi-ac-lite",
     "UniFi AC LR": { "ubiquiti-unifi-ac-lite-mesh": "", "ubiquiti-unifi-ac-lr": "" },
+    "UniFi AC HD": "ubiquiti-unifi-ac-hd",
     "UniFi AC Mesh": "ubiquiti-unifi-ac-mesh",
     "UniFi AC Mesh Pro": "ubiquiti-unifi-ac-mesh-pro",
     "UniFi AC Pro": "ubiquiti-unifi-ac-pro",
@@ -408,6 +414,7 @@ var devices_recommended = {
     "UniFi AP Pro": "ubiquiti-unifi-ap-pro",
     "UniFi AP Outdoor": {"ubiquiti-unifi-outdoor": "", "ubiquiti-unifiap-outdoor": ""},
     "UniFi AP Outdoor+": {"ubiquiti-unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor+": "", "ubiquiti-unifiap-outdoor%2B": "", "ubiquiti-unifiap-outdoor%2b": "", "ubiquiti-unifi-ap-outdoor+": ""}
+    "UniFi nanoHD": "ubiquiti-unifi-nanohd",
   },
 
   "VoCore": {
