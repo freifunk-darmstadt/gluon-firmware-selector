@@ -413,7 +413,7 @@ var devices_recommended = {
     "UniFi AP LR": "ubiquiti-unifi-ap-lr",
     "UniFi AP Pro": "ubiquiti-unifi-ap-pro",
     "UniFi AP Outdoor": {"ubiquiti-unifi-outdoor": "", "ubiquiti-unifiap-outdoor": ""},
-    "UniFi AP Outdoor+": {"ubiquiti-unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor+": "", "ubiquiti-unifiap-outdoor%2B": "", "ubiquiti-unifiap-outdoor%2b": "", "ubiquiti-unifi-ap-outdoor+": ""}
+    "UniFi AP Outdoor+": {"ubiquiti-unifi-outdoor-plus": "", "ubiquiti-unifiap-outdoor+": "", "ubiquiti-unifiap-outdoor%2B": "", "ubiquiti-unifiap-outdoor%2b": "", "ubiquiti-unifi-ap-outdoor+": ""},
     "UniFi nanoHD": "ubiquiti-unifi-nanohd",
   },
 
