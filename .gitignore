@@ -1,3 +1,4 @@
 *.swp
 config.js
 images/*
+node_modules/*
