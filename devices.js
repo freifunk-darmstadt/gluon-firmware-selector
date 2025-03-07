@@ -85,6 +85,7 @@ var devices_recommended = {
 
   "D-Link": {
     "Aquila Pro AI M30": "d-link-aquila-pro-ai-m30",
+    "Aquila Pro AI M60": "d-link-aquila-pro-ai-m60",
     "COVR-X1860": "d-link-covr-x1860",
     "DAP-1330": {"d-link-dap-1330-rev": "", "d-link-dap-1330": ""},
     "DAP-1365": "d-link-dap-1365",
@@ -203,6 +204,7 @@ var devices_recommended = {
 
   "Netgear": {
     "DGN3500": "netgear-dgn3500b",
+    "EAX12": "netgear-eax12",
     "EX3700": "netgear-ex3700",
     "EX3800": "netgear-ex3800",
     "EX6100": {"netgear-ex6100v2": "v2"},
@@ -336,6 +338,7 @@ var devices_recommended = {
 
   "TP-Link": {
     "Archer A7": {"tp-link-archer-a7": "v5"},
+    "Archer AX23": "tp-link-archer-ax23",
     "Archer C2": "tp-link-archer-c2",
     "Archer C20": "tp-link-archer-c20",
     "Archer C20i": "tp-link-archer-c20i",
