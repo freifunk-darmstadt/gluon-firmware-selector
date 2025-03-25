@@ -298,6 +298,10 @@ var devices_recommended = {
     "OM5P": "openmesh-om5p",
   },
 
+  "OpenWrt": {
+    "One": "openwrt-one",
+  },
+
   "PC Engines": {
     "ALIX": "x86-geode"
   },
