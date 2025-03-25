@@ -204,7 +204,9 @@ var devices_recommended = {
 
   "Netgear": {
     "DGN3500": "netgear-dgn3500b",
+    "EAX11": "netgear-eax11-v2",
     "EAX12": "netgear-eax12",
+    "EAX15": "netgear-eax15-v2",
     "EX3700": "netgear-ex3700",
     "EX3800": "netgear-ex3800",
     "EX6100": {"netgear-ex6100v2": "v2"},
