@@ -76,6 +76,7 @@ var devices_recommended = {
 
   "Cudy": {
     "AP3000 Outdoor": "cudy-ap3000-outdoor",
+    "TR3000": "cudy-tr3000",
     "WR1000": {"cudy-wr1000": "v2"},
     "WR1300": "cudy-wr1300",
     "WR2100": "cudy-wr2100",
@@ -657,6 +658,9 @@ var devices_info = {
     "FRITZ!Repeater 1200": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=7f187229a8e9b7966248b1e024217e07a9fc3e50",
     "FRITZ!WLAN Repeater 300E": "https://fritz-tools.readthedocs.io/",
     "FRITZ!WLAN Repeater 450E": "https://fritz-tools.readthedocs.io/"
+  },
+  "Cudy": {
+    "TR3000": "https://forum.darmstadt.freifunk.net/t/installation-cudy-tr3000/1010",
   },
   "D-Link": {
     "DAP-1620": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=e4c7703d2a62b8914e4723adae3f67c68a57532c",
