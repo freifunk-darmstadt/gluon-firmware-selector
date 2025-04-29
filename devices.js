@@ -146,6 +146,7 @@ var devices_recommended = {
     "GL-AR750S": {"gl.inet-gl-ar750s-nor": ""},
     "GL-AR750": {"gl-ar750": "", "gl.inet-gl-ar750": ""},
     "GL-B1300": "gl.inet-gl-b1300",
+    "GL-E750": "gl.inet-gl-e750",
     "GL-MT300a": "gl-mt300a",
     "GL-MT300n": {"gl-mt300n": "v1", "gl-mt300n-v2": "v2"},
     "GL-MT750": "gl-mt750",
