@@ -76,6 +76,7 @@ var devices_recommended = {
 
   "Cudy": {
     "AP3000 Outdoor": "cudy-ap3000-outdoor",
+    "TR1200": "cudy-tr1200",
     "TR3000": "cudy-tr3000",
     "WR1000": {"cudy-wr1000": "v2"},
     "WR1300": "cudy-wr1300",
