@@ -387,7 +387,7 @@ var devices_recommended = {
     "TL-WR2543N/ND": {"tp-link-tl-wr2543n-nd": ""},
     "TL-WR841N/ND": {"tp-link-tl-wr841n-v13": "v13"},
     "TL-WR842N/ND": {"tp-link-tl-wr842n-nd-v3": "v3", "tp-link-tl-wr842n-v3": "v3"},
-    "TL-WR902AC": {"tp-link-tl-wr902ac-v3": "v3"},
+    "TL-WR902AC": {"tp-link-tl-wr902ac-v3": "v3", "tp-link-tl-wr902ac-v4": "v4"},
     "WBS210": "tp-link-wbs210",
     "WBS510": "tp-link-wbs510",
   },
