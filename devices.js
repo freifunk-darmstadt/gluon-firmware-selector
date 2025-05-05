@@ -755,8 +755,8 @@ var devices_info = {
     "MF289F": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=0de6a3339f1aadc1de2c9371435e3de239a00645",
   },
   "ZyXEL": {
-    "NWA50AX": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=a0b7fef0ffe4cd9cca39a652a37e4f3ce8f0a681",
+    "NWA50AX": "https://forum.darmstadt.freifunk.net/t/installation-nwa50ax-nwa55axe/964",
     "NWA50AX Pro": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=f0445746f6fd96fc7c5394b238153bd2ff22bc5b",
-    "NWA55AXE": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=a0b7fef0ffe4cd9cca39a652a37e4f3ce8f0a681",
+    "NWA55AXE": "https://forum.darmstadt.freifunk.net/t/installation-nwa50ax-nwa55axe/964",
   },
 }
