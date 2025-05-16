@@ -37,6 +37,7 @@ var devices_recommended = {
   "Asus": {
      "RT-AC51U": "asus-rt-ac51u",
      "RT-AC57U": "asus-rt-ac57u",
+     "RT-AX52": "asus-rt-ax52",
      "RT-AX53U": "asus-rt-ax53u",
      "TUF-AX4200": "asus-tuf-ax4200",
      "TUF-AX6000": "asus-tuf-ax6000",
