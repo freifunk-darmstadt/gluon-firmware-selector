@@ -1,6 +1,22 @@
 
 * {
   box-sizing: border-box;
+
+  --background-color: white;
+  --text-color: #333;
+  --shadow-color: #ccc;
+  --table-alternate-color: #f9f9f9;
+  --background-color-attribution: rgba(255, 255, 255, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  * {
+    --background-color: #333;
+    --shadow-color: #222;
+    --text-color: #cccccc;
+    --table-alternate-color: #444;
+    --background-color-attribution: rgba(51, 51, 51, 0.8);
+  }
 }
 
 body {
@@ -8,8 +24,8 @@ body {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
   line-height: 1.42;
-  color: #333;
-  background-color: #fff;
+  color: var(--text-color);
+  background-color: var(--background-color);
   overflow-y: scroll;
 }
 
@@ -68,11 +84,11 @@ h1, h2, h3, h4, h5, h6 {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: #fff;
+  background: var(--background-color);
 }
 
 .table-striped > tbody > tr:nth-of-type(2n+1) {
-  background-color: #f9f9f9;
+  background-color: var(--table-alternate-color);
 }
 
 .table td, th {
@@ -95,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   margin: 0;
   padding: 0.5em;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--background-color-attribution);
 }
 
 #branchName {
@@ -142,7 +158,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #wizard .pane-wrapper {
-  box-shadow: 0 0.15em 0.5em #ccc;
+  box-shadow: 0 0.15em 0.5em var(--shadow-color);
   margin: 1em 0 3em 0;
 }
 
@@ -175,10 +191,11 @@ h1, h2, h3, h4, h5, h6 {
 
 #wizard #type-pane .radiogroup label {
   background-color: #ffb400;
+  color: #333333;
 }
 
 #wizard #type-pane .radiogroup input[type="radio"]:checked + label {
-  box-shadow: 0 0 0.5em #cf7400 inset;
+  box-shadow: 0 0 0.5em var(--shadow-color) inset;
 }
 
 #wizard #branch-pane {
@@ -199,11 +216,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #wizard #branch-pane.show-experimental-warning button.dl-experimental {
-  box-shadow: 0 0 0.5em #005ea0 inset;
+  box-shadow: 0 0 0.5em var(--shadow-color) inset;
 }
 
 #wizard #type-pane.show-deviceinfo-warning button.deviceinfo {
-  box-shadow: 0 0 0.5em #005ea0 inset;
+  box-shadow: 0 0 0.5em var(--shadow-color) inset;
 }
 
 #wizard #branch-pane .warning-experimental,
@@ -212,7 +229,7 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
   margin: 1em 0;
   padding: 1em;
-  box-shadow: 0.125em 0.125em 0.5em #ccc;
+  box-shadow: 0.125em 0.125em 0.5em var(--shadow-color);
   border: .5em solid #009ee0;
 }
 
@@ -230,10 +247,10 @@ h1, h2, h3, h4, h5, h6 {
   font: inherit;
   color: inherit;
   margin-bottom: .5em;
-  background: #fff;
+  background: var(--background-color);
   border: none;
   border: 1px solid #ddd;
-  box-shadow: 1px 2px 2px 0 #ccc;
+  box-shadow: 1px 2px 2px 0 var(--shadow-color);
   padding: 0.75em 0.75em;
   margin-right: 0.5em;
   margin-bottom: 1em;
@@ -241,7 +258,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #wizard select:focus, #wizard input:focus {
-  box-shadow: 1px 2px 2px 0 #ccc, 2px 2px 6px #ccc;
+  box-shadow: 1px 2px 2px 0 var(--shadow-color), 2px 2px 6px var(--shadow-color);
 }
 
 #wizard option {
@@ -262,17 +279,17 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   list-style-type: none;
   font: inherit;
-  color: black;
+  color: var(--text-color);
   margin: .5em;
   padding: .5em 1em;
   border: none;
-  box-shadow: 0.125em 0.125em 0.5em #ccc;
+  box-shadow: 0.125em 0.125em 0.5em var(--shadow-color);
   font-weight: normal;
   cursor: pointer;
 }
 
 #wizard .btn:hover {
-  color: black;
+  color: var(--text-color);
 }
 
 #wizard .imagePreview {
@@ -309,19 +326,19 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 11em;
   margin: 0.5em;
   padding: 0.5em;
-  border: 1px solid white;
+  border: 1px solid var(--background-color);
   text-align: center;
 }
 
 #wizard .imagePreview .preview:hover {
-  border: 1px solid #ccc;
+  border: 1px solid var(--shadow-color);
   cursor: pointer;
 }
 
 #wizard .imagePreview .preview.selected {
-  border: 1px solid #ccc;
+  border: 1px solid var(--shadow-color);
   cursor: default;
-  box-shadow: 0 0 0.5em #ccc inset;
+  box-shadow: 0 0 0.5em var(--shadow-color) inset;
 }
 
 #wizard .imagePreview .preview img {
