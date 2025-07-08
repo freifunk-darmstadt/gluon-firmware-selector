@@ -441,6 +441,7 @@ var devices_recommended = {
 
   "Wavlink": {
     "WS-WN572HP3 (4G)": "wavlink-ws-wn572hp3-4g",
+    "WL-WN573HX3": "wavlink-wl-wn573hx3",
   },
 
   "Western Digital": {
