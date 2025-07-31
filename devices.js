@@ -147,6 +147,7 @@ var devices_recommended = {
     "GL-AP1300": "gl.inet-gl-ap1300",
     "GL-AR150": {"gl-ar150": "", "gl.inet-gl-ar150": ""},
     "GL-AR300M Lite": "gl.inet-gl-ar300m-lite",
+    "GL-AR300M16": "gl.inet-gl-ar300m16",
     "GL-AR300M": {"gl-ar300m": "", "gl.inet-gl-ar300m": "", "gl.inet-gl-ar300m-nor": ""},
     "GL-AR750S": {"gl.inet-gl-ar750s-nor": ""},
     "GL-AR750": {"gl-ar750": "", "gl.inet-gl-ar750": ""},
