@@ -453,6 +453,7 @@ var devices_recommended = {
   },
 
   "Xiaomi": {
+    "AX3000T": "xiaomi-mi-router-ax3000t",
     "AX3200 (RB03)": "xiaomi-redmi-router-ax6s",
     "Mi RA75": "xiaomi-mi-ra75",
     "Mi Router 3G": "xiaomi-mi-router-3g",
