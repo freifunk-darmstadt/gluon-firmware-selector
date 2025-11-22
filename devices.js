@@ -653,6 +653,7 @@ var devices_info = {
   },
   "Asus": {
     "RT-AC51U": "https://openwrt.org/toh/asus/rt-ac51u#installation",
+    "RT-AX52": "https://openwrt.org/toh/asus/rt-ax52#installation",
     "TUF-AX4200": "https://github.com/freifunk-darmstadt/projects/wiki/90-%E2%80%90-Hardware-%E2%80%90-ASUS-TUF-AX4200",
     "TUF-AX6000": "https://github.com/herbetom/openwrt-asus-filogic-factory/releases/latest",
   },
