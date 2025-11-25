@@ -224,6 +224,8 @@ var devices_recommended = {
     "EX6100": {"netgear-ex6100v2": "v2"},
     "EX6130": "netgear-ex6130",
     "EX6150": {"netgear-ex6150": "v1", "netgear-ex6150v2": "v2"},
+    "Orbi RBR50": {"netgear-rbr50": "v1"},
+    "Orbi RBS50": {"netgear-rbs50": "v1"},
     "R6020": "netgear-r6020",
     "R6120": "netgear-r6120",
     "R6220": "netgear-r6220",
@@ -713,6 +715,12 @@ var devices_info = {
     "EX3700": "https://freifunk-ingolstadt.de/installationsanleitung-fuer-netgear-wi-fi-range-extender-ex3700/",
     "EX3800": "https://freifunk-ingolstadt.de/installationsanleitung-fuer-netgear-wi-fi-range-extender-ex3700/",
     "EX6150": "https://freifunk-ingolstadt.de/eigener-freifunk-hotspot/anleitung/installationsanleitung-fuer-netgear-wi-fi-range-extender-ex6150-v2/",
+    "Orbi RBR50": {
+      "v1": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=2cb24b3f3cd89692f3c0bd137f3f560ada359bfa", 
+    },
+    "Orbi RBS50": {
+      "v1": "https://git.openwrt.org/?p=openwrt/openwrt.git;a=commit;h=2cb24b3f3cd89692f3c0bd137f3f560ada359bfa", 
+    },
     "R6120": "https://freifunk-ingolstadt.de/eigener-freifunk-hotspot/anleitung/installationsanleitung-fuer-netgear-r6120/",
     "R6220": "https://freifunk-ingolstadt.de/installationsanleitung-fuer-netgear-r6220/",
     "WAX220": "https://openwrt.org/toh/netgear/wax220#oem_easy_installation",
